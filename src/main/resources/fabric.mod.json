@@ -15,6 +15,9 @@
     ],
     "main": [
       "com.bleudev.ppl_utils.Ppl_utils"
+    ],
+    "modmenu": [
+      "com.bleudev.ppl_utils.client.compat.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [
