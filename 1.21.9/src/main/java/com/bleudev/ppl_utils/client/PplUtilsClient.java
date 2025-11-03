@@ -8,8 +8,7 @@ import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import static com.bleudev.ppl_utils.PplUtilsConst.BETA_MODE_ENABLED;
-import static com.bleudev.ppl_utils.PplUtilsConst.ISSUES_PAGE;
+import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
@@ -20,9 +19,12 @@ public class PplUtilsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         beta_mode_message_ticks = 0;
+
+        LOGGER.debug("Register {} debug hud entry", getIdentifier("world_border"));
         DebugHudEntries.register(getIdentifier("world_border"), new WorldBorderDebugHudEntry());
+        
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            System.out.println("join " + beta_mode_message_ticks);
+            LOGGER.info("Try send beta mode message");
             if (BETA_MODE_ENABLED && client.player != null && beta_mode_message_ticks == 0) {
                 client.player.sendMessage(
                     Text.translatable("chat.message.join.beta")
@@ -31,6 +33,7 @@ public class PplUtilsClient implements ClientModInitializer {
                         .formatted(Formatting.GOLD),
                     false);
                 beta_mode_message_ticks = 10 * TICKS_PER_MINUTE;
+                LOGGER.info("Successfully sent beta mode message");
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
