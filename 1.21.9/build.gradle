@@ -61,6 +61,7 @@ dependencies {
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "max_exclusive_minecraft_version", project.max_exclusive_minecraft_version
     inputs.property "loader_version", project.loader_version
     inputs.property "fabric_version", project.fabric_version
     inputs.property "midnightLib_version", project.midnightLib_version
@@ -69,6 +70,7 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
+                "max_exclusive_minecraft_version": project.max_exclusive_minecraft_version,
                 "loader_version": project.loader_version,
                 "fabric_version": project.fabric_version,
                 "midnightLib_version": project.midnightLib_version

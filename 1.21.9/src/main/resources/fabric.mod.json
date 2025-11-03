@@ -40,7 +40,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": ">=${fabric_version}",
-    "minecraft": ">=${minecraft_version}",
+    "minecraft": ">=${minecraft_version} <${max_exclusive_minecraft_version}",
     "midnightlib": ">=${midnightLib_version}"
   }
 }
