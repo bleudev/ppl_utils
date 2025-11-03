@@ -11,25 +11,20 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.bleudev.ppl_utils.client.Ppl_utilsClient"
-    ],
-    "main": [
-      "com.bleudev.ppl_utils.Ppl_utils"
+      "com.bleudev.ppl_utils.client.PplUtilsClient"
     ],
     "modmenu": [
       "com.bleudev.ppl_utils.client.compat.modmenu.ModMenuCompat"
+    ],
+    "main": [
+      "com.bleudev.ppl_utils.PplUtils"
     ]
   },
   "mixins": [
-    "ppl_utils.mixins.json",
-    {
-      "config": "ppl_utils.client.mixins.json",
-      "environment": "client"
-    }
+    "ppl_utils.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric-language-kotlin": ">=${kotlin_loader_version}",
     "fabric": ">=${fabric_version}",
     "minecraft": ">=${minecraft_version}",
     "midnightlib": ">=${midnightLib_version}"

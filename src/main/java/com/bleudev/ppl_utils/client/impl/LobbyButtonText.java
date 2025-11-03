@@ -6,7 +6,7 @@ import net.minecraft.text.object.TextObjectContents;
 import net.minecraft.util.Atlases;
 import net.minecraft.util.Identifier;
 
-import static com.bleudev.ppl_utils.client.PplUtilsConst.MOD_ID;
+import static com.bleudev.ppl_utils.PplUtilsConst.MOD_ID;
 
 public class LobbyButtonText implements TextObjectContents {
     public static final TextObjectContents INSTANCE = new LobbyButtonText();

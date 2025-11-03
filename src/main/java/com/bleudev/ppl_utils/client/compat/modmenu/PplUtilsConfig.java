@@ -2,7 +2,7 @@ package com.bleudev.ppl_utils.client.compat.modmenu;
 
 import eu.midnightdust.lib.config.MidnightConfig;
 
-import static com.bleudev.ppl_utils.client.PplUtilsConst.MOD_ID;
+import static com.bleudev.ppl_utils.PplUtilsConst.MOD_ID;
 
 public class PplUtilsConfig extends MidnightConfig {
     @Entry
