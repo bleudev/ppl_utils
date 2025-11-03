@@ -1,5 +1,6 @@
 package com.bleudev.ppl_utils.client;
 
+import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
 import com.bleudev.ppl_utils.client.custom.WorldBorderDebugHudEntry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -18,11 +19,13 @@ public class PplUtilsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        PplUtilsConfig.initialize();
+
         beta_mode_message_ticks = 0;
 
         LOGGER.debug("Register {} debug hud entry", getIdentifier("world_border"));
         DebugHudEntries.register(getIdentifier("world_border"), new WorldBorderDebugHudEntry());
-        
+
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             LOGGER.info("Try send beta mode message");
             if (BETA_MODE_ENABLED && client.player != null && beta_mode_message_ticks == 0) {
