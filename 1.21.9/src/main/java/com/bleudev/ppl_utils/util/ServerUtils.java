@@ -1,4 +1,4 @@
-package com.bleudev.ppl_utils.client.util;
+package com.bleudev.ppl_utils.util;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Nullables;
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-public class PplUtilsJavaUtils {
+public class ServerUtils {
     public static final List<String> SUPPORTS_LOBBY_COMMAND_IPS = List.of(
         "play.pepeland.net",
         "issues.pepeland.net",
