@@ -53,6 +53,7 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
     modApi modrinth("modmenu", project.modMenu_version)
+    modImplementation modrinth("modmenu-badges-lib", project.modMenuBadges_version)
     modImplementation include (modrinth("midnightlib", project.midnightLib_version))
 }
 

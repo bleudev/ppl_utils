@@ -13,6 +13,16 @@
   "license": "MIT",
   "icon": "assets/ppl_utils/icon.png",
   "environment": "client",
+  "custom": {
+    "mcb": [
+      {
+        "name": "Pepeland",
+        "labelColor": -1,
+        "fillColor": -15252711,
+        "outlineColor": -14850017
+      }
+    ]
+  },
   "entrypoints": {
     "client": [
       "com.bleudev.ppl_utils.client.PplUtilsClient"
