@@ -2,11 +2,15 @@
   "schemaVersion": 1,
   "id": "ppl_utils",
   "version": "${version}",
-  "name": "ppl_utils",
-  "description": "",
-  "authors": [],
-  "contact": {},
-  "license": "All-Rights-Reserved",
+  "name": "Pepeland Utils",
+  "description": "Mod which provides some useful features for Pepeland players",
+  "authors": ["bleudev"],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/ppl_utils",
+    "sources": "https://github.com/bleudev/ppl_utils.git",
+    "issues": "https://github.com/bleudev/ppl_utils/issues"
+  },
+  "license": "MIT",
   "icon": "assets/ppl_utils/icon.png",
   "environment": "client",
   "entrypoints": {
