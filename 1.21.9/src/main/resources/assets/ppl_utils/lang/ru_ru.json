@@ -3,6 +3,9 @@
 
   "chat.message.join.beta": "Внимание! Вы запустили бета-версию мода. Если вы обнаружите баг, то отправьте его по этому адресу:",
 
+  "key.category.ppl_utils.general": "Pepeland Utils",
+  "key.ppl_utils.go_to_lobby": "Отправиться в лобби",
+
   "ppl_utils.midnightconfig.lobby_button_enabled": "Включить лобби-кнопку",
   "ppl_utils.midnightconfig.lobby_button_tooltip_enabled": "Показывать подсказку при наведении на лобби-кнопку"
 }

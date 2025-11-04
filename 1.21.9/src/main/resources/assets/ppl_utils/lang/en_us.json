@@ -3,6 +3,9 @@
 
   "chat.message.join.beta": "Warning! You're running a beta version of the mod. If you find a bug, please report it to this link:",
 
+  "key.category.ppl_utils.general": "Pepeland Utils",
+  "key.ppl_utils.go_to_lobby": "Go to the lobby",
+
   "ppl_utils.midnightconfig.lobby_button_enabled": "Enable lobby button",
   "ppl_utils.midnightconfig.lobby_button_tooltip_enabled": "Enable lobby button tooltip"
 }

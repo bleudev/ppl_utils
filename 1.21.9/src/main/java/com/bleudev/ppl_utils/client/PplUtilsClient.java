@@ -1,7 +1,8 @@
 package com.bleudev.ppl_utils.client;
 
 import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
-import com.bleudev.ppl_utils.client.custom.WorldBorderDebugHudEntry;
+import com.bleudev.ppl_utils.client.custom.Keys;
+import com.bleudev.ppl_utils.client.custom.debug.WorldBorderDebugHudEntry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -10,6 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
+import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
@@ -20,6 +22,7 @@ public class PplUtilsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         PplUtilsConfig.initialize();
+        Keys.initialize();
 
         beta_mode_message_ticks = 0;
 
@@ -41,6 +44,8 @@ public class PplUtilsClient implements ClientModInitializer {
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
+
+            while (Keys.LOBBY_KEY.wasPressed()) executeLobby();
         });
     }
 }

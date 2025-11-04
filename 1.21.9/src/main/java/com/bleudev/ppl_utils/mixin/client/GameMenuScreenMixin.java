@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 
 @Mixin(GameMenuScreen.class)
@@ -24,7 +25,7 @@ public abstract class GameMenuScreenMixin extends Screen {
     @Unique
     private void drawLobbyButton() {
         var b = TextIconButtonWidget.builder(Text.translatable("text.ppl_utils.game_menu.lobby_button.tooltip"),
-            button -> ServerUtils.executeCommand("lobby"), true)
+            button -> executeLobby(), true)
             .texture(getIdentifier("pepe_mono"), 13, 13)
             .dimension(20, 20);
         if (PplUtilsConfig.lobby_button_tooltip_enabled) b = b.useTextAsTooltip();
