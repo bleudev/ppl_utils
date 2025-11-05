@@ -18,6 +18,7 @@ import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
 public class PplUtilsClient implements ClientModInitializer {
     int beta_mode_message_ticks;
+    boolean cached_join_leave_rendering = PplUtilsConfig.do_join_leave_messages_rendering;
 
     @Override
     public void onInitializeClient() {
@@ -46,6 +47,10 @@ public class PplUtilsClient implements ClientModInitializer {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby();
+
+            if (cached_join_leave_rendering != PplUtilsConfig.do_join_leave_messages_rendering)
+                client.inGameHud.getChatHud().reset();
+            cached_join_leave_rendering = PplUtilsConfig.do_join_leave_messages_rendering;
         });
     }
 }
