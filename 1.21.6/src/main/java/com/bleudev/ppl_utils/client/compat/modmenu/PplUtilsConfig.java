@@ -10,6 +10,8 @@ public class PplUtilsConfig extends MidnightConfig {
     @Condition(requiredOption = "lobby_button_enabled")
     @Entry
     public static boolean lobby_button_tooltip_enabled = true;
+    @Entry
+    public static boolean do_join_leave_messages_rendering = true;
 
     public static void initialize() {
         MidnightConfig.init(MOD_ID, PplUtilsConfig.class);

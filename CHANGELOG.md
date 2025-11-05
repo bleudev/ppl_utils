@@ -1,6 +1,7 @@
 # 2.2
 ## New features
-[+] `Go to the lobby` key
+[+] `Go to the lobby` key\
+[+] Toggle join/leave messages rendering
 
 # 2.1
 ## Minecraft updates

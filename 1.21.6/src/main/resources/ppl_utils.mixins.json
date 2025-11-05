@@ -1,18 +1,19 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.bleudev.ppl_utils.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-  ],
-  "client": [
-    "client.DebugHudMixin",
-    "client.GameMenuScreenMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.bleudev.ppl_utils.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+    ],
+    "client": [
+        "client.ChatHudMixin",
+        "client.DebugHudMixin",
+        "client.GameMenuScreenMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
   }
 }
