@@ -7,12 +7,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.bleudev.ppl_utils.client.ClientCallbacks.shouldCancelMessageRendering;
+import static com.bleudev.ppl_utils.client.ClientCallbacks.shouldRenderChatMessage;
 
 @Mixin(ChatHud.class)
 public class ChatHudMixin {
     @Inject(method = "addVisibleMessage", at = @At("HEAD"), cancellable = true)
     private void cancelRenderingOfSomeMessages(ChatHudLine message, CallbackInfo ci) {
-        if (shouldCancelMessageRendering(message)) ci.cancel();
+        if (!shouldRenderChatMessage(message)) ci.cancel();
     }
 }

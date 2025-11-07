@@ -12,14 +12,22 @@ public class ClientCallbacks {
             ServerUtils.executeCommand(client, "lobby");
     }
 
-    public static boolean shouldCancelMessageRendering(ChatHudLine message) {
-        if (PplUtilsConfig.do_join_leave_messages_rendering) return false;
+    public static boolean shouldRenderChatMessage(ChatHudLine message) {
+        if (PplUtilsConfig.do_join_leave_messages_rendering) return true;
 
         var content = message.content().getString();
         final int i;
         if ((i = content.indexOf(">")) != -1)
             content = content.substring(i+2);
 
-        return content.startsWith("[+]") || content.startsWith("[-]");
+        if (content.startsWith("[+]") || content.startsWith("[-]"))
+            if (content.length() >= 5) {
+                final String user = content.substring(4);
+                return PplUtilsConfig
+                        .always_show_join_leave_messages_by
+                        .contains(user);
+            }
+
+        return true;
     }
 }

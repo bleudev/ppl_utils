@@ -8,5 +8,6 @@
 
   "ppl_utils.midnightconfig.lobby_button_enabled": "Включить лобби-кнопку",
   "ppl_utils.midnightconfig.lobby_button_tooltip_enabled": "Показывать подсказку при наведении на лобби-кнопку",
-  "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Отображать сообщения при входе/выходе игроков"
+  "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Отображать сообщения при входе/выходе игроков",
+  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Всегда показывать сообщения при входе/выходе данных игроков"
 }

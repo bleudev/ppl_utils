@@ -1,3 +1,7 @@
+# 2.3
+## New features
+[+] Add the ability to specify players whose join/leave messages will always be displayed
+
 # 2.2
 ## New features
 [+] `Go to the lobby` key\
