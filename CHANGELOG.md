@@ -1,3 +1,7 @@
+# 2.3.1
+## Bug fixes
+[/] Specified players join/leave messages doesn't appear with ChatHeads
+
 # 2.3
 ## New features
 [+] Add the ability to specify players whose join/leave messages will always be displayed
