@@ -1,12 +1,13 @@
 package com.bleudev.ppl_utils.mixin.client;
 
 import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
-import com.bleudev.ppl_utils.util.ServerUtils;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextIconButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
+import static com.bleudev.ppl_utils.client.ClientCallbacks.shouldRenderLobbyButton;
 
 @Mixin(GameMenuScreen.class)
 public abstract class GameMenuScreenMixin extends Screen {
@@ -28,9 +30,9 @@ public abstract class GameMenuScreenMixin extends Screen {
     }
 
     @Unique
-    private void drawLobbyButton() {
+    private void drawLobbyButton(@NotNull MinecraftClient client) {
         var b = TextIconButtonWidget.builder(Text.translatable("text.ppl_utils.game_menu.lobby_button.tooltip"),
-            button -> executeLobby(), true)
+            button -> executeLobby(client), true)
             .texture(getLobbyButtonTexture(), 13, 13)
             .dimension(20, 20);
         if (PplUtilsConfig.lobby_button_tooltip_enabled) b = b.useTextAsTooltip();
@@ -41,6 +43,6 @@ public abstract class GameMenuScreenMixin extends Screen {
 
     @Inject(method = "initWidgets", at = @At("RETURN"))
     private void addLobbyButton(CallbackInfo ci) {
-        if (PplUtilsConfig.lobby_button_enabled && ServerUtils.isClientOnServerSupportsLobbyCommand()) drawLobbyButton();
+        if (client != null) if (shouldRenderLobbyButton(client)) drawLobbyButton(client);
     }
 }
