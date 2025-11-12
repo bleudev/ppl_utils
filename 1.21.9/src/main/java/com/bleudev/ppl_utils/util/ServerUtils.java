@@ -1,11 +1,16 @@
 package com.bleudev.ppl_utils.util;
 
+import com.bleudev.ppl_utils.PplUtilsConst;
+import com.bleudev.ppl_utils.mixin.client.PlayerListHudAccessor;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.VisibleForTesting;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.bleudev.ppl_utils.util.LangUtils.unmodifiableUnion;
 
@@ -44,15 +49,48 @@ public class ServerUtils {
     }
 
     public static class PepelandWorlds {
-        private static boolean isIn(@NotNull MinecraftClient client, Identifier dimension) {
-            if (client.world != null)
-                return client.world.getRegistryKey().getValue().equals(dimension);
-            return false;
+        public enum PplWorld {
+            LOBBY("Лобби");
+
+            private final String tabName;
+            PplWorld(String tabName) {
+                this.tabName = tabName;
+            }
+
+            @Override
+            public String toString() {
+                return "pplWorld{"+this.tabName+"}";
+            }
+
+            private static Optional<PplWorld> from(String tabName) {
+                PplUtilsConst.LOGGER.info("tried to find world {}", tabName);
+                return Arrays.stream(PplWorld.values())
+                    .filter(o -> o.tabName.equals(tabName))
+                    .findFirst();
+            }
         }
 
-        // TODO: Absolutely new system with player list hud
+        @VisibleForTesting
+        @Nullable
+        public static ServerUtils.PepelandWorlds.PplWorld getCurrentWorld(@NotNull MinecraftClient client) {
+            var header = ((PlayerListHudAccessor) client.inGameHud.getPlayerListHud()).ppl_utils$header();
+            if (header == null) return null;
+            PplUtilsConst.LOGGER.info("Header: {}", header);
+            String worldPlayerListName = "Мир: ";
+            for (String l : header.getString().split("\n")) {
+                if (l.contains(worldPlayerListName)) {
+                    return PplWorld.from(l
+                        .replace(worldPlayerListName, "")
+                        .replaceAll("[^A-Za-zА-Яа-я #0-9]", "")
+                        .strip())
+                        .orElse(null);
+                }
+            }
+            return null;
+        }
+
         public static boolean isInLobby(@NotNull MinecraftClient client) {
-            return isIn(client, Identifier.ofVanilla("lobby")); // Doesn't work, sorry
+            return getCurrentWorld(client) == PplWorld.LOBBY;
         }
     }
 

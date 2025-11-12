@@ -3,6 +3,7 @@ package com.bleudev.ppl_utils.client;
 import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
 import com.bleudev.ppl_utils.client.custom.Keys;
 import com.bleudev.ppl_utils.client.custom.debug.WorldBorderDebugHudEntry;
+import com.bleudev.ppl_utils.util.ServerUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -48,7 +49,10 @@ public class PplUtilsClient implements ClientModInitializer {
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
 
             if (client.world != null)
-                LOGGER.info("World: {}", client.world.getRegistryKey().getValue().toString());
+                LOGGER.info("World: {}\nHeader: {}",
+                    client.world.getRegistryKey().getValue().toString(),
+                    ServerUtils.PepelandWorlds.getCurrentWorld(client)
+                );
         });
     }
 }
