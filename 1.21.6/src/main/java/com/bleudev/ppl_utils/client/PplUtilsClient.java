@@ -39,7 +39,7 @@ public class PplUtilsClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
-            while (Keys.LOBBY_KEY.wasPressed()) executeLobby();
+            while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
         });
     }
 }

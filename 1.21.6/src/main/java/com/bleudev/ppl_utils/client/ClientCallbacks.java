@@ -1,16 +1,18 @@
 package com.bleudev.ppl_utils.client;
 
 import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
-import com.bleudev.ppl_utils.util.ServerUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHudLine;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static com.bleudev.ppl_utils.util.ServerUtils.executeCommand;
+import static com.bleudev.ppl_utils.util.ServerUtils.isLobbyCommandWorking;
+
 public class ClientCallbacks {
-    public static void executeLobby() {
-        var client = MinecraftClient.getInstance();
-        if (ServerUtils.isClientOnServerSupportsLobbyCommand(client))
-            ServerUtils.executeCommand(client, "lobby");
+    public static void executeLobby(@NotNull MinecraftClient client) {
+        if (isLobbyCommandWorking(client))
+            executeCommand(client, "lobby");
     }
 
     @Nullable
@@ -46,5 +48,9 @@ public class ClientCallbacks {
                     .map(String::toLowerCase).toList()
                     .contains(user);
         return true;
+    }
+
+    public static boolean shouldRenderLobbyButton(@NotNull MinecraftClient client) {
+        return PplUtilsConfig.lobby_button_enabled && isLobbyCommandWorking(client);
     }
 }

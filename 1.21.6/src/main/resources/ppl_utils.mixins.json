@@ -8,7 +8,8 @@
     "client": [
         "client.ChatHudMixin",
         "client.DebugHudMixin",
-        "client.GameMenuScreenMixin"
+        "client.GameMenuScreenMixin",
+        "client.PlayerListHudAccessor"
     ],
     "injectors": {
         "defaultRequire": 1

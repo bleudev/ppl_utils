@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -18,20 +19,14 @@ public class ServerUtils {
         if (server == null) return false;
         return Objects.equals(server.address, serverIp);
     }
-
-    public static boolean isClientOnServerSupportsLobbyCommand(@NotNull MinecraftClient client) {
-        return SUPPORTS_LOBBY_COMMAND_IPS.stream().anyMatch(n -> isClientOn(client, n));
+    public static boolean isClientOn(@NotNull MinecraftClient client, @NotNull Collection<String> serverIps) {
+        return serverIps.stream().anyMatch(n -> isClientOn(client, n));
     }
 
     public static boolean isLobbyCommandWorking(@NotNull MinecraftClient client) {
-        if (!isClientOnServerSupportsLobbyCommand(client)) return false;
-
-        if (isClientOnPepeland(client)) return !PepelandWorlds.isInLobby(client);
+        if (!isClientOn(client, SUPPORTS_LOBBY_COMMAND_IPS)) return false;
+        if (isClientOn(client, PEPELAND_IPS)) return !PepelandWorlds.isInLobby(client);
         return true;
-    }
-
-    public static boolean isClientOnPepeland(@NotNull MinecraftClient client) {
-        return PEPELAND_IPS.stream().anyMatch(n -> isClientOn(client, n));
     }
 
     public static class PepelandWorlds {
