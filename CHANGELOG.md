@@ -1,3 +1,8 @@
+# 2.4
+## Depends updates
+[+] `fabric-loom` plugin version was updated to `1.13.3`\
+[+] Minimal `fabricloader` version is `0.18.0`
+
 # 2.3.1
 ## Bug fixes
 [/] Specified players join/leave messages doesn't appear with [Chat Heads](https://modrinth.com/mod/chat-heads) (bleudev [#7](https://github.com/bleudev/ppl_utils/pull/7))
