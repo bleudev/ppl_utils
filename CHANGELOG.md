@@ -4,7 +4,8 @@
 [+] Minimal `fabricloader` version is `0.18.0`
 
 ## New features
-[+] Added comments in config to improve user experience
+[+] Added comments in config to improve user experience\
+[+] Added ability to change lobby button style (between Pepeland logo and monochrome version)
 
 # 2.3.1
 ## Bug fixes

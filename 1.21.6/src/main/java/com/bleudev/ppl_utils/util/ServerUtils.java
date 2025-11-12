@@ -14,7 +14,7 @@ public class ServerUtils {
         "issues2.pepeland.net"
     );
 
-    public static boolean isClientOnServerSupportsLobbyCommand(MinecraftClient client) {
+    public static boolean isClientOnServerSupportsLobbyCommand(@NotNull MinecraftClient client) {
         final var server = client.getCurrentServerEntry();
         if (server == null) return false;
         return Nullables.mapOrElse(server.address, SUPPORTS_LOBBY_COMMAND_IPS::contains, false);
