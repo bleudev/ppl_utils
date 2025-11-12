@@ -1,3 +1,7 @@
+# 2.5
+## Fixes
+[/] Remove lobby button from `lobby` world (bleudev [#10](https://github.com/bleudev/ppl_utils/pull/10))
+
 # 2.4
 ## Depends updates
 [+] `fabric-loom` plugin version was updated to `1.13.3`\
