@@ -1,6 +1,8 @@
 # 2.5
 ## Fixes
 [/] Remove lobby button from `lobby` world (bleudev [#10](https://github.com/bleudev/ppl_utils/pull/10))
+## Optimisations
+[+] Use regexes in `extractPlayer()`
 
 # 2.4
 ## Depends updates
