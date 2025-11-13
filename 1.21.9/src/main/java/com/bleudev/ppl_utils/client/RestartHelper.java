@@ -20,10 +20,14 @@ public class RestartHelper {
     public static void runRestartBar(long restartTime) {
         RestartHelper.restartTime = restartTime;
         startRestartTime = System.currentTimeMillis();
+        DataStorageHelper.save(new DataStorageHelper.StorageData(startRestartTime, restartTime));
     }
 
     private boolean added_boss_bar = false;
     public void update(@NotNull MinecraftClient client) {
+        restartTime = DataStorageHelper.getData().restartTime();
+        startRestartTime = DataStorageHelper.getData().startRestartTime();
+        
         var bossBar = getBossBar();
         var hud = client.inGameHud.getBossBarHud();
 

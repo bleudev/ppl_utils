@@ -26,6 +26,10 @@ public class PplUtilsClient implements ClientModInitializer {
         PplUtilsConfig.initialize();
         Keys.initialize();
 
+        // Initialize data storage
+        DataStorageHelper.load();
+        DataStorageHelper.save();
+
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();
 
