@@ -16,25 +16,19 @@ public class ClientCallbacks {
     }
 
     @Nullable
-    private static String extractPlayer(String content) {
-        content = content.toLowerCase();
-        if (content.contains(" ")) return extractPlayer(content.replace(" ", ""));
+    private static String extractPlayer(@NotNull String content) {
+        String e = content;
 
-        final int i, j;
-        if (content.startsWith("<") && (i = content.indexOf(">")) != -1 && content.length() >= i + 1)
-            return extractPlayer(content.substring(i+1));
-
-        if (content.startsWith("[+]") || content.startsWith("[-]")) {
-            var user = content.substring(3);
-
-            if (user.startsWith("[")) {
-                if ((j = user.indexOf("]")) != -1 && content.length() >= j + 1) {
-                    var ans = user.substring(j+1);
-                    if (user.startsWith("[" + ans + "head]")) return ans;
-                }
-            } else return user;
+        final var NICKNAME = "[^ \\[\\]]+";
+        e = e.replaceAll(String.format("(<%1$2s>)* *\\[\\+] *\\[%1$2s head] *", NICKNAME), "");
+        e = e.replaceAll(String.format("(<%1$2s>)* *\\[-] *\\[%1$2s head] *", NICKNAME), "");
+        if (content.equals(e)) {
+            e = e.replaceAll(String.format("(<%1$2s>)* *\\[\\+] *", NICKNAME), "");
+            e = e.replaceAll(String.format("(<%1$2s>)* *\\[-] *", NICKNAME), "");
         }
-
+        System.out.println(e);
+        if (e.matches(NICKNAME))
+            return e;
         return null;
     }
 
