@@ -3,6 +3,8 @@
 [/] Remove lobby button from `lobby` world (bleudev [#10](https://github.com/bleudev/ppl_utils/pull/10))
 ## Optimisations
 [+] Use regexes in `extractPlayer()`
+## New features
+[+] Restart indicator (client side boss bar) (bleudev [#11](https://github.com/bleudev/ppl_utils/pull/11))
 
 # 2.4
 ## Depends updates
