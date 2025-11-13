@@ -6,6 +6,17 @@
   "key.category.ppl_utils.general": "Pepeland Utils",
   "key.ppl_utils.go_to_lobby": "Отправиться в лобби",
 
+  "bossbar.ppl_utils.restart": "Время до рестарта:",
+  "bossbar.ppl_utils.restart.minutes.0": "минута",
+  "bossbar.ppl_utils.restart.minutes.1": "минута",
+  "bossbar.ppl_utils.restart.minutes.2": "минуты",
+  "bossbar.ppl_utils.restart.minutes": "минут",
+  "bossbar.ppl_utils.restart.seconds.0": "секунда",
+  "bossbar.ppl_utils.restart.seconds.1": "секунда",
+  "bossbar.ppl_utils.restart.seconds.2": "секунды",
+  "bossbar.ppl_utils.restart.seconds": "секунд",
+  "bossbar.ppl_utils.restart.now": "сейчас",
+
   "ppl_utils.midnightconfig.lobby_button_comment": "Лобби-кнопка",
   "ppl_utils.midnightconfig.lobby_button_enabled": "Включить лобби-кнопку",
   "ppl_utils.midnightconfig.lobby_button_tooltip_enabled": "Показывать подсказку при наведении на лобби-кнопку",
