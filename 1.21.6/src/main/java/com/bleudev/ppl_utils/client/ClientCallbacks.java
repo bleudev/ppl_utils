@@ -17,16 +17,13 @@ public class ClientCallbacks {
 
     @Nullable
     private static String extractPlayer(@NotNull String content) {
-        String e = content;
-
-        final var NICKNAME = "[^ \\[\\]]+";
-        e = e.replaceAll(String.format("(<%1$2s>)* *\\[\\+] *\\[%1$2s head] *", NICKNAME), "");
+        final String NICKNAME = "[^ \\[\\]]+";
+        String e = content.replaceAll(String.format("(<%1$2s>)* *\\[\\+] *\\[%1$2s head] *", NICKNAME), "");
         e = e.replaceAll(String.format("(<%1$2s>)* *\\[-] *\\[%1$2s head] *", NICKNAME), "");
         if (content.equals(e)) {
             e = e.replaceAll(String.format("(<%1$2s>)* *\\[\\+] *", NICKNAME), "");
             e = e.replaceAll(String.format("(<%1$2s>)* *\\[-] *", NICKNAME), "");
         }
-        System.out.println(e);
         if (e.matches(NICKNAME))
             return e;
         return null;

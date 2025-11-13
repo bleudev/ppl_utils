@@ -3,6 +3,8 @@ package com.bleudev.ppl_utils.client.compat.modmenu;
 import com.google.common.collect.Lists;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.boss.BossBar.Color;
+import net.minecraft.entity.boss.BossBar.Style;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -43,6 +45,17 @@ public class PplUtilsConfig extends MidnightConfig {
     @Condition(requiredOption = "do_join_leave_messages_rendering", requiredValue = "false", visibleButLocked = true)
     @Entry
     public static List<String> always_show_join_leave_messages_by = Lists.newArrayList();
+
+    @Comment(centered = true)
+    public static Comment restart_bar_comment;
+    @Entry
+    public static boolean render_restart_bar = true;
+    @Condition(requiredOption = "render_restart_bar")
+    @Entry
+    public static Color restart_bar_color = Color.GREEN;
+    @Condition(requiredOption = "render_restart_bar")
+    @Entry
+    public static Style restart_bar_style = Style.PROGRESS;
 
     @Override
     public void writeChanges(String modid) {
