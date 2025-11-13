@@ -12,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
+import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
+
 public class RestartHelper {
     private static final UUID rtUuid = UUID.randomUUID();
 
@@ -58,8 +60,8 @@ public class RestartHelper {
     @Nullable
     private BossBar getBossBar() {
         long remainingTime = restartTime - System.currentTimeMillis() + startRestartTime;
-        if (remainingTime <= 0) return null;
-        if (!PplUtilsConfig.render_restart_bar) return null;
+        if (remainingTime <= 0 || !PplUtilsConfig.render_restart_bar || !isClientOnPepeland())
+            return null;
 
         var text = Text
             .translatable("bossbar.ppl_utils.restart")

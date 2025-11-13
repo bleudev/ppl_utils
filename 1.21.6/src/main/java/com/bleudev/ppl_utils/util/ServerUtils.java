@@ -23,9 +23,16 @@ public class ServerUtils {
         return serverIps.stream().anyMatch(n -> isClientOn(client, n));
     }
 
+    public static boolean isClientOnPepeland(@NotNull MinecraftClient client) {
+        return isClientOn(client, PEPELAND_IPS);
+    }
+    public static boolean isClientOnPepeland() {
+        return isClientOnPepeland(MinecraftClient.getInstance());
+    }
+
     public static boolean isLobbyCommandWorking(@NotNull MinecraftClient client) {
         if (!isClientOn(client, SUPPORTS_LOBBY_COMMAND_IPS)) return false;
-        if (isClientOn(client, PEPELAND_IPS)) return !PepelandWorlds.isInLobby(client);
+        if (isClientOnPepeland(client)) return !PepelandWorlds.isInLobby(client);
         return true;
     }
 

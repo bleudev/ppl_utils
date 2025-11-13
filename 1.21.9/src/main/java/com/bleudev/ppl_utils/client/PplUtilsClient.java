@@ -14,6 +14,7 @@ import net.minecraft.util.Formatting;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
+import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
@@ -49,9 +50,7 @@ public class PplUtilsClient implements ClientModInitializer {
                 LOGGER.info("Successfully sent beta mode message");
             }
         });
-        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            restartHelper.onDisconnect();
-        });
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> restartHelper.onDisconnect());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
@@ -61,6 +60,8 @@ public class PplUtilsClient implements ClientModInitializer {
             restartHelper.update(client);
         });
         ClientReceiveMessageEvents.CHAT.register((text, signedMessage, gameProfile, parameters, instant) -> {
+            if (!isClientOnPepeland()) return;
+
             var content = text.getString().replaceAll("<[^< >]+> *", "");
             content = content.replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
             try {
