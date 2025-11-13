@@ -25,5 +25,21 @@
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE_MONO": "Monochrome",
   "ppl_utils.midnightconfig.join_leave_messages_rendering_comment": "Join/leave messages rendering",
   "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Do join/leave messages rendering",
-  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Always show join/leave messages for these players"
+  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Always show join/leave messages for these players",
+  "ppl_utils.midnightconfig.restart_bar_comment": "Restart bar",
+  "ppl_utils.midnightconfig.render_restart_bar": "Enable restart bar",
+  "ppl_utils.midnightconfig.restart_bar_color": "Restart bar color",
+  "ppl_utils.midnightconfig.enum.Color.PINK": "Pink",
+  "ppl_utils.midnightconfig.enum.Color.BLUE": "Blue",
+  "ppl_utils.midnightconfig.enum.Color.RED": "Red",
+  "ppl_utils.midnightconfig.enum.Color.GREEN": "Green",
+  "ppl_utils.midnightconfig.enum.Color.YELLOW": "Yellow",
+  "ppl_utils.midnightconfig.enum.Color.PURPLE": "Purple",
+  "ppl_utils.midnightconfig.enum.Color.WHITE": "White",
+  "ppl_utils.midnightconfig.restart_bar_style": "Restart bar style",
+  "ppl_utils.midnightconfig.enum.Style.PROGRESS": "Without divisions",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_6": "6 divisions",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_10": "10 divisions",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_12": "12 divisions",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 divisions"
 }

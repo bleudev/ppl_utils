@@ -25,5 +25,21 @@
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE_MONO": "Монохромный",
   "ppl_utils.midnightconfig.join_leave_messages_rendering_comment": "Отображение сообщений при входе/выходе игроков",
   "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Отображать сообщения при входе/выходе игроков",
-  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Всегда показывать сообщения при входе/выходе данных игроков"
+  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Всегда показывать сообщения при входе/выходе данных игроков",
+  "ppl_utils.midnightconfig.restart_bar_comment": "Индикатор рестарта",
+  "ppl_utils.midnightconfig.render_restart_bar": "Включить индикатор рестарта",
+  "ppl_utils.midnightconfig.restart_bar_color": "Цвет индикатора рестарта",
+  "ppl_utils.midnightconfig.enum.Color.PINK": "Розовый",
+  "ppl_utils.midnightconfig.enum.Color.BLUE": "Синий",
+  "ppl_utils.midnightconfig.enum.Color.RED": "Красный",
+  "ppl_utils.midnightconfig.enum.Color.GREEN": "Зелёный",
+  "ppl_utils.midnightconfig.enum.Color.YELLOW": "Жёлтый",
+  "ppl_utils.midnightconfig.enum.Color.PURPLE": "Фиолетовый",
+  "ppl_utils.midnightconfig.enum.Color.WHITE": "Белый",
+  "ppl_utils.midnightconfig.restart_bar_style": "Стиль индикатора рестарта",
+  "ppl_utils.midnightconfig.enum.Style.PROGRESS": "Без делений",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_6": "6 делений",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_10": "10 делений",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_12": "12 делений",
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 делений"
 }

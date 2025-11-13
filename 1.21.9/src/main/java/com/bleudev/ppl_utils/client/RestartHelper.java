@@ -1,5 +1,6 @@
 package com.bleudev.ppl_utils.client;
 
+import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;
@@ -42,6 +43,7 @@ public class RestartHelper {
         if (added_boss_bar) {
             hud.handlePacket(BossBarS2CPacket.updateName(bossBar));
             hud.handlePacket(BossBarS2CPacket.updateProgress(bossBar));
+            hud.handlePacket(BossBarS2CPacket.updateStyle(bossBar));
         } else {
             hud.handlePacket(BossBarS2CPacket.add(bossBar));
             added_boss_bar = true;
@@ -57,11 +59,12 @@ public class RestartHelper {
     private BossBar getBossBar() {
         long remainingTime = restartTime - System.currentTimeMillis() + startRestartTime;
         if (remainingTime <= 0) return null;
+        if (!PplUtilsConfig.render_restart_bar) return null;
 
         var text = Text
             .translatable("bossbar.ppl_utils.restart")
             .append(formatRemainingTime(remainingTime));
-        var bossBar = new BossBar(rtUuid, text, BossBar.Color.BLUE, BossBar.Style.NOTCHED_20) {};
+        var bossBar = new BossBar(rtUuid, text, PplUtilsConfig.restart_bar_color, PplUtilsConfig.restart_bar_style) {};
         bossBar.setPercent(1f - (float) remainingTime / restartTime);
         return bossBar;
     }
