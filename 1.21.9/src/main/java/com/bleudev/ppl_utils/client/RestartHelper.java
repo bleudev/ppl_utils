@@ -44,6 +44,10 @@ public class RestartHelper {
         }
     }
 
+    public void onDisconnect() {
+        added_boss_bar = false;
+    }
+
     @Contract(" -> new")
     @Nullable
     private BossBar getBossBar() {

@@ -7,11 +7,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
@@ -47,27 +45,28 @@ public class PplUtilsClient implements ClientModInitializer {
                 LOGGER.info("Successfully sent beta mode message");
             }
         });
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            restartHelper.onDisconnect();
+        });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
 
-            updateBossBar(client);
+            if (client.player == null) return;
+            restartHelper.update(client);
         });
         ClientReceiveMessageEvents.CHAT.register((text, signedMessage, gameProfile, parameters, instant) -> {
             var content = text.getString().replaceAll("<[^< >]+> *", "");
+            content = content.replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
             try {
-                LOGGER.debug("run boss bar {}", content);
-                RestartHelper.runRestartBar(Long.parseLong(content));
+                if (content.contains("Рестарт через")) {
+                    var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
+                    RestartHelper.runRestartBar(time * (content.contains("минут") ? 60_000 : 1_000));
+                }
             } catch (NumberFormatException ignored) {
-                LOGGER.error("Number format exception: {}", content);
+                LOGGER.error("Unexpected number format exception while parsing \"{}\" string. Please report about it.", content);
             }
         });
-    }
-
-
-    private void updateBossBar(@NotNull MinecraftClient client) {
-        if (client.player == null) return;
-        restartHelper.update(client);
     }
 }
