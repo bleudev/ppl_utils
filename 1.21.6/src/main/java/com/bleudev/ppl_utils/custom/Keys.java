@@ -1,4 +1,4 @@
-package com.bleudev.ppl_utils.client.custom;
+package com.bleudev.ppl_utils.custom;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

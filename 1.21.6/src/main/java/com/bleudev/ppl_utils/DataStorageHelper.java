@@ -1,4 +1,4 @@
-package com.bleudev.ppl_utils.client;
+package com.bleudev.ppl_utils;
 
 import com.google.gson.*;
 import com.google.gson.internal.Streams;

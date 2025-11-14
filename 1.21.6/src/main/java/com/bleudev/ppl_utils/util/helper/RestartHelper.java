@@ -1,6 +1,7 @@
-package com.bleudev.ppl_utils.client;
+package com.bleudev.ppl_utils.util.helper;
 
-import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
+import com.bleudev.ppl_utils.DataStorageHelper;
+import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;

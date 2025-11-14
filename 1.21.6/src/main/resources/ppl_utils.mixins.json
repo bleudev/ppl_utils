@@ -1,15 +1,13 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "com.bleudev.ppl_utils.mixin",
+    "package": "com.bleudev.ppl_utils.mixin.client",
     "compatibilityLevel": "JAVA_21",
-    "mixins": [
-    ],
     "client": [
-        "client.ChatHudMixin",
-        "client.DebugHudMixin",
-        "client.GameMenuScreenMixin",
-        "client.PlayerListHudAccessor"
+        "ChatHudMixin",
+        "DebugHudMixin",
+        "GameMenuScreenMixin",
+        "PlayerListHudAccessor"
     ],
     "injectors": {
         "defaultRequire": 1

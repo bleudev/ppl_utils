@@ -1,6 +1,6 @@
-package com.bleudev.ppl_utils.client;
+package com.bleudev.ppl_utils;
 
-import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
+import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHudLine;
 import org.jetbrains.annotations.NotNull;

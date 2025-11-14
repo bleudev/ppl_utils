@@ -1,25 +1,23 @@
-package com.bleudev.ppl_utils.client;
+package com.bleudev.ppl_utils;
 
-import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
-import com.bleudev.ppl_utils.client.custom.Keys;
-import com.bleudev.ppl_utils.client.custom.debug.WorldBorderDebugHudEntry;
+import com.bleudev.ppl_utils.config.PplUtilsConfig;
+import com.bleudev.ppl_utils.custom.Keys;
+import com.bleudev.ppl_utils.util.helper.RestartHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
-import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
-import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
-public class PplUtilsClient implements ClientModInitializer {
-    int beta_mode_message_ticks;
+public class PepelandUtils implements ClientModInitializer {
+    private int beta_mode_message_ticks;
     private RestartHelper restartHelper;
 
     @Override
@@ -28,14 +26,11 @@ public class PplUtilsClient implements ClientModInitializer {
         Keys.initialize();
 
         // Initialize data storage
-        DataStorageHelper.load();
         DataStorageHelper.save();
+        DataStorageHelper.load();
 
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();
-
-        LOGGER.debug("Register {} debug hud entry", getIdentifier("world_border"));
-        DebugHudEntries.register(getIdentifier("world_border"), new WorldBorderDebugHudEntry());
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             LOGGER.info("Try send beta mode message");

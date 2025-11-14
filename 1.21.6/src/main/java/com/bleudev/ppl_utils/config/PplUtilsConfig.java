@@ -1,11 +1,14 @@
-package com.bleudev.ppl_utils.client.compat.modmenu;
+package com.bleudev.ppl_utils.config;
 
 import com.google.common.collect.Lists;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.boss.BossBar.Color;
 import net.minecraft.entity.boss.BossBar.Style;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -65,5 +68,9 @@ public class PplUtilsConfig extends MidnightConfig {
 
     public static void initialize() {
         MidnightConfig.init(MOD_ID, PplUtilsConfig.class);
+    }
+    @Contract("_ -> new")
+    public static @NotNull Screen getConfigScreen(Screen parent) {
+        return MidnightConfig.getScreen(parent, MOD_ID);
     }
 }
