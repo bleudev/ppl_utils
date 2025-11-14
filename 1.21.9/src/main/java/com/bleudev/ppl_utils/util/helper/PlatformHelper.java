@@ -1,4 +1,4 @@
-package com.bleudev.ppl_utils;
+package com.bleudev.ppl_utils.util.helper;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.metadata.ModMetadata;

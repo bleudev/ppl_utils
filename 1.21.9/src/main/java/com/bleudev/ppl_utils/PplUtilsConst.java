@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.bleudev.ppl_utils.PlatformHelper.getModVersion;
 import static com.bleudev.ppl_utils.util.LangUtils.unmodifiableUnion;
+import static com.bleudev.ppl_utils.util.helper.PlatformHelper.getModVersion;
 
 public class PplUtilsConst {
     public static final String MOD_ID = "ppl_utils";

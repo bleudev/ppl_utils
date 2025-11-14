@@ -1,8 +1,14 @@
 # 2.5
+## Breaking changes
+[-] Many classes and packages were renamed. Please, if you're developer which mod depends on `ppl_utils`
+see [#11](https://github.com/bleudev/ppl_utils/pull/11) and update your mod
 ## Fixes
 [/] Remove lobby button from `lobby` world (bleudev [#10](https://github.com/bleudev/ppl_utils/pull/10))
 ## Optimisations
-[+] Use regexes in `extractPlayer()`
+[+] Use regexes in `extractPlayer()` (join/leave messages rendering)\
+[/] Reformat class structure (bleudev [#11](https://github.com/bleudev/ppl_utils/pull/11))
+## New features
+[+] Restart indicator (client side boss bar) (bleudev [#11](https://github.com/bleudev/ppl_utils/pull/11))
 
 # 2.4
 ## Depends updates

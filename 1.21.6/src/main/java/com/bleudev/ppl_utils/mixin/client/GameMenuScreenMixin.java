@@ -1,6 +1,6 @@
 package com.bleudev.ppl_utils.mixin.client;
 
-import com.bleudev.ppl_utils.client.compat.modmenu.PplUtilsConfig;
+import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.bleudev.ppl_utils.client.ClientCallbacks.executeLobby;
-import static com.bleudev.ppl_utils.client.ClientCallbacks.shouldRenderLobbyButton;
+import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
+import static com.bleudev.ppl_utils.ClientCallbacks.shouldRenderLobbyButton;
 
 @Mixin(GameMenuScreen.class)
 public abstract class GameMenuScreenMixin extends Screen {

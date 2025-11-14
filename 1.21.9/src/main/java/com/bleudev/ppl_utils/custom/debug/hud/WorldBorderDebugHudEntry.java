@@ -1,4 +1,4 @@
-package com.bleudev.ppl_utils.client.custom.debug;
+package com.bleudev.ppl_utils.custom.debug.hud;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.debug.DebugHudEntry;

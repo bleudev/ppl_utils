@@ -1,8 +1,11 @@
-package com.bleudev.ppl_utils.client.compat.modmenu;
+package com.bleudev.ppl_utils.config;
 
 import com.google.common.collect.Lists;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.boss.BossBar.Color;
+import net.minecraft.entity.boss.BossBar.Style;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -44,13 +47,27 @@ public class PplUtilsConfig extends MidnightConfig {
     @Entry
     public static List<String> always_show_join_leave_messages_by = Lists.newArrayList();
 
+    @Comment(centered = true)
+    public static Comment restart_bar_comment;
+    @Entry
+    public static boolean render_restart_bar = true;
+    @Condition(requiredOption = "render_restart_bar")
+    @Entry
+    public static Color restart_bar_color = Color.GREEN;
+    @Condition(requiredOption = "render_restart_bar")
+    @Entry
+    public static Style restart_bar_style = Style.PROGRESS;
+
     @Override
-    public void writeChanges(String modid) {
-        super.writeChanges(modid);
+    public void writeChanges() {
+        super.writeChanges();
         MinecraftClient.getInstance().inGameHud.getChatHud().reset();
     }
 
     public static void initialize() {
         MidnightConfig.init(MOD_ID, PplUtilsConfig.class);
+    }
+    public static Screen getConfigScreen(Screen parent) {
+        return MidnightConfig.getScreen(parent, MOD_ID);
     }
 }

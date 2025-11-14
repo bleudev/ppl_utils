@@ -25,13 +25,10 @@
   },
   "entrypoints": {
     "client": [
-      "com.bleudev.ppl_utils.client.PplUtilsClient"
+      "com.bleudev.ppl_utils.PepelandUtils"
     ],
     "modmenu": [
-      "com.bleudev.ppl_utils.client.compat.modmenu.ModMenuCompat"
-    ],
-    "main": [
-      "com.bleudev.ppl_utils.PplUtils"
+      "com.bleudev.ppl_utils.compat.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [

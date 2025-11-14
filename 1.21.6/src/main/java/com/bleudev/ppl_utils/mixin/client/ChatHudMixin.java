@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.bleudev.ppl_utils.client.ClientCallbacks.shouldRenderChatMessage;
+import static com.bleudev.ppl_utils.ClientCallbacks.shouldRenderChatMessage;
 
 @Mixin(ChatHud.class)
 public class ChatHudMixin {
