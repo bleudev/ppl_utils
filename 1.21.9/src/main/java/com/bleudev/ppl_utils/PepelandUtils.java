@@ -1,5 +1,6 @@
 package com.bleudev.ppl_utils;
 
+import com.bleudev.ppl_utils.config.ConfigManager;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.custom.Keys;
 import com.bleudev.ppl_utils.custom.debug.hud.WorldBorderDebugHudEntry;
@@ -8,6 +9,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -31,6 +33,8 @@ public class PepelandUtils implements ClientModInitializer {
         // Initialize data storage
         DataStorageHelper.load();
         DataStorageHelper.save();
+
+        ConfigManager.init(FabricLoader.getInstance().getConfigDir());
 
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();

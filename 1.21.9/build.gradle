@@ -39,6 +39,10 @@ repositories {
             includeGroup("maven.modrinth")
         }
     }
+    maven {
+        name 'Xander Maven'
+        url 'https://maven.isxander.dev/releases'
+    }
 }
 
 static def modrinth(String name, String version) {
@@ -55,6 +59,9 @@ dependencies {
     modApi modrinth("modmenu", project.modMenu_version)
     modImplementation modrinth("modmenu-badges-lib", project.modMenuBadges_version)
     modImplementation include (modrinth("midnightlib", project.midnightLib_version))
+
+    modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+//    modImplementation modrinth("yacl", project.yacl_version)
 }
 
 
