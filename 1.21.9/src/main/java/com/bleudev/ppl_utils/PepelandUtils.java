@@ -1,7 +1,6 @@
 package com.bleudev.ppl_utils;
 
-import com.bleudev.ppl_utils.config.ConfigManager;
-import com.bleudev.ppl_utils.config.PplUtilsConfig;
+import com.bleudev.ppl_utils.config.YaclConfig;
 import com.bleudev.ppl_utils.custom.Keys;
 import com.bleudev.ppl_utils.custom.debug.hud.WorldBorderDebugHudEntry;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
@@ -9,13 +8,13 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
+import static com.bleudev.ppl_utils.config.YaclConfig.getConfig;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
@@ -27,14 +26,14 @@ public class PepelandUtils implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        PplUtilsConfig.initialize();
+//        PplUtilsConfig.initialize();
         Keys.initialize();
 
         // Initialize data storage
         DataStorageHelper.load();
         DataStorageHelper.save();
 
-        ConfigManager.init(FabricLoader.getInstance().getConfigDir());
+        YaclConfig.HANDLER.load();
 
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();
@@ -53,6 +52,11 @@ public class PepelandUtils implements ClientModInitializer {
                     false);
                 beta_mode_message_ticks = 10 * TICKS_PER_MINUTE;
                 LOGGER.info("Successfully sent beta mode message");
+            }
+
+            if (client.player != null) {
+                client.player.sendMessage(Text.literal(String.valueOf(getConfig().enableFeature)), false);
+                client.player.sendMessage(Text.literal(String.valueOf(getConfig().maxCount)), false);
             }
         });
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> restartHelper.onDisconnect());

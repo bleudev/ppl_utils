@@ -61,7 +61,6 @@ dependencies {
     modImplementation include (modrinth("midnightlib", project.midnightLib_version))
 
     modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
-//    modImplementation modrinth("yacl", project.yacl_version)
 }
 
 
