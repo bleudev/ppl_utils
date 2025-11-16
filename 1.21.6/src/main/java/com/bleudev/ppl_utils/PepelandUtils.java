@@ -66,7 +66,7 @@ public class PepelandUtils implements ClientModInitializer {
             .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
         try {
             if (content.contains("Рестарт через")) {
-                LOGGER.debug("Got restart message: {}", content);
+                LOGGER.info("Got restart message: {}", content);
                 var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
                 RestartHelper.runRestartBar(time * (anySubstringMatches(content, "минут[а-я]*") ? 60_000 : 1_000));
             }
