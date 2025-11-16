@@ -8,8 +8,8 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 
-public class YaclConfig {
-    public static ConfigClassHandler<YaclConfig> HANDLER = ConfigClassHandler.createBuilder(YaclConfig.class)
+public class PepelandUtilsYaclConfig {
+    public static ConfigClassHandler<PepelandUtilsYaclConfig> HANDLER = ConfigClassHandler.createBuilder(PepelandUtilsYaclConfig.class)
         .id(getIdentifier("config_handler"))
         .serializer(config -> GsonConfigSerializerBuilder.create(config)
             .setPath(FabricLoader.getInstance().getConfigDir().resolve("ppl_utils_config.json5"))
@@ -17,16 +17,15 @@ public class YaclConfig {
             .setJson5(true)
             .build())
         .build();
-
-    public static YaclConfig getDefaults() {
-        return YaclConfig.HANDLER.defaults();
+    public static PepelandUtilsYaclConfig getDefaults() {
+        return PepelandUtilsYaclConfig.HANDLER.defaults();
     }
-    public static YaclConfig getConfig() {
-        return YaclConfig.HANDLER.instance();
+    public static PepelandUtilsYaclConfig getConfig() {
+        return PepelandUtilsYaclConfig.HANDLER.instance();
     }
 
     @SerialEntry
-    public boolean enableFeature = true;
+    public boolean lobby_button_enabled = true;
     @SerialEntry
     public int maxCount = 10;
 }

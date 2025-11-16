@@ -17,6 +17,10 @@
   "bossbar.ppl_utils.restart.seconds": "seconds",
   "bossbar.ppl_utils.restart.now": "now",
 
+
+  "ppl_utils.yacl.group.lobby_button": "Lobby button",
+  "ppl_utils.yacl.lobby_button_enabled": "Enable lobby button",
+
   "ppl_utils.midnightconfig.lobby_button_comment": "Lobby button",
   "ppl_utils.midnightconfig.lobby_button_enabled": "Enable lobby button",
   "ppl_utils.midnightconfig.lobby_button_tooltip_enabled": "Enable lobby button tooltip",

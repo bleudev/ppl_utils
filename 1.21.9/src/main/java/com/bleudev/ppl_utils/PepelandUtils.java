@@ -1,6 +1,6 @@
 package com.bleudev.ppl_utils;
 
-import com.bleudev.ppl_utils.config.YaclConfig;
+import com.bleudev.ppl_utils.config.PepelandUtilsYaclConfig;
 import com.bleudev.ppl_utils.custom.Keys;
 import com.bleudev.ppl_utils.custom.debug.hud.WorldBorderDebugHudEntry;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
@@ -14,7 +14,7 @@ import net.minecraft.util.Formatting;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
-import static com.bleudev.ppl_utils.config.YaclConfig.getConfig;
+import static com.bleudev.ppl_utils.config.PepelandUtilsYaclConfig.getConfig;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
@@ -33,7 +33,7 @@ public class PepelandUtils implements ClientModInitializer {
         DataStorageHelper.load();
         DataStorageHelper.save();
 
-        YaclConfig.HANDLER.load();
+        PepelandUtilsYaclConfig.HANDLER.load();
 
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();
@@ -55,7 +55,7 @@ public class PepelandUtils implements ClientModInitializer {
             }
 
             if (client.player != null) {
-                client.player.sendMessage(Text.literal(String.valueOf(getConfig().enableFeature)), false);
+                client.player.sendMessage(Text.literal(String.valueOf(getConfig().lobby_button_enabled)), false);
                 client.player.sendMessage(Text.literal(String.valueOf(getConfig().maxCount)), false);
             }
         });
