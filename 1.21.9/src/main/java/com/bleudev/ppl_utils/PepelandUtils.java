@@ -67,10 +67,12 @@ public class PepelandUtils implements ClientModInitializer {
     private void tryStartRestartBar(Text restartMessage) {
         if (!isClientOnPepeland()) return;
 
-        var content = restartMessage.getString().replaceAll("<[^< >]+> *", "");
-        content = content.replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
+        var content = restartMessage.getString()
+            .replaceAll("<[^< >]+> *", "")
+            .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
         try {
             if (content.contains("Рестарт через")) {
+                LOGGER.debug("Got restart message: {}", content);
                 var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
                 RestartHelper.runRestartBar(time * (anySubstringMatches(content, "минут[а-я]*") ? 60_000 : 1_000));
             }
