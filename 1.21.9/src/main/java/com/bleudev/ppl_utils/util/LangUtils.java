@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class LangUtils {
     private static double precision(@NotNull BigDecimal d, int p) {
@@ -25,5 +26,9 @@ public class LangUtils {
     }
     public static <T> @NotNull List<T> unmodifiableUnion(List<T> list1, List<T> list2) {
         return union(list1, list2, true);
+    }
+
+    public static boolean anySubstringMatches(String string, String regex) {
+        return Pattern.compile(regex).matcher(string).find();
     }
 }
