@@ -14,6 +14,7 @@ import net.minecraft.util.Formatting;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
+import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
@@ -51,7 +52,8 @@ public class PepelandUtils implements ClientModInitializer {
                 LOGGER.info("Successfully sent beta mode message");
             }
         });
-        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> restartHelper.onDisconnect());
+        ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) -> restartHelper.onDisconnect());
+        ClientReceiveMessageEvents.CHAT.register((t, a1, a2, a3, a4) -> tryStartRestartBar(t));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
@@ -60,19 +62,22 @@ public class PepelandUtils implements ClientModInitializer {
             if (client.player == null) return;
             restartHelper.update(client);
         });
-        ClientReceiveMessageEvents.CHAT.register((text, signedMessage, gameProfile, parameters, instant) -> {
-            if (!isClientOnPepeland()) return;
+    }
 
-            var content = text.getString().replaceAll("<[^< >]+> *", "");
-            content = content.replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
-            try {
-                if (content.contains("Рестарт через")) {
-                    var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
-                    RestartHelper.runRestartBar(time * (content.contains("минут") ? 60_000 : 1_000));
-                }
-            } catch (NumberFormatException ignored) {
-                LOGGER.error("Unexpected number format exception while parsing \"{}\" string. Please report about it.", content);
+    private void tryStartRestartBar(Text restartMessage) {
+        if (!isClientOnPepeland()) return;
+
+        var content = restartMessage.getString()
+            .replaceAll("<[^< >]+> *", "")
+            .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
+        try {
+            if (content.contains("Рестарт через")) {
+                LOGGER.info("Got restart message: {}", content);
+                var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
+                RestartHelper.runRestartBar(time * (anySubstringMatches(content, "минут[а-я]*") ? 60_000 : 1_000));
             }
-        });
+        } catch (NumberFormatException ignored) {
+            LOGGER.error("Unexpected number format exception while parsing \"{}\" string. Please report about it.", content);
+        }
     }
 }

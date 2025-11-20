@@ -1,3 +1,7 @@
+# 2.5.1
+## Bug fixes
+[/] Restart bar doesn't work (bleudev [#20](https://github.com/bleudev/ppl_utils/pull/20))
+
 # 2.5
 ## Breaking changes
 [-] Many classes and packages were renamed. Please, if you're developer which mod depends on `ppl_utils`

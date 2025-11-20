@@ -3,7 +3,7 @@ package com.bleudev.ppl_utils.util.helper;
 import com.bleudev.ppl_utils.DataStorageHelper;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.boss.BossBar;
+import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -59,7 +59,7 @@ public class RestartHelper {
 
     @Contract(" -> new")
     @Nullable
-    private BossBar getBossBar() {
+    private ClientBossBar getBossBar() {
         long remainingTime = restartTime - System.currentTimeMillis() + startRestartTime;
         if (remainingTime <= 0 || !PplUtilsConfig.render_restart_bar || !isClientOnPepeland())
             return null;
@@ -67,9 +67,11 @@ public class RestartHelper {
         var text = Text
             .translatable("bossbar.ppl_utils.restart")
             .append(formatRemainingTime(remainingTime));
-        var bossBar = new BossBar(rtUuid, text, PplUtilsConfig.restart_bar_color, PplUtilsConfig.restart_bar_style) {};
-        bossBar.setPercent(1f - (float) remainingTime / restartTime);
-        return bossBar;
+        return new ClientBossBar(
+            rtUuid, text,
+            1f - (float) remainingTime / restartTime,
+            PplUtilsConfig.restart_bar_color, PplUtilsConfig.restart_bar_style,
+            false, false, true);
     }
 
     @Contract(pure = true)
