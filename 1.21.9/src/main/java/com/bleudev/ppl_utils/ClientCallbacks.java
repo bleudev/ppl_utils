@@ -1,6 +1,7 @@
 package com.bleudev.ppl_utils;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
+import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHudLine;
 import org.jetbrains.annotations.NotNull;
@@ -43,5 +44,9 @@ public class ClientCallbacks {
 
     public static boolean shouldRenderLobbyButton(@NotNull MinecraftClient client) {
         return PplUtilsConfig.lobby_button_enabled && isLobbyCommandWorking(client);
+    }
+
+    public static boolean shouldSendMessagesToGlobalChat() {
+        return GlobalChatHelper.INSTANCE.isEnabled();
     }
 }

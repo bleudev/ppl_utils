@@ -1,3 +1,7 @@
+## New features
+[+] Toggle global chat keybind (with text overlay in chat with animation)\
+[+] Send to global chat keybind (to open chat with global chat command)
+
 # 2.5.1
 ## Bug fixes
 [/] Restart bar doesn't work (bleudev [#20](https://github.com/bleudev/ppl_utils/pull/20))

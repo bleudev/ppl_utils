@@ -28,4 +28,6 @@ public class PplUtilsConst {
             // Maybe in future there will be more servers
         )
     );
+
+    public static final String GLOBAL_CHAT_COMMAND = "g";
 }

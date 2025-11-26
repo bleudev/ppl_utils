@@ -5,6 +5,7 @@
 
   "key.category.ppl_utils.general": "Pepeland Utils",
   "key.ppl_utils.go_to_lobby": "Go to the lobby",
+  "key.ppl_utils.toggle_global_chat": "Toggle auto global chat",
 
   "bossbar.ppl_utils.restart": "Restart time:",
   "bossbar.ppl_utils.restart.minutes.0": "minute",
@@ -16,6 +17,11 @@
   "bossbar.ppl_utils.restart.seconds.2": "seconds",
   "bossbar.ppl_utils.restart.seconds": "seconds",
   "bossbar.ppl_utils.restart.now": "now",
+
+  "ppl_utils.text.overlay.global_chat_enabled": "Global chat",
+  "ppl_utils.text.action.bar.start": "Global chat was ",
+  "ppl_utils.text.action.bar.enabled": "enabled",
+  "ppl_utils.text.action.bar.disabled": "disabled",
 
   "ppl_utils.midnightconfig.lobby_button_comment": "Lobby button",
   "ppl_utils.midnightconfig.lobby_button_enabled": "Enable lobby button",
