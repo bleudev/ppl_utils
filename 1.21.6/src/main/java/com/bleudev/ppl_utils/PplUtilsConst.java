@@ -20,7 +20,8 @@ public class PplUtilsConst {
     public static final List<String> PEPELAND_IPS = List.of(
         "play.pepeland.net",
         "issues.pepeland.net",
-        "issues2.pepeland.net"
+        "issues2.pepeland.net",
+        "neo.play.pepeland.net"
     );
 
     public static final List<String> SUPPORTS_LOBBY_COMMAND_IPS = unmodifiableUnion(
