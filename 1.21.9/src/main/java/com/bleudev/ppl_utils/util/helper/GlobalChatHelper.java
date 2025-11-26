@@ -5,10 +5,15 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
-
 public class GlobalChatHelper {
     public static GlobalChatHelper INSTANCE = null;
+
+    private static final Text TOGGLE_ENABLED_SUCESS = Text.translatable("ppl_utils.text.action.bar.start").formatted(Formatting.WHITE)
+        .append(Text.translatable("ppl_utils.text.action.bar.enabled").formatted(Formatting.GREEN));
+    private static final Text TOGGLE_DISABLED_SUCESS = Text.translatable("ppl_utils.text.action.bar.start").formatted(Formatting.WHITE)
+        .append(Text.translatable("ppl_utils.text.action.bar.disabled").formatted(Formatting.RED));
+    private static final Text TOGGLE_ERROR_DOESNT_SUPPORT = Text.literal("Server doesn't support global chat")
+        .formatted(Formatting.RED);
 
     private boolean enabled;
     public GlobalChatHelper(boolean initial) {
@@ -24,13 +29,12 @@ public class GlobalChatHelper {
     }
 
     public void sendToggleMessage(@NotNull MinecraftClient client) {
-        Supplier<Formatting> enabledDisabledColor = () -> enabled ? Formatting.GREEN : Formatting.RED;
-
         if (client.player != null)
-            client.player.sendMessage(Text.translatable("ppl_utils.text.action.bar.start")
-                .formatted(Formatting.WHITE)
-                .append((enabled ? Text.translatable("ppl_utils.text.action.bar.enabled") : Text.translatable("ppl_utils.text.action.bar.disabled"))
-                    .formatted(enabledDisabledColor.get())
-                ), true);
+            client.player.sendMessage(isEnabled() ? TOGGLE_ENABLED_SUCESS : TOGGLE_DISABLED_SUCESS, true);
+    }
+
+    public void sendToggleErrorMessage(@NotNull MinecraftClient client) {
+        if (client.player != null)
+            client.player.sendMessage(TOGGLE_ERROR_DOESNT_SUPPORT, true);
     }
 }

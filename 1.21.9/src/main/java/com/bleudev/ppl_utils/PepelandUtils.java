@@ -23,6 +23,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
+import static com.bleudev.ppl_utils.ClientCallbacks.shouldSendMessagesToGlobalChat;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
@@ -73,12 +74,14 @@ public class PepelandUtils implements ClientModInitializer {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
-            while (Keys.SEND_TO_GLOBAL_CHAT_KEY.wasPressed()) {
-                client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " ", false));
-            }
+            while (Keys.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
+                if (shouldSendMessagesToGlobalChat(client))
+                    client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " ", false));
             while (Keys.TOGGLE_GLOBAL_CHAT_KEY.wasPressed()) {
-                GlobalChatHelper.INSTANCE.toggle();
-                GlobalChatHelper.INSTANCE.sendToggleMessage(client);
+                if (shouldSendMessagesToGlobalChat(client)) {
+                    GlobalChatHelper.INSTANCE.toggle();
+                    GlobalChatHelper.INSTANCE.sendToggleMessage(client);
+                } else GlobalChatHelper.INSTANCE.sendToggleErrorMessage(client);
             }
 
             if (client.player == null) return;
