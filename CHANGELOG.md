@@ -1,6 +1,10 @@
+# 2.6
 ## New features
 [+] Toggle global chat keybind (with text overlay in chat with animation)\
 [+] Send to global chat keybind (to open chat with global chat command)
+
+## Fixes
+[+] Added `neo.play.pepeland.net` to pepeland ips. If you play at it, you're welcome)
 
 # 2.5.1
 ## Bug fixes
