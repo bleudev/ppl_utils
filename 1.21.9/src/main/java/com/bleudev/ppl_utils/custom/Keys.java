@@ -21,13 +21,12 @@ public class Keys {
         return createKey(id, -1, category);
     }
 
-
     @Contract("_ -> new")
     private static KeyBinding.@NotNull Category createCategory(String name) {
         return KeyBinding.Category.create(Identifier.of(MOD_ID, name));
     }
 
-    private static final KeyBinding.Category CATEGORY_GENERAL = createCategory("general");
+    public static final KeyBinding.Category CATEGORY_GENERAL = createCategory("general");
 
     public static final KeyBinding LOBBY_KEY = createKey("go_to_lobby", GLFW.GLFW_KEY_SEMICOLON, CATEGORY_GENERAL);
     public static final KeyBinding SEND_TO_GLOBAL_CHAT_KEY = createKey("send_to_global_chat", KeyBinding.Category.MULTIPLAYER);

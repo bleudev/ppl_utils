@@ -21,13 +21,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
+import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
-import static com.bleudev.ppl_utils.ClientCallbacks.shouldSendMessagesToGlobalChat;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
+import static com.bleudev.ppl_utils.util.ServerUtils.isGlobalChatWorking;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
@@ -75,10 +76,10 @@ public class PepelandUtils implements ClientModInitializer {
 
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
             while (Keys.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
-                if (shouldSendMessagesToGlobalChat(client))
+                if (isGlobalChatWorking(client))
                     client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " ", false));
             while (Keys.TOGGLE_GLOBAL_CHAT_KEY.wasPressed()) {
-                if (shouldSendMessagesToGlobalChat(client)) {
+                if (isGlobalChatWorking(client)) {
                     GlobalChatHelper.INSTANCE.toggle();
                     GlobalChatHelper.INSTANCE.sendToggleMessage(client);
                 } else GlobalChatHelper.INSTANCE.sendToggleErrorMessage(client);
@@ -88,8 +89,7 @@ public class PepelandUtils implements ClientModInitializer {
             restartHelper.update(client);
 
             if (GlobalChatHelper.INSTANCE.isEnabled()) {
-                boolean chatFocused = client.inGameHud.getChatHud().isChatFocused();
-                if (chatFocused)
+                if (client.inGameHud.getChatHud().isChatFocused())
                     globalChatEnabledAnim = Math.min(globalChatEnabledAnim + 0.1f, 1f);
                 else
                     globalChatEnabledAnim = Math.max(globalChatEnabledAnim - 0.1f, 0f);
@@ -117,7 +117,7 @@ public class PepelandUtils implements ClientModInitializer {
         }
     }
 
-    private void renderAfterChatOverlay(DrawContext ctx, RenderTickCounter tickCounter) {
+    private void renderAfterChatOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
         int h = ctx.getScaledWindowHeight();
         int w = ctx.getScaledWindowWidth();
         var client = MinecraftClient.getInstance();

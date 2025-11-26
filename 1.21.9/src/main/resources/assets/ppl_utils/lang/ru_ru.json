@@ -6,6 +6,7 @@
   "key.category.ppl_utils.general": "Pepeland Utils",
   "key.ppl_utils.go_to_lobby": "Отправиться в лобби",
   "key.ppl_utils.toggle_global_chat": "Переключить авто глобальный чат",
+  "key.ppl_utils.send_to_global_chat": "Отправить в глобальный чат",
 
   "bossbar.ppl_utils.restart": "Время до рестарта:",
   "bossbar.ppl_utils.restart.minutes.0": "минута",
@@ -19,9 +20,10 @@
   "bossbar.ppl_utils.restart.now": "сейчас",
 
   "ppl_utils.text.overlay.global_chat_enabled": "Глобальный чат",
-  "ppl_utils.text.action.bar.start": "Глобальный чат был ",
-  "ppl_utils.text.action.bar.enabled": "включён",
-  "ppl_utils.text.action.bar.disabled": "выключен",
+  "ppl_utils.text.toggle_global_chat.start": "Глобальный чат был ",
+  "ppl_utils.text.toggle_global_chat.enabled": "включён",
+  "ppl_utils.text.toggle_global_chat.disabled": "выключен",
+  "ppl_utils.text.toggle_global_chat.fail.doesnt_support": "Сервер не поддерживает глобальный чат",
 
   "ppl_utils.midnightconfig.lobby_button_comment": "Лобби-кнопка",
   "ppl_utils.midnightconfig.lobby_button_enabled": "Включить лобби-кнопку",

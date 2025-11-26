@@ -1,13 +1,13 @@
 package com.bleudev.ppl_utils;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
+import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHudLine;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.bleudev.ppl_utils.util.ServerUtils.executeCommand;
-import static com.bleudev.ppl_utils.util.ServerUtils.isLobbyCommandWorking;
+import static com.bleudev.ppl_utils.util.ServerUtils.*;
 
 public class ClientCallbacks {
     public static void executeLobby(@NotNull MinecraftClient client) {
@@ -43,5 +43,9 @@ public class ClientCallbacks {
 
     public static boolean shouldRenderLobbyButton(@NotNull MinecraftClient client) {
         return PplUtilsConfig.lobby_button_enabled && isLobbyCommandWorking(client);
+    }
+
+    public static boolean shouldSendMessagesToGlobalChat(@NotNull MinecraftClient client) {
+        return isGlobalChatWorking(client) && GlobalChatHelper.INSTANCE.isEnabled();
     }
 }

@@ -10,8 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.bleudev.ppl_utils.PplUtilsConst.PEPELAND_IPS;
-import static com.bleudev.ppl_utils.PplUtilsConst.SUPPORTS_LOBBY_COMMAND_IPS;
+import static com.bleudev.ppl_utils.PplUtilsConst.*;
 
 public class ServerUtils {
     public static boolean isClientOn(@NotNull MinecraftClient client, String serverIp) {
@@ -34,6 +33,10 @@ public class ServerUtils {
         if (!isClientOn(client, SUPPORTS_LOBBY_COMMAND_IPS)) return false;
         if (isClientOnPepeland(client)) return !PepelandWorlds.isInLobby(client);
         return true;
+    }
+
+    public static boolean isGlobalChatWorking(@NotNull MinecraftClient client) {
+        return isClientOn(client, SUPPORTS_GLOBAL_CHAT_IPS);
     }
 
     public static class PepelandWorlds {
