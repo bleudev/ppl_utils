@@ -36,4 +36,12 @@ public class PplUtilsConst {
     );
 
     public static final String GLOBAL_CHAT_COMMAND = "g";
+    
+    // Animation constants
+    public static final float ANIMATION_STEP = 0.1f;
+    public static final int BETA_MESSAGE_COOLDOWN_TICKS = 10; // 10 minutes in ticks
+    
+    // Time conversion constants
+    public static final long MILLIS_PER_SECOND = 1_000L;
+    public static final long MILLIS_PER_MINUTE = 60_000L;
 }

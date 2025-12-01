@@ -68,6 +68,6 @@ public class PplUtilsConfig extends MidnightConfig {
         MidnightConfig.init(MOD_ID, PplUtilsConfig.class);
     }
     public static Screen getConfigScreen(Screen parent) {
-        return MidnightConfig.getScreen(parent, MOD_ID);
+        return MidnightConfig.getScreen(parent);
     }
 }

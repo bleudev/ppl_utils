@@ -28,6 +28,8 @@ public class Keys {
     public static final KeyBinding LOBBY_KEY = createKey("go_to_lobby", GLFW.GLFW_KEY_SEMICOLON, CATEGORY_GENERAL);
     public static final KeyBinding SEND_TO_GLOBAL_CHAT_KEY = createKey("send_to_global_chat", "key.categories.multiplayer");
     public static final KeyBinding TOGGLE_GLOBAL_CHAT_KEY = createKey("toggle_global_chat", CATEGORY_GENERAL);
+    public static final KeyBinding EXECUTABLE_QUEUE_KEY = createKey("executable_queue", GLFW.GLFW_KEY_Y, CATEGORY_GENERAL);
+    public static final KeyBinding EXECUTABLE_QUEUE_CLIPBOARD_KEY = createKey("executable_queue_clipboard", GLFW.GLFW_KEY_U, CATEGORY_GENERAL);
 
     public static void initialize() {}
 }

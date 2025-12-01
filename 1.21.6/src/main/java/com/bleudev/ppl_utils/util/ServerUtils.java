@@ -16,7 +16,12 @@ public class ServerUtils {
     public static boolean isClientOn(@NotNull MinecraftClient client, String serverIp) {
         final var server = client.getCurrentServerEntry();
         if (server == null) return false;
-        return Objects.equals(server.address, serverIp);
+        String address = server.address;
+        // Remove port if present (format: "host:port")
+        if (address.contains(":")) {
+            address = address.substring(0, address.indexOf(':'));
+        }
+        return Objects.equals(address, serverIp);
     }
     public static boolean isClientOn(@NotNull MinecraftClient client, @NotNull Collection<String> serverIps) {
         return serverIps.stream().anyMatch(n -> isClientOn(client, n));

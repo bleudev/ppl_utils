@@ -29,15 +29,37 @@ public abstract class GameMenuScreenMixin extends Screen {
     private Identifier getLobbyButtonTexture() {
         return PplUtilsConfig.lobby_button_style.getSprite();
     }
+    
+    @Unique
+    private int getLobbyButtonX() {
+        int centerX = this.width / 2;
+        return switch (PplUtilsConfig.lobby_button_position) {
+            case FIRST -> centerX - 125; // Current position (left of "Return to game")
+            case SECOND -> centerX + 105; // Right of "Статистика" (Statistics) - red square position
+            case THIRD -> centerX + 105; // Right of "Открыть для сети" - purple square position, shifted right
+        };
+    }
+    
+    @Unique
+    private int getLobbyButtonY() {
+        int baseY = this.height / 4 + 32;
+        return switch (PplUtilsConfig.lobby_button_position) {
+            case FIRST -> baseY;
+            case SECOND -> baseY + 24; // Same row as "Статистика"
+            case THIRD -> baseY + 72; // Same row as "Открыть для сети" (Open to LAN)
+        };
+    }
 
     @Unique
     private void drawLobbyButton(@NotNull MinecraftClient client) {
-        var btn = TextIconButtonWidget.builder(Text.translatable("text.ppl_utils.game_menu.lobby_button.tooltip"),
-            button -> executeLobby(client), true)
+        Text buttonText = Text.translatable("text.ppl_utils.game_menu.lobby_button.tooltip");
+        
+        // Use TextIconButtonWidget with texture
+        var btn = TextIconButtonWidget.builder(buttonText, button -> executeLobby(client), true)
             .texture(getLobbyButtonTexture(), 13, 13)
             .dimension(20, 20)
             .build();
-        btn.setPosition(this.width / 2 - 125, this.height / 4 + 32);
+        btn.setPosition(getLobbyButtonX(), getLobbyButtonY());
         if (PplUtilsConfig.lobby_button_tooltip_enabled) btn.setTooltip(Tooltip.of(btn.getMessage()));
         this.addDrawableChild(btn);
     }
