@@ -1,3 +1,7 @@
+# 2.7
+## New features
+[+] Render red screen when an error occurs (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))
+
 # 2.6
 ## New features
 [+] Toggle global chat keybind (with text overlay in chat with animation)\
