@@ -34,7 +34,9 @@ public class ServerUtils {
         if (isClientOnPepeland(client)) return !PepelandWorlds.isInLobby(client);
         return true;
     }
-
+    public static boolean isGSitWorking(@NotNull MinecraftClient client) {
+        return isClientOn(client, HAS_GSIT_IPS);
+    }
     public static boolean isGlobalChatWorking(@NotNull MinecraftClient client) {
         return isClientOn(client, SUPPORTS_GLOBAL_CHAT_IPS);
     }

@@ -11,8 +11,13 @@ import static com.bleudev.ppl_utils.util.ServerUtils.*;
 
 public class ClientCallbacks {
     public static void executeLobby(@NotNull MinecraftClient client) {
-        if (isLobbyCommandWorking(client))
-            executeCommand(client, "lobby");
+        if (isLobbyCommandWorking(client)) executeCommand(client, "lobby");
+    }
+    public static void executeSit(@NotNull MinecraftClient client) {
+        if (isGSitWorking(client)) executeCommand(client, "sit");
+    }
+    public static void executeLay(@NotNull MinecraftClient client) {
+        if (isGSitWorking(client)) executeCommand(client, "lay");
     }
 
     @Nullable

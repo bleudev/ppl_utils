@@ -25,9 +25,12 @@ public class Keys {
 
     public static final String CATEGORY_GENERAL = createCategory("general");
 
-    public static final KeyBinding LOBBY_KEY = createKey("go_to_lobby", GLFW.GLFW_KEY_SEMICOLON, CATEGORY_GENERAL);
     public static final KeyBinding SEND_TO_GLOBAL_CHAT_KEY = createKey("send_to_global_chat", "key.categories.multiplayer");
+
+    public static final KeyBinding LOBBY_KEY = createKey("go_to_lobby", GLFW.GLFW_KEY_SEMICOLON, CATEGORY_GENERAL);
     public static final KeyBinding TOGGLE_GLOBAL_CHAT_KEY = createKey("toggle_global_chat", CATEGORY_GENERAL);
+    public static final KeyBinding SIT_KEY = createKey("sit", CATEGORY_GENERAL);
+    public static final KeyBinding LAY_KEY = createKey("lay", CATEGORY_GENERAL);
 
     public static void initialize() {}
 }

@@ -24,7 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import org.jetbrains.annotations.NotNull;
 
-import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
+import static com.bleudev.ppl_utils.ClientCallbacks.*;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
@@ -80,6 +80,8 @@ public class PepelandUtils implements ClientModInitializer {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
+            while (Keys.SIT_KEY.wasPressed()) executeSit(client);
+            while (Keys.LAY_KEY.wasPressed()) executeLay(client);
             while (Keys.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
                 if (isGlobalChatWorking(client))
                     client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " ", false));
