@@ -49,5 +49,7 @@
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_6": "6 делений",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_10": "10 делений",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_12": "12 делений",
-  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 делений"
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 делений",
+  "ppl_utils.midnightconfig.misc_comment": "Разное",
+  "ppl_utils.midnightconfig.render_error_screen": "Показывать красный экран когда возникает ошибка"
 }

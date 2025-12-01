@@ -156,7 +156,7 @@ public class PepelandUtils implements ClientModInitializer {
         int w = ctx.getScaledWindowWidth();
 
         int redColor = ColorHelper.withAlpha(errorScreenHelper.getRedness(), 0xff0000);
-        System.out.println("redness " + errorScreenHelper.getRedness());
-        ctx.fill(0, 0, w, h, redColor);
+        if (PplUtilsConfig.render_error_screen)
+            ctx.fill(0, 0, w, h, redColor);
     }
 }

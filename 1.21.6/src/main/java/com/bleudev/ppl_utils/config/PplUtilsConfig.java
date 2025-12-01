@@ -60,6 +60,11 @@ public class PplUtilsConfig extends MidnightConfig {
     @Entry
     public static Style restart_bar_style = Style.PROGRESS;
 
+    @Comment(centered = true)
+    public static Comment misc_comment;
+    @Entry
+    public static boolean render_error_screen = true;
+
     @Override
     public void writeChanges(String modid) {
         super.writeChanges(modid);

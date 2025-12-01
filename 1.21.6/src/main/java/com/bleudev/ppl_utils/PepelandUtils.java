@@ -26,6 +26,7 @@ import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
+import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.ServerUtils.isGlobalChatWorking;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
@@ -102,14 +103,14 @@ public class PepelandUtils implements ClientModInitializer {
     }
 
     private void tryStartWithMessage(@NotNull String message) {
-//        if (!isClientOnPepeland()) return;
+        if (!isClientOnPepeland()) return;
         message = message
                 .replaceAll("<[^< >]+> *", "");
         if (tryStartRestartBar(message)) return;
         if (tryStartErrorScreen(message)) return;
     }
 
-    private boolean tryStartRestartBar(String restartMessage) {
+    private boolean tryStartRestartBar(@NotNull String restartMessage) {
         var content = restartMessage
             .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
         try {
@@ -150,7 +151,7 @@ public class PepelandUtils implements ClientModInitializer {
         int w = ctx.getScaledWindowWidth();
 
         int redColor = ColorHelper.withAlpha(errorScreenHelper.getRedness(), 0xff0000);
-        System.out.println("redness " + errorScreenHelper.getRedness());
-        ctx.fill(0, 0, w, h, redColor);
+        if (PplUtilsConfig.render_error_screen)
+            ctx.fill(0, 0, w, h, redColor);
     }
 }

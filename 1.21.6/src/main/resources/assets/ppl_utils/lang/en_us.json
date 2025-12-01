@@ -49,5 +49,7 @@
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_6": "6 divisions",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_10": "10 divisions",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_12": "12 divisions",
-  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 divisions"
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 divisions",
+  "ppl_utils.midnightconfig.misc_comment": "Miscellaneous",
+  "ppl_utils.midnightconfig.render_error_screen": "Render red screen when an error occurs"
 }
