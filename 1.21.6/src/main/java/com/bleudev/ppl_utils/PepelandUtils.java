@@ -11,8 +11,6 @@ import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourceReloadListenerKeys;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -28,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
-import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerCache.isGlobalChatWorking;
 import static com.bleudev.ppl_utils.util.ServerCache.isLobbyCommandWorking;
@@ -88,7 +85,8 @@ public class PepelandUtils implements ClientModInitializer {
                 // This is a workaround - the mixin will handle actual cancellation
                 return;
             }
-            tryStartRestartBar(message);
+            // Process restart messages (always allow restart messages to be displayed)
+            processRestartMessage(message);
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
@@ -137,20 +135,19 @@ public class PepelandUtils implements ClientModInitializer {
         });
     }
 
-    private void tryStartRestartBar(Text restartMessage) {
-        if (!isOnPepeland(MinecraftClient.getInstance())) return;
-
-        var content = restartMessage.getString()
-            .replaceAll("<[^< >]+> *", "")
-            .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
-        try {
-            if (content.contains("Рестарт через")) {
-                LOGGER.info("Got restart message: {}", content);
-                var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
-                RestartHelper.runRestartBar(time * (anySubstringMatches(content, "минут[а-я]*") ? MILLIS_PER_MINUTE : MILLIS_PER_SECOND));
-            }
-        } catch (NumberFormatException ignored) {
-            LOGGER.error("Unexpected number format exception while parsing \"{}\" string. Please report about it.", content);
+    private void processRestartMessage(Text message) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        // Check server only if not ignoring server check
+        boolean shouldProcess = PplUtilsConfig.restart_bar_ignore_server_check 
+            || isOnPepeland(client);
+        
+        if (!shouldProcess) return;
+        
+        // Use the new parser to extract restart time
+        Long restartTime = com.bleudev.ppl_utils.util.helper.RestartMessageParser.parseRestartTime(message);
+        
+        if (restartTime != null) {
+            RestartHelper.runRestartBar(restartTime);
         }
     }
 

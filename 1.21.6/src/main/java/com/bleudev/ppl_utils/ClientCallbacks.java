@@ -45,6 +45,11 @@ public class ClientCallbacks {
     }
 
     public static boolean shouldRenderChatMessage(ChatHudLine message) {
+        // Always show restart messages (they are important system messages)
+        if (com.bleudev.ppl_utils.util.helper.RestartMessageParser.isRestartMessage(message.content())) {
+            return true;
+        }
+        
         // First check chat filter - this should always be checked
         if (!com.bleudev.ppl_utils.feature.chatfilter.ChatFilter.shouldDisplayMessage(message.content())) {
             return false;

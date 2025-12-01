@@ -5,6 +5,7 @@ import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,6 +16,41 @@ public class ChatFilter {
     public enum FilterMode {
         WHITELIST,
         BLACKLIST
+    }
+    
+    // Cache for lowercase filter words
+    private static List<String> cachedLowercaseWords = null;
+    private static List<String> lastFilterWords = null;
+    
+    /**
+     * Gets filter words in lowercase, using cache if available.
+     */
+    @NotNull
+    private static List<String> getLowercaseWords() {
+        List<String> currentWords = PplUtilsConfig.chat_filter_words;
+        
+        if (currentWords == null) {
+            return new ArrayList<>();
+        }
+        
+        // Rebuild cache only if list changed
+        if (cachedLowercaseWords == null || !currentWords.equals(lastFilterWords)) {
+            cachedLowercaseWords = new ArrayList<>(currentWords.size());
+            for (String word : currentWords) {
+                cachedLowercaseWords.add(word.toLowerCase(Locale.ROOT));
+            }
+            lastFilterWords = new ArrayList<>(currentWords);
+        }
+        
+        return cachedLowercaseWords;
+    }
+    
+    /**
+     * Invalidates the filter words cache. Should be called when filter words are modified.
+     */
+    public static void invalidateCache() {
+        cachedLowercaseWords = null;
+        lastFilterWords = null;
     }
     
     /**
@@ -29,26 +65,30 @@ public class ChatFilter {
         }
         
         String messageText = message.getString().toLowerCase(Locale.ROOT);
-        List<String> filterWords = PplUtilsConfig.chat_filter_words;
+        List<String> filterWords = getLowercaseWords();
         
-        if (filterWords == null || filterWords.isEmpty()) {
+        if (filterWords.isEmpty()) {
             // If no words in filter, whitelist mode shows nothing, blacklist shows everything
             return PplUtilsConfig.chat_filter_mode == PplUtilsConfig.ChatFilterMode.BLACKLIST;
         }
         
-        // Check if message contains any filter word
-        boolean containsFilterWord = filterWords.stream()
-            .anyMatch(word -> {
-                String lowerWord = word.toLowerCase(Locale.ROOT);
-                return messageText.contains(lowerWord);
-            });
-        
-        if (PplUtilsConfig.chat_filter_mode == PplUtilsConfig.ChatFilterMode.WHITELIST) {
-            // Whitelist: only show messages containing filter words
-            return containsFilterWord;
+        // Use regular loop instead of stream for better performance
+        // Early exit for blacklist mode (hide on first match)
+        if (PplUtilsConfig.chat_filter_mode == PplUtilsConfig.ChatFilterMode.BLACKLIST) {
+            for (String word : filterWords) {
+                if (messageText.contains(word)) {
+                    return false; // Early exit: hide message
+                }
+            }
+            return true; // No matches found, show message
         } else {
-            // Blacklist: hide messages containing filter words
-            return !containsFilterWord;
+            // Whitelist mode: show only if contains any word
+            for (String word : filterWords) {
+                if (messageText.contains(word)) {
+                    return true; // Early exit: show message
+                }
+            }
+            return false; // No matches found, hide message
         }
     }
     
@@ -106,6 +146,7 @@ public class ChatFilter {
         
         if (!PplUtilsConfig.chat_filter_words.contains(lowerWord)) {
             PplUtilsConfig.chat_filter_words.add(lowerWord);
+            invalidateCache(); // Invalidate cache when words change
             // Automatically enable filter when adding first word
             if (!PplUtilsConfig.chat_filter_enabled) {
                 PplUtilsConfig.chat_filter_enabled = true;
@@ -128,6 +169,7 @@ public class ChatFilter {
         String lowerWord = word.toLowerCase(Locale.ROOT).trim();
         boolean removed = PplUtilsConfig.chat_filter_words.remove(lowerWord);
         if (removed) {
+            invalidateCache(); // Invalidate cache when words change
             PplUtilsConfig.saveConfig();
         }
         return removed;

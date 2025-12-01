@@ -14,32 +14,14 @@ public class DiamondCounter {
      * Counts total diamonds from all slots
      */
     public static int countDiamondsFromSlots(@NotNull List<Slot> slots) {
-        int total = 0;
-        for (Slot slot : slots) {
-            if (slot == null || !slot.hasStack()) continue;
-            ItemStack stack = slot.getStack();
-            
-            if (stack.getItem() == Items.DIAMOND) {
-                total += stack.getCount();
-            }
-        }
-        return total;
+        return countItemsFromSlots(slots, Items.DIAMOND);
     }
     
     /**
      * Counts total diamond blocks from all slots
      */
     public static int countDiamondBlocksFromSlots(@NotNull List<Slot> slots) {
-        int total = 0;
-        for (Slot slot : slots) {
-            if (slot == null || !slot.hasStack()) continue;
-            ItemStack stack = slot.getStack();
-            
-            if (stack.getItem() == Items.DIAMOND_BLOCK) {
-                total += stack.getCount();
-            }
-        }
-        return total;
+        return countItemsFromSlots(slots, Items.DIAMOND_BLOCK);
     }
     
     /**
@@ -62,32 +44,14 @@ public class DiamondCounter {
      * Counts total diamonds
      */
     public static int countDiamonds(@NotNull Inventory inventory) {
-        int total = 0;
-        for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
-            if (stack.isEmpty()) continue;
-            
-            if (stack.getItem() == Items.DIAMOND) {
-                total += stack.getCount();
-            }
-        }
-        return total;
+        return countItems(inventory, Items.DIAMOND);
     }
     
     /**
      * Counts total diamond blocks
      */
     public static int countDiamondBlocks(@NotNull Inventory inventory) {
-        int total = 0;
-        for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
-            if (stack.isEmpty()) continue;
-            
-            if (stack.getItem() == Items.DIAMOND_BLOCK) {
-                total += stack.getCount();
-            }
-        }
-        return total;
+        return countItems(inventory, Items.DIAMOND_BLOCK);
     }
     
     /**

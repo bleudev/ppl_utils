@@ -72,6 +72,15 @@ public class PplUtilsConfig extends MidnightConfig {
     @Condition(requiredOption = "render_restart_bar")
     @Entry
     public static Style restart_bar_style = Style.PROGRESS;
+    @Condition(requiredOption = "render_restart_bar", visibleButLocked = true)
+    @Entry
+    public static boolean restart_bar_ignore_server_check = false;
+    @Entry
+    public static boolean restart_bar_sound_start = true;
+    @Entry
+    public static boolean restart_bar_sound_interval = true;
+    @Entry
+    public static boolean restart_bar_sound_end = true;
 
     @Comment(centered = true)
     public static Comment inventory_slot_count_comment;
@@ -133,9 +142,6 @@ public class PplUtilsConfig extends MidnightConfig {
                 com.bleudev.ppl_utils.PplUtilsConst.LOGGER.error("Failed to load config, using defaults", e2);
             }
         }
-        
-        // Run migrations
-        ConfigMigration.migrate();
         
         // Validate config
         validateConfig();

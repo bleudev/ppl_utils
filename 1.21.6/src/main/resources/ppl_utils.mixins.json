@@ -10,7 +10,6 @@
         "GameMenuScreenMixin",
         "HandledScreenMixin",
         "InGameHudMixin",
-        "InventoryScreenMixin",
         "PlayerListHudAccessor"
     ],
     "injectors": {
