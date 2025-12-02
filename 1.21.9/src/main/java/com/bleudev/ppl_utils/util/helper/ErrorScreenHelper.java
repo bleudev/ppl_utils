@@ -3,6 +3,8 @@ package com.bleudev.ppl_utils.util.helper;
 import org.jetbrains.annotations.NotNull;
 
 public class ErrorScreenHelper {
+    public static ErrorScreenHelper INSTANCE = null;
+
     public enum ErrorScreenReason {
         WORLD_JOIN(5, 10, .2f),
         MISC(5, 5, 10, .3f);

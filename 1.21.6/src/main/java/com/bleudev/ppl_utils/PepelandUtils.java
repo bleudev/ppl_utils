@@ -7,7 +7,6 @@ import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -24,9 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.*;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
-import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
-import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.ServerUtils.isGlobalChatWorking;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
@@ -34,7 +31,6 @@ import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 public class PepelandUtils implements ClientModInitializer {
     private int beta_mode_message_ticks;
     private RestartHelper restartHelper;
-    private ErrorScreenHelper errorScreenHelper;
 
     public static final Identifier AFTER_CHAT_OVERLAY = getIdentifier("after_chat_overlay");
     public static final Identifier OVERLAY = getIdentifier("overlay");
@@ -54,7 +50,7 @@ public class PepelandUtils implements ClientModInitializer {
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();
         GlobalChatHelper.INSTANCE = new GlobalChatHelper(false);
-        errorScreenHelper = new ErrorScreenHelper();
+        ErrorScreenHelper.INSTANCE = new ErrorScreenHelper();
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             LOGGER.info("Try send beta mode message");
@@ -70,7 +66,6 @@ public class PepelandUtils implements ClientModInitializer {
             }
         });
         ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) -> restartHelper.onDisconnect());
-        ClientReceiveMessageEvents.CHAT.register((t, a1, a2, a3, a4) -> tryStartWithMessage(t.getString()));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
@@ -89,7 +84,7 @@ public class PepelandUtils implements ClientModInitializer {
 
             if (client.player == null) return;
             restartHelper.update(client);
-            errorScreenHelper.tick();
+            ErrorScreenHelper.INSTANCE.tick();
 
             if (GlobalChatHelper.INSTANCE.isEnabled()) {
                 if (client.inGameHud.getChatHud().isChatFocused())
@@ -102,38 +97,6 @@ public class PepelandUtils implements ClientModInitializer {
         // Hud
         HudElementRegistry.attachElementAfter(VanillaHudElements.CHAT, AFTER_CHAT_OVERLAY, this::renderAfterChatOverlay);
         HudElementRegistry.addLast(OVERLAY, this::renderOverlay);
-    }
-
-    private void tryStartWithMessage(@NotNull String message) {
-        if (!isClientOnPepeland()) return;
-        message = message
-                .replaceAll("<[^< >]+> *", "");
-        if (tryStartRestartBar(message)) return;
-        if (tryStartErrorScreen(message)) return;
-    }
-
-    private boolean tryStartRestartBar(@NotNull String restartMessage) {
-        var content = restartMessage
-            .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
-        try {
-            if (content.contains("Рестарт через")) {
-                LOGGER.info("Got restart message: {}", content);
-                var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
-                RestartHelper.runRestartBar(time * (anySubstringMatches(content, "минут[а-я]*") ? 60_000 : 1_000));
-                return true;
-            }
-        } catch (NumberFormatException ignored) {
-            LOGGER.error("Unexpected number format exception while parsing \"{}\" string. Please report about it.", content);
-        }
-        return false;
-    }
-
-    private boolean tryStartErrorScreen(@NotNull String errorMessage) {
-        if (errorMessage.startsWith("Вы еще не можете зайти на сервер")) {
-            errorScreenHelper.cause(ErrorScreenHelper.ErrorScreenReason.WORLD_JOIN);
-            return true;
-        }
-        return false;
     }
 
     private void renderAfterChatOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
@@ -152,7 +115,7 @@ public class PepelandUtils implements ClientModInitializer {
         int h = ctx.getScaledWindowHeight();
         int w = ctx.getScaledWindowWidth();
 
-        int redColor = ColorHelper.withAlpha(errorScreenHelper.getRedness(), 0xff0000);
+        int redColor = ColorHelper.withAlpha(ErrorScreenHelper.INSTANCE.getRedness(), 0xff0000);
         if (PplUtilsConfig.render_error_screen)
             ctx.fill(0, 0, w, h, redColor);
     }
