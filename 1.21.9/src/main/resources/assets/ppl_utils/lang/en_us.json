@@ -5,6 +5,8 @@
 
   "key.category.ppl_utils.general": "Pepeland Utils",
   "key.ppl_utils.go_to_lobby": "Go to the lobby",
+  "key.ppl_utils.sit": "Sit",
+  "key.ppl_utils.lay": "Lay",
   "key.ppl_utils.toggle_global_chat": "Toggle auto global chat",
   "key.ppl_utils.send_to_global_chat": "Send to global chat",
 
@@ -49,5 +51,7 @@
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_6": "6 divisions",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_10": "10 divisions",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_12": "12 divisions",
-  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 divisions"
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 divisions",
+  "ppl_utils.midnightconfig.misc_comment": "Miscellaneous",
+  "ppl_utils.midnightconfig.render_error_screen": "Render red screen when an error occurs"
 }

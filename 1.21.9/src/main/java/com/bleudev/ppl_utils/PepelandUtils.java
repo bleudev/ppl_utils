@@ -3,11 +3,11 @@ package com.bleudev.ppl_utils;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.custom.Keys;
 import com.bleudev.ppl_utils.custom.debug.hud.WorldBorderDebugHudEntry;
+import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
 import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -23,11 +23,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import org.jetbrains.annotations.NotNull;
 
-import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
+import static com.bleudev.ppl_utils.ClientCallbacks.*;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
-import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
-import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 import static com.bleudev.ppl_utils.util.ServerUtils.isGlobalChatWorking;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
@@ -37,6 +35,7 @@ public class PepelandUtils implements ClientModInitializer {
     private RestartHelper restartHelper;
 
     public static final Identifier AFTER_CHAT_OVERLAY = getIdentifier("after_chat_overlay");
+    public static final Identifier OVERLAY = getIdentifier("overlay");
 
     private float globalChatEnabledAnim = 0f;
 
@@ -49,9 +48,11 @@ public class PepelandUtils implements ClientModInitializer {
         DataStorageHelper.load();
         DataStorageHelper.save();
 
+        // Initialize base values
         beta_mode_message_ticks = 0;
         restartHelper = new RestartHelper();
         GlobalChatHelper.INSTANCE = new GlobalChatHelper(false);
+        ErrorScreenHelper.INSTANCE = new ErrorScreenHelper();
 
         LOGGER.debug("Register {} debug hud entry", getIdentifier("world_border"));
         DebugHudEntries.register(getIdentifier("world_border"), new WorldBorderDebugHudEntry());
@@ -70,11 +71,12 @@ public class PepelandUtils implements ClientModInitializer {
             }
         });
         ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) -> restartHelper.onDisconnect());
-        ClientReceiveMessageEvents.CHAT.register((t, a1, a2, a3, a4) -> tryStartRestartBar(t));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
+            while (Keys.SIT_KEY.wasPressed()) executeSit(client);
+            while (Keys.LAY_KEY.wasPressed()) executeLay(client);
             while (Keys.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
                 if (isGlobalChatWorking(client))
                     client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " ", false));
@@ -87,6 +89,7 @@ public class PepelandUtils implements ClientModInitializer {
 
             if (client.player == null) return;
             restartHelper.update(client);
+            ErrorScreenHelper.INSTANCE.tick();
 
             if (GlobalChatHelper.INSTANCE.isEnabled()) {
                 if (client.inGameHud.getChatHud().isChatFocused())
@@ -98,23 +101,7 @@ public class PepelandUtils implements ClientModInitializer {
 
         // Hud
         HudElementRegistry.attachElementAfter(VanillaHudElements.CHAT, AFTER_CHAT_OVERLAY, this::renderAfterChatOverlay);
-    }
-
-    private void tryStartRestartBar(Text restartMessage) {
-        if (!isClientOnPepeland()) return;
-
-        var content = restartMessage.getString()
-            .replaceAll("<[^< >]+> *", "")
-            .replaceAll("\\[PPL[0-9]*]: ", ""); // Ignore Pepeland prefixes
-        try {
-            if (content.contains("Рестарт через")) {
-                LOGGER.info("Got restart message: {}", content);
-                var time = Long.parseLong(content.replaceAll("[^0-9]", ""));
-                RestartHelper.runRestartBar(time * (anySubstringMatches(content, "минут[а-я]*") ? 60_000 : 1_000));
-            }
-        } catch (NumberFormatException ignored) {
-            LOGGER.error("Unexpected number format exception while parsing \"{}\" string. Please report about it.", content);
-        }
+        HudElementRegistry.addLast(OVERLAY, this::renderOverlay);
     }
 
     private void renderAfterChatOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
@@ -127,5 +114,14 @@ public class PepelandUtils implements ClientModInitializer {
         int vignetteColor = ColorHelper.fromFloats(globalChatEnabledAnim, globalChatEnabledAnim / 2, globalChatEnabledAnim / 2, 0);
         ctx.drawTexture(RenderPipelines.VIGNETTE, vignette_texture, 0, 0, 0, 0, w, h, w, h, vignetteColor);
         ctx.drawText(client.textRenderer, Text.translatable("ppl_utils.text.overlay.global_chat_enabled"), 10, 10, globalColor, true);
+    }
+
+    private void renderOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
+        int h = ctx.getScaledWindowHeight();
+        int w = ctx.getScaledWindowWidth();
+
+        int redColor = ColorHelper.withAlpha(ErrorScreenHelper.INSTANCE.getRedness(), 0xff0000);
+        if (PplUtilsConfig.render_error_screen)
+            ctx.fill(0, 0, w, h, redColor);
     }
 }

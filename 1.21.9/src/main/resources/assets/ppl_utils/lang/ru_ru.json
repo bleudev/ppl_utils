@@ -5,6 +5,8 @@
 
   "key.category.ppl_utils.general": "Pepeland Utils",
   "key.ppl_utils.go_to_lobby": "Отправиться в лобби",
+  "key.ppl_utils.sit": "Сесть",
+  "key.ppl_utils.lay": "Лечь",
   "key.ppl_utils.toggle_global_chat": "Переключить авто глобальный чат",
   "key.ppl_utils.send_to_global_chat": "Отправить в глобальный чат",
 
@@ -49,5 +51,7 @@
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_6": "6 делений",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_10": "10 делений",
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_12": "12 делений",
-  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 делений"
+  "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 делений",
+  "ppl_utils.midnightconfig.misc_comment": "Разное",
+  "ppl_utils.midnightconfig.render_error_screen": "Показывать красный экран когда возникает ошибка"
 }
