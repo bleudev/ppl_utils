@@ -1,6 +1,10 @@
 # 2.7
 ## New features
-[+] Render red screen when an error occurs (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))
+[+] Render red screen when an error occurs (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))\
+[+] `/sit` and `/lay` commands keybinds (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))
+## Bug fixes
+[/] Mod menu config doesn't work on 1.21.6+ (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))\
+[/] Restart bar doesn't work (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))
 
 # 2.6
 ## New features
