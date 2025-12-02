@@ -1,4 +1,6 @@
 # 2.7
+## Depends updates
+[/] Minimal midnightlib version now is `1.9.1`
 ## New features
 [+] Render red screen when an error occurs (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))\
 [+] `/sit` and `/lay` commands keybinds (bleudev [#27](https://github.com/bleudev/ppl_utils/pull/27))
@@ -10,13 +12,8 @@
 ## New features
 [+] Toggle global chat keybind (with text overlay in chat with animation)\
 [+] Send to global chat keybind (to open chat with global chat command)
-
 ## Fixes
 [+] Added `neo.play.pepeland.net` to pepeland ips. If you play at it, you're welcome)
-
-# 2.5.1
-## Bug fixes
-[/] Restart bar doesn't work (bleudev [#20](https://github.com/bleudev/ppl_utils/pull/20))
 
 # 2.5
 ## Breaking changes
