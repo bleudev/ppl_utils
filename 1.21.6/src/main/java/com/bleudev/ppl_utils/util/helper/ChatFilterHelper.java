@@ -4,6 +4,8 @@ import com.bleudev.ppl_utils.config.PplUtilsConfig;
 
 import java.util.regex.Pattern;
 
+import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
+
 public class ChatFilterHelper {
     private static final String PSTR_NICKNAME = "[^ \\[\\]+-]+";
     private static final Pattern NICKNAME = Pattern.compile(PSTR_NICKNAME);
@@ -39,6 +41,7 @@ public class ChatFilterHelper {
     }
 
     public static boolean shouldRenderChatMessage(String message) {
+        if (!isClientOnPepeland()) return true;
         if (!PplUtilsConfig.do_join_leave_messages_rendering && (JoinLeaveMessages.isJoinMessage(message) || JoinLeaveMessages.isLeaveMessage(message)))
             return JoinLeaveMessages.ignoreJoinLeaveMessage(message);
         // In the future, there will be chat filter
