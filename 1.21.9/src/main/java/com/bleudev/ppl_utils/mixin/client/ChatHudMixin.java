@@ -8,14 +8,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.bleudev.ppl_utils.ClientCallbacks.shouldRenderChatMessage;
 import static com.bleudev.ppl_utils.ClientCallbacks.tryStartWithMessage;
+import static com.bleudev.ppl_utils.util.helper.ChatFilterHelper.shouldRenderChatMessage;
 
 @Mixin(ChatHud.class)
 public class ChatHudMixin {
     @Inject(method = "addVisibleMessage", at = @At("HEAD"), cancellable = true)
     private void cancelRenderingOfSomeMessages(ChatHudLine message, CallbackInfo ci) {
-        if (!shouldRenderChatMessage(message)) ci.cancel();
+        if (!shouldRenderChatMessage(message.content().getString())) ci.cancel();
     }
 
     @Inject(method = "addMessage(Lnet/minecraft/client/gui/hud/ChatHudLine;)V", at = @At("HEAD"))
