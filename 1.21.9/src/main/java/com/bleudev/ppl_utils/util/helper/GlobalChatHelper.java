@@ -26,6 +26,9 @@ public class GlobalChatHelper {
     public void toggle() {
         enabled = !enabled;
     }
+    public void turnOff() {
+        enabled = false;
+    }
 
     public void sendToggleMessage(@NotNull MinecraftClient client) {
         if (client.player != null)

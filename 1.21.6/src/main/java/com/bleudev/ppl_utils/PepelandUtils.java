@@ -65,7 +65,10 @@ public class PepelandUtils implements ClientModInitializer {
                 LOGGER.info("Successfully sent beta mode message");
             }
         });
-        ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) -> restartHelper.onDisconnect());
+        ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) -> {
+            restartHelper.onDisconnect();
+            GlobalChatHelper.INSTANCE.turnOff();
+        });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
