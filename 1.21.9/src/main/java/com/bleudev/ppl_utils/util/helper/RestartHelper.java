@@ -71,7 +71,7 @@ public class RestartHelper {
             rtUuid, text,
             1f - (float) remainingTime / restartTime,
             PplUtilsConfig.restart_bar_color, PplUtilsConfig.restart_bar_style,
-            false, false, true);
+            false, false, false);
     }
 
     @Contract(pure = true)
