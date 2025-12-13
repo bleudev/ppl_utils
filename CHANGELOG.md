@@ -1,3 +1,9 @@
+# 2.7.1
+## Fixes
+[-] Disable thicken fog\
+[/] Join/leave messages are visible with Figura installed\
+[/] Global chat screen effect is visible on servers doesn't support it
+
 # 2.7
 ## Depends updates
 [/] Minimal midnightlib version now is `1.9.1`
