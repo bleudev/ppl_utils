@@ -1,3 +1,8 @@
+# 2.8 (unreleased)
+## Depends updates
+[/] \[DEV] Gradle version was bumped to `9.2.0`\
+[/] \[DEV] Loom version was bumped to `1.14-SHAPSHOT`
+
 # 2.7.1
 ## Fixes
 [-] Disable thicken fog\
