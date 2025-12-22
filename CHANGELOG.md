@@ -1,4 +1,6 @@
-# 2.8 (unreleased)
+# 2.7.2
+## Bug fixes
+[/] Going to lobby or joining world crashes game when restart bar is running (bleudev, thanks Milkich22397 for bug report) ([#36](https://github.com/bleudev/ppl_utils/issues/36))
 ## Depends updates
 [/] \[DEV] Gradle version was bumped to `9.2.0`\
 [/] \[DEV] Loom version was bumped to `1.14-SHAPSHOT`
