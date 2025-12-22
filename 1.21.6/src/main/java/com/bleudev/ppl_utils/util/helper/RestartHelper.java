@@ -2,6 +2,7 @@ package com.bleudev.ppl_utils.util.helper;
 
 import com.bleudev.ppl_utils.DataStorageHelper;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
+import com.bleudev.ppl_utils.mixin.client.BossBarHudAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;
@@ -27,7 +28,6 @@ public class RestartHelper {
         DataStorageHelper.save(new DataStorageHelper.StorageData(startRestartTime, restartTime));
     }
 
-    private boolean added_boss_bar = false;
     public void update(@NotNull MinecraftClient client) {
         restartTime = DataStorageHelper.getData().restartTime();
         startRestartTime = DataStorageHelper.getData().startRestartTime();
@@ -36,25 +36,21 @@ public class RestartHelper {
         var hud = client.inGameHud.getBossBarHud();
 
         if (bossBar == null) {
-            if (added_boss_bar) {
+            if (isBossBarThere())
                 hud.handlePacket(BossBarS2CPacket.remove(rtUuid));
-                added_boss_bar = false;
-            }
             return;
         }
 
-        if (added_boss_bar) {
+        if (isBossBarThere()) {
             hud.handlePacket(BossBarS2CPacket.updateName(bossBar));
             hud.handlePacket(BossBarS2CPacket.updateProgress(bossBar));
             hud.handlePacket(BossBarS2CPacket.updateStyle(bossBar));
-        } else {
-            hud.handlePacket(BossBarS2CPacket.add(bossBar));
-            added_boss_bar = true;
-        }
+        } else hud.handlePacket(BossBarS2CPacket.add(bossBar));
     }
 
-    public void onDisconnect() {
-        added_boss_bar = false;
+    private boolean isBossBarThere() {
+        var bossBars = ((BossBarHudAccessor) MinecraftClient.getInstance().inGameHud.getBossBarHud()).ppl_utils$bossBars();
+        return bossBars.containsKey(rtUuid);
     }
 
     @Contract(" -> new")

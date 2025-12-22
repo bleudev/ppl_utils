@@ -4,6 +4,7 @@
     "package": "com.bleudev.ppl_utils.mixin.client",
     "compatibilityLevel": "JAVA_21",
     "client": [
+        "BossBarHudAccessor",
         "ChatHudMixin",
         "ChatScreenMixin",
         "DebugHudMixin",
