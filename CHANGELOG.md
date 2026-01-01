@@ -3,4 +3,5 @@
 [/] \[DEV] Set Fabric Loom version to 1.14.10
 ## New features
 [+] Restart bar appearing sound\
-[/] \[DEV] Client thinks that it is on Pepeland in development environment
+[/] \[DEV] Client thinks that it is on Pepeland in development environment\
+[+] \[DEV] Setup modrinth publishing

@@ -1,5 +1,6 @@
 plugins {
     id("fabric-loom")
+    id("com.modrinth.minotaur")
     id("maven-publish")
 }
 
@@ -86,6 +87,27 @@ jar {
         rename { "${it}_${project.archivesBaseName}" }
     }
 }
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "ppl_utils"
+    versionNumber = project.version as String
+    versionType = "release"
+    uploadFile = tasks.remapJar
+    additionalFiles = [tasks.remapSourcesJar]
+    changelog = rootProject.file("CHANGELOG.md").text
+    syncBodyFrom = rootProject.file("README.md").text
+    gameVersions = ["1.21.9", "1.21.10", "1.21.11"]
+    loaders = ["fabric"]
+    dependencies {
+        required.project("fabric-api")
+        required.project("midnightlib")
+        required.project("viafabricplus")
+        optional.project("modmenu")
+        optional.project("modmenu-badges-lib")
+    }
+}
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 // configure the maven publication
 publishing {
