@@ -5,7 +5,11 @@ import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.mixin.client.BossBarHudAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ClientBossBar;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.network.packet.s2c.play.BossBarS2CPacket;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Contract;
@@ -26,6 +30,14 @@ public class RestartHelper {
         RestartHelper.restartTime = restartTime;
         startRestartTime = System.currentTimeMillis();
         DataStorageHelper.save(new DataStorageHelper.StorageData(startRestartTime, restartTime));
+
+        // Play sound
+        if (!PplUtilsConfig.play_restart_bar_appearing_sound) return;
+        var client = MinecraftClient.getInstance();
+        if (client.player != null) client.getSoundManager().play(new PositionedSoundInstance(
+            SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP.id(), SoundCategory.UI, 1f, 1f,
+            client.player.getRandom(), false, 0, SoundInstance.AttenuationType.LINEAR, 0, 1, 0, true
+        ));
     }
 
     public void update(@NotNull MinecraftClient client) {

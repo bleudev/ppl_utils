@@ -1,6 +1,7 @@
 package com.bleudev.ppl_utils.util;
 
 import com.bleudev.ppl_utils.mixin.client.PlayerListHudAccessor;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,6 +24,7 @@ public class ServerUtils {
     }
 
     public static boolean isClientOnPepeland(@NotNull MinecraftClient client) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return true;
         return isClientOn(client, PEPELAND_IPS);
     }
     public static boolean isClientOnPepeland() {
