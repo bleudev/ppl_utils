@@ -60,6 +60,9 @@ public class PplUtilsConfig extends MidnightConfig {
     @Condition(requiredOption = "render_restart_bar")
     @Entry
     public static Style restart_bar_style = Style.PROGRESS;
+    @Condition(requiredOption = "render_restart_bar")
+    @Entry
+    public static boolean play_restart_bar_appearing_sound = true;
 
     @Comment(centered = true)
     public static Comment misc_comment;
