@@ -15,6 +15,7 @@ import static com.bleudev.ppl_utils.PplUtilsConst.*;
 
 public class ServerUtils {
     public static boolean isClientOn(@NotNull MinecraftClient client, String serverIp) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return true;
         final var server = client.getCurrentServerEntry();
         if (server == null) return false;
         return Objects.equals(server.address, serverIp);
@@ -24,7 +25,6 @@ public class ServerUtils {
     }
 
     public static boolean isClientOnPepeland(@NotNull MinecraftClient client) {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return true;
         return isClientOn(client, PEPELAND_IPS);
     }
     public static boolean isClientOnPepeland() {
@@ -82,7 +82,12 @@ public class ServerUtils {
     public static void executeCommand(@NotNull MinecraftClient client, @NotNull String command) {
         Objects.requireNonNull(client.getNetworkHandler()).sendChatCommand(command);
     }
-    public static void executeCommand(String command) {
-        executeCommand(MinecraftClient.getInstance(), command);
+
+    public static int getPing(@NotNull MinecraftClient client) {
+        // TODO: Use Pepeland latency provider (idk how it works, i'd checked ALL player list hud code)
+        if (client.player == null || !isClientOnPepeland(client)) return -1;
+        var entry = client.player.networkHandler.getPlayerListEntry(client.player.getGameProfile().name());
+        if (entry == null) return -1;
+        return entry.getLatency();
     }
 }

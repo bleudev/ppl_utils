@@ -3,6 +3,7 @@ package com.bleudev.ppl_utils;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.custom.Keys;
 import com.bleudev.ppl_utils.custom.debug.hud.WorldBorderDebugHudEntry;
+import com.bleudev.ppl_utils.util.ServerUtils;
 import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
 import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
@@ -87,8 +88,12 @@ public class PepelandUtils implements ClientModInitializer {
                     GlobalChatHelper.INSTANCE.sendToggleMessage(client);
                 } else GlobalChatHelper.INSTANCE.sendToggleErrorMessage(client);
             }
-
             if (client.player == null) return;
+            while (Keys.SHOW_PING.wasPressed()) {
+                var p = ServerUtils.getPing(client);
+                if (p == -1) client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.failure").formatted(Formatting.RED), true);
+                else client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.success", p), true);
+            }
             restartHelper.update(client);
             ErrorScreenHelper.INSTANCE.tick();
 
