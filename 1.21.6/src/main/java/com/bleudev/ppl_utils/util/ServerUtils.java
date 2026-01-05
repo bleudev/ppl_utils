@@ -3,6 +3,8 @@ package com.bleudev.ppl_utils.util;
 import com.bleudev.ppl_utils.mixin.client.PlayerListHudAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.ScoreboardDisplaySlot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +17,7 @@ import static com.bleudev.ppl_utils.PplUtilsConst.*;
 
 public class ServerUtils {
     public static boolean isClientOn(@NotNull MinecraftClient client, String serverIp) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return true;
         final var server = client.getCurrentServerEntry();
         if (server == null) return false;
         return Objects.equals(server.address, serverIp);
@@ -24,7 +27,6 @@ public class ServerUtils {
     }
 
     public static boolean isClientOnPepeland(@NotNull MinecraftClient client) {
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return true;
         return isClientOn(client, PEPELAND_IPS);
     }
     public static boolean isClientOnPepeland() {
@@ -82,7 +84,15 @@ public class ServerUtils {
     public static void executeCommand(@NotNull MinecraftClient client, @NotNull String command) {
         Objects.requireNonNull(client.getNetworkHandler()).sendChatCommand(command);
     }
-    public static void executeCommand(String command) {
-        executeCommand(MinecraftClient.getInstance(), command);
+
+    public static int getPing(@NotNull MinecraftClient client) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return 666; // Debug value
+        if (client.player == null || client.world == null || !isClientOnPepeland(client)) return -1;
+        Scoreboard scoreboard = client.world.getScoreboard();
+        var obj = scoreboard.getObjectiveForSlot(ScoreboardDisplaySlot.LIST);
+        if (obj == null) return -1;
+        var score = scoreboard.getScore(client.player, obj);
+        if (score == null) return -1;
+        return score.getScore();
     }
 }

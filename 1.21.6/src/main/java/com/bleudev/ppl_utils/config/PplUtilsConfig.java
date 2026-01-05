@@ -68,6 +68,8 @@ public class PplUtilsConfig extends MidnightConfig {
     public static Comment misc_comment;
     @Entry
     public static boolean render_error_screen = true;
+    @Entry
+    public static boolean render_ping_indicator = false;
 
     @Override
     public void writeChanges() {

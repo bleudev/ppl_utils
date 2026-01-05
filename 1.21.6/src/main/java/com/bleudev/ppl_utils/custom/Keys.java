@@ -31,6 +31,7 @@ public class Keys {
     public static final KeyBinding TOGGLE_GLOBAL_CHAT_KEY = createKey("toggle_global_chat", CATEGORY_GENERAL);
     public static final KeyBinding SIT_KEY = createKey("sit", CATEGORY_GENERAL);
     public static final KeyBinding LAY_KEY = createKey("lay", CATEGORY_GENERAL);
+    public static final KeyBinding SHOW_PING = createKey("show_ping", CATEGORY_GENERAL);
 
     public static void initialize() {}
 }
