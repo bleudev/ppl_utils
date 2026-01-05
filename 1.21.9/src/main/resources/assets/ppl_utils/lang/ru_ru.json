@@ -27,7 +27,8 @@
   "ppl_utils.text.toggle_global_chat.enabled": "включён",
   "ppl_utils.text.toggle_global_chat.disabled": "выключен",
   "ppl_utils.text.toggle_global_chat.fail.doesnt_support": "Сервер не поддерживает глобальный чат",
-  "ppl_utils.text.show_ping.success": "Пинг: %sms",
+  "ppl_utils.text.general.ping": "%sмс",
+  "ppl_utils.text.show_ping.success": "Пинг: ",
   "ppl_utils.text.show_ping.failure": "Вы не на сервере!",
 
   "ppl_utils.midnightconfig.lobby_button_comment": "Лобби-кнопка",
@@ -57,5 +58,6 @@
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 делений",
   "ppl_utils.midnightconfig.play_restart_bar_appearing_sound": "Проигрывать звук при появлении",
   "ppl_utils.midnightconfig.misc_comment": "Разное",
-  "ppl_utils.midnightconfig.render_error_screen": "Показывать красный экран когда возникает ошибка"
+  "ppl_utils.midnightconfig.render_error_screen": "Показывать красный экран когда возникает ошибка",
+  "ppl_utils.midnightconfig.render_ping_indicator": "Индикатор пинга"
 }

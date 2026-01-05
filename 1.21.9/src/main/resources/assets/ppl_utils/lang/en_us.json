@@ -27,7 +27,8 @@
   "ppl_utils.text.toggle_global_chat.enabled": "enabled",
   "ppl_utils.text.toggle_global_chat.disabled": "disabled",
   "ppl_utils.text.toggle_global_chat.fail.doesnt_support": "Server doesn't support global chat",
-  "ppl_utils.text.show_ping.success": "Ping: %sms",
+  "ppl_utils.text.general.ping": "%sms",
+  "ppl_utils.text.show_ping.success": "Ping: ",
   "ppl_utils.text.show_ping.failure": "You aren't on server!",
 
   "ppl_utils.midnightconfig.lobby_button_comment": "Lobby button",
@@ -57,5 +58,6 @@
   "ppl_utils.midnightconfig.enum.Style.NOTCHED_20": "20 divisions",
   "ppl_utils.midnightconfig.play_restart_bar_appearing_sound": "Play appearing sound",
   "ppl_utils.midnightconfig.misc_comment": "Miscellaneous",
-  "ppl_utils.midnightconfig.render_error_screen": "Render red screen when an error occurs"
+  "ppl_utils.midnightconfig.render_error_screen": "Render red screen when an error occurs",
+  "ppl_utils.midnightconfig.render_ping_indicator": "Ping indicator"
 }

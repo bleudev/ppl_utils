@@ -86,6 +86,7 @@ public class ServerUtils {
     }
 
     public static int getPing(@NotNull MinecraftClient client) {
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return 666; // Debug value
         if (client.player == null || client.world == null || !isClientOnPepeland(client)) return -1;
         Scoreboard scoreboard = client.world.getScoreboard();
         var obj = scoreboard.getObjectiveForSlot(ScoreboardDisplaySlot.LIST);

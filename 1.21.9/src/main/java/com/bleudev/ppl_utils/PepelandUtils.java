@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.bleudev.ppl_utils.ClientCallbacks.*;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
+import static com.bleudev.ppl_utils.util.ServerUtils.getPing;
 import static com.bleudev.ppl_utils.util.ServerUtils.isGlobalChatWorking;
 import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
@@ -92,7 +93,7 @@ public class PepelandUtils implements ClientModInitializer {
             while (Keys.SHOW_PING.wasPressed()) {
                 var p = ServerUtils.getPing(client);
                 if (p == -1) client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.failure").formatted(Formatting.RED), true);
-                else client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.success", p), true);
+                else client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.success").append(Text.translatable("ppl_utils.text.general.ping", p).formatted(Formatting.GREEN)), true);
             }
             restartHelper.update(client);
             ErrorScreenHelper.INSTANCE.tick();
@@ -116,10 +117,17 @@ public class PepelandUtils implements ClientModInitializer {
         var client = MinecraftClient.getInstance();
         var vignette_texture = Identifier.ofVanilla("textures/misc/vignette.png");
 
+        // Global chat indicator
         int globalColor = ColorHelper.withAlpha(globalChatEnabledAnim, 0x69b3ff);
         int vignetteColor = ColorHelper.fromFloats(globalChatEnabledAnim, globalChatEnabledAnim / 2, globalChatEnabledAnim / 2, 0);
         ctx.drawTexture(RenderPipelines.VIGNETTE, vignette_texture, 0, 0, 0, 0, w, h, w, h, vignetteColor);
         ctx.drawText(client.textRenderer, Text.translatable("ppl_utils.text.overlay.global_chat_enabled"), 10, 10, globalColor, true);
+        // Ping indicator
+        if (PplUtilsConfig.render_ping_indicator) {
+            Text ping_text = Text.translatable("ppl_utils.text.general.ping", getPing(client));
+            int ping_color = 0xff00ff00;
+            ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
+        }
     }
 
     private void renderOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
