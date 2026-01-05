@@ -3,6 +3,8 @@ package com.bleudev.ppl_utils.util;
 import com.bleudev.ppl_utils.mixin.client.PlayerListHudAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.ScoreboardDisplaySlot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,10 +86,12 @@ public class ServerUtils {
     }
 
     public static int getPing(@NotNull MinecraftClient client) {
-        // TODO: Use Pepeland latency provider (idk how it works, i'd checked ALL player list hud code)
-        if (client.player == null || !isClientOnPepeland(client)) return -1;
-        var entry = client.player.networkHandler.getPlayerListEntry(client.player.getGameProfile().name());
-        if (entry == null) return -1;
-        return entry.getLatency();
+        if (client.player == null || client.world == null || !isClientOnPepeland(client)) return -1;
+        Scoreboard scoreboard = client.world.getScoreboard();
+        var obj = scoreboard.getObjectiveForSlot(ScoreboardDisplaySlot.LIST);
+        if (obj == null) return -1;
+        var score = scoreboard.getScore(client.player, obj);
+        if (score == null) return -1;
+        return score.getScore();
     }
 }
