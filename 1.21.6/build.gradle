@@ -92,6 +92,7 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "ppl_utils"
     versionNumber = project.version as String
+    versionName = "Pepeland Utils ${project.version}"
     versionType = "release"
     uploadFile = tasks.remapJar
     additionalFiles = [tasks.remapSourcesJar]
