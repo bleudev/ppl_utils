@@ -17,6 +17,7 @@ Mod which provides some useful features for Pepeland players
 - Advanced global chat system. Press a hotkey and communicate in global chat just like you would in regular chat! `(2.6+)`
 - Red screen for errors (for example, when unable to enter a world) `(2.7+)`
 - Ability to sit or lay down using a hotkey `(2.7+)`
+- Ping indicator and show ping key `(2.9+)`
 
 #### Dependencies
 
@@ -45,6 +46,7 @@ Mod which provides some useful features for Pepeland players
 - Продвинутая система глобального чата. Нажмите горячую клавишу и общайтесь в глобальном чате так же, как бы вы общались в обычном! `(2.6+)`
 - Красный экран при ошибках (например, при невозможности зайти в мир) `(2.7+)`
 - Возможность сесть или лечь, используя горячую клавишу `(2.7+)`
+- Индикатор пинга и горячая клавиша для отображения пинга `(2.9+)`
 
 #### Зависимости
 
