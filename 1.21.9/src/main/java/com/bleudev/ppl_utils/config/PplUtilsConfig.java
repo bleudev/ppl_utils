@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bleudev.ppl_utils.PplUtilsConst.MOD_ID;
@@ -87,14 +88,13 @@ public class PplUtilsConfig extends MidnightConfig {
                     return String.valueOf(count);
                 }
                 case STACKS -> {
-                    String result = "";
-                    if (count / 64 > 0) {
-                        result += (count / 64) + " x 64";
-                        if (count % 64 > 0) result += " + " + (count % 64);
-                    }
-                    else if (count % 64 > 0) return String.valueOf(count % 64);
-                    if (result.isEmpty()) return "0";
-                    return result;
+                    var parts = new ArrayList<String>();
+
+                    if (count / 64 > 0) parts.add((count / 64) + " x 64");
+                    if (count % 64 > 0) parts.add(String.valueOf(count % 64));
+
+                    if (parts.isEmpty()) return "0";
+                    return String.join(" + ", parts);
                 }
                 default -> throw new UnsupportedOperationException("Unknown count format!");
             }
