@@ -2,6 +2,7 @@ package com.bleudev.ppl_utils;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.custom.Keys;
+import com.bleudev.ppl_utils.util.helper.DiamondHelper;
 import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
 import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
@@ -14,6 +15,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -44,8 +46,10 @@ public class PepelandUtils implements ClientModInitializer {
         Keys.initialize();
 
         // Initialize data storage
-        DataStorageHelper.save();
         DataStorageHelper.load();
+        DataStorageHelper.save();
+        ClientTempData.load();
+        ClientTempData.save();
 
         // Initialize base values
         beta_mode_message_ticks = 0;
@@ -122,6 +126,9 @@ public class PepelandUtils implements ClientModInitializer {
             int ping_color = 0xff00ff00;
             ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
         }
+        // Diamond counter
+        if (!(client.currentScreen instanceof HandledScreen))
+            DiamondHelper.renderCounter(ctx, false);
     }
 
     private void renderOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {

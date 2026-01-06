@@ -87,7 +87,7 @@ public class DataStorageHelper {
         } }
     }
 
-    private static StorageData data = new StorageData(0, 0, 0);
+    private static StorageData data = new StorageData(0, 0, -1);
     public static StorageData getData() {
         return data;
     }

@@ -71,6 +71,56 @@ public class PplUtilsConfig extends MidnightConfig {
     @Entry
     public static boolean render_ping_indicator = false;
 
+    // Diamond Counter category
+    private static final String DIAMOND_COUNTER_CATEGORY = "diamond_counter";
+    private static final String DIAMOND_COUNTER_CONDITION = "render_diamond_counter";
+    @Entry(category = DIAMOND_COUNTER_CATEGORY)
+    public static boolean render_diamond_counter = false;
+    public enum CountFormat {
+        INTEGER, STACKS;
+
+        public String format(int count) {
+            switch (this) {
+                case INTEGER -> {
+                    return String.valueOf(count);
+                }
+                case STACKS -> {
+                    String result = "";
+                    if (count / 64 > 0) {
+                        result += (count / 64) + " x 64";
+                        if (count % 64 > 0) result += " + " + (count % 64);
+                    }
+                    else if (count % 64 > 0) return String.valueOf(count % 64);
+                    if (result.isEmpty()) return "0";
+                    return result;
+                }
+                default -> throw new UnsupportedOperationException("Unknown count format!");
+            }
+        }
+    }
+    @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
+    @Entry(category = DIAMOND_COUNTER_CATEGORY)
+    public static CountFormat diamond_counter_count_format = CountFormat.INTEGER;
+
+    @Comment(category = DIAMOND_COUNTER_CATEGORY, centered = true)
+    public static Comment diamond_counter_count_in_comment;
+    @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
+    @Entry(category = DIAMOND_COUNTER_CATEGORY)
+    public static boolean diamond_counter_count_in_containers = true;
+    @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
+    @Entry(category = DIAMOND_COUNTER_CATEGORY)
+    public static boolean diamond_counter_count_in_ender_chest = true;
+
+    @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
+    @Comment(category = DIAMOND_COUNTER_CATEGORY, centered = true)
+    public static Comment diamond_counter_count_colors_comment;
+    @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
+    @Entry(category = DIAMOND_COUNTER_CATEGORY, isColor = true)
+    public static int diamond_counter_not_synced_color = 0xff0000;
+    @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
+    @Entry(category = DIAMOND_COUNTER_CATEGORY, isColor = true)
+    public static int diamond_counter_color = 0xffffff;
+
     @Override
     public void writeChanges() {
         super.writeChanges();
