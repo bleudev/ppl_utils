@@ -68,7 +68,7 @@
   "ppl_utils.midnightconfig.enum.CountFormat.INTEGER": "Integer",
   "ppl_utils.midnightconfig.enum.CountFormat.STACKS": "Stacks",
   "ppl_utils.midnightconfig.diamond_counter_count_format": "Count format",
-  "ppl_utils.midnightconfig.diamond_counter_count_format.tooltip": "Format diamond count\nInteger: Just an integer\nStacks: Stacks count. For example 65 will be \"1 x 64 + 1\" (without brackets)",
+  "ppl_utils.midnightconfig.diamond_counter_count_format.tooltip": "Format diamond count\nInteger: Just an integer\nStacks: Stacks count. For example 65 will be \"1 x 64 + 1\" (without quotes)",
   "ppl_utils.midnightconfig.diamond_counter_count_in_comment": "Count in",
   "ppl_utils.midnightconfig.diamond_counter_count_in_containers": "Containers (Chests, barrels etc.)",
   "ppl_utils.midnightconfig.diamond_counter_count_in_containers.tooltip": "Diamonds will be counted only if chest, barrel etc. is opened. Ender chests will not be counted, see option below.",
