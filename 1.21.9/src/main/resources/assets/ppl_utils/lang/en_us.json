@@ -63,6 +63,13 @@
   "ppl_utils.midnightconfig.join_leave_messages_rendering_comment": "Join/leave messages rendering",
   "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Do join/leave messages rendering",
   "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Always show join/leave messages for these players",
+  "ppl_utils.midnightconfig.chat_filter_comment": "Chat filter",
+  "ppl_utils.midnightconfig.enable_chat_filter": "Enable chat filter",
+  "ppl_utils.midnightconfig.chat_filter_banwords": "Banwords",
+  "ppl_utils.midnightconfig.chat_filter_banwords.tooltip": "A list of all banned words in messages. All messages (except from whitelist members) with these words will not appear in your chat.",
+  "ppl_utils.midnightconfig.enable_chat_filter_whitelist": "Enable whitelist",
+  "ppl_utils.midnightconfig.chat_filter_whitelist": "Whitelist",
+  "ppl_utils.midnightconfig.chat_filter_whitelist.tooltip": "Whitelist is a list with all people who are able to write banwords and these messages will appear in your chat.",
 
   "ppl_utils.midnightconfig.category.diamond_counter": "Diamond counter",
   "ppl_utils.midnightconfig.render_diamond_counter": "Enable diamond counter",
