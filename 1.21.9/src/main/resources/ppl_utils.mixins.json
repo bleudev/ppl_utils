@@ -8,6 +8,8 @@
         "ChatHudMixin",
         "ChatScreenMixin",
         "GameMenuScreenMixin",
+        "HandledScreenMixin",
+        "InventoryScreenMixin",
         "PlayerListHudAccessor"
     ],
     "injectors": {
@@ -15,5 +17,8 @@
     },
     "overwrites": {
         "requireAnnotations": true
-  }
+    },
+    "mixins": [
+        "EnderChestInventoryMixin"
+    ]
 }

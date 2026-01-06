@@ -29,8 +29,9 @@ public class RestartHelper {
     public static void runRestartBar(long restartTime) {
         RestartHelper.restartTime = restartTime;
         startRestartTime = System.currentTimeMillis();
-        DataStorageHelper.save(new DataStorageHelper.StorageData(startRestartTime, restartTime));
-
+        DataStorageHelper.save(DataStorageHelper.getData()
+            .withStartRestartTime(startRestartTime)
+            .withRestartTime(restartTime));
         // Play sound
         if (!PplUtilsConfig.play_restart_bar_appearing_sound) return;
         var client = MinecraftClient.getInstance();

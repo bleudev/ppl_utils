@@ -5,6 +5,7 @@ import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Nullables;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,12 +18,13 @@ import java.util.Objects;
 import static com.bleudev.ppl_utils.PplUtilsConst.LOGGER;
 
 public class DataStorageHelper {
-    public record StorageData(long startRestartTime, long restartTime) {
+    public record StorageData(long startRestartTime, long restartTime, int cachedEnderChestCount) {
         @Nullable
         private String toJsonString() {
             JsonObject object = new JsonObject();
             object.addProperty("startRestartTime", this.startRestartTime);
             object.addProperty("restartTime", this.restartTime);
+            object.addProperty("cachedEnderChestCount", cachedEnderChestCount);
             try {
                 StringWriter stringWriter = new StringWriter();
                 JsonWriter jsonWriter = new JsonWriter(stringWriter);
@@ -39,8 +41,22 @@ public class DataStorageHelper {
             JsonObject object = JsonParser.parseString(jsonString).getAsJsonObject();
             return new StorageData(
                 Nullables.mapOrElse(object.get("startRestartTime"), JsonElement::getAsLong, 0L),
-                Nullables.mapOrElse(object.get("restartTime"), JsonElement::getAsLong, 0L)
+                Nullables.mapOrElse(object.get("restartTime"), JsonElement::getAsLong, 0L),
+                Nullables.mapOrElse(object.get("cachedEnderChestCount"), JsonElement::getAsInt, 0)
             );
+        }
+
+        @Contract("_ -> new")
+        public @NotNull StorageData withStartRestartTime(long newTime) {
+            return new StorageData(newTime, restartTime(), cachedEnderChestCount());
+        }
+        @Contract("_ -> new")
+        public @NotNull StorageData withRestartTime(long newTime) {
+            return new StorageData(startRestartTime(), newTime, cachedEnderChestCount());
+        }
+        @Contract("_ -> new")
+        public @NotNull StorageData withCachedEnderChestCount(int newCount) {
+            return new StorageData(startRestartTime(), restartTime(), newCount);
         }
     }
 
@@ -71,7 +87,7 @@ public class DataStorageHelper {
         } }
     }
 
-    private static StorageData data = new StorageData(0, 0);
+    private static StorageData data = new StorageData(0, 0, 0);
     public static StorageData getData() {
         return data;
     }

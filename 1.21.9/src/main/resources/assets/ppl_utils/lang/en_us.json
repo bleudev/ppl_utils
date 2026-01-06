@@ -31,6 +31,7 @@
   "ppl_utils.text.show_ping.success": "Ping: ",
   "ppl_utils.text.show_ping.failure": "You aren't on server!",
 
+  "ppl_utils.midnightconfig.title": "General",
   "ppl_utils.midnightconfig.lobby_button_comment": "Lobby button",
   "ppl_utils.midnightconfig.lobby_button_enabled": "Enable lobby button",
   "ppl_utils.midnightconfig.lobby_button_tooltip_enabled": "Enable lobby button tooltip",
@@ -59,5 +60,21 @@
   "ppl_utils.midnightconfig.play_restart_bar_appearing_sound": "Play appearing sound",
   "ppl_utils.midnightconfig.misc_comment": "Miscellaneous",
   "ppl_utils.midnightconfig.render_error_screen": "Render red screen when an error occurs",
-  "ppl_utils.midnightconfig.render_ping_indicator": "Ping indicator"
+  "ppl_utils.midnightconfig.render_ping_indicator": "Ping indicator",
+
+  "ppl_utils.midnightconfig.category.diamond_counter": "Diamond counter",
+  "ppl_utils.midnightconfig.render_diamond_counter": "Enable diamond counter",
+  "ppl_utils.midnightconfig.render_diamond_counter.tooltip": "Diamond counter is a counter which shows your diamonds count",
+  "ppl_utils.midnightconfig.enum.CountFormat.INTEGER": "Integer",
+  "ppl_utils.midnightconfig.enum.CountFormat.STACKS": "Stacks",
+  "ppl_utils.midnightconfig.diamond_counter_count_format": "Count format",
+  "ppl_utils.midnightconfig.diamond_counter_count_format.tooltip": "Format diamond count\nInteger: Just an integer\nStacks: Stacks count. For example 65 will be \"1 x 64 + 1\" (without brackets)",
+  "ppl_utils.midnightconfig.diamond_counter_count_in_comment": "Count in",
+  "ppl_utils.midnightconfig.diamond_counter_count_in_containers": "Containers (Chests, barrels etc.)",
+  "ppl_utils.midnightconfig.diamond_counter_count_in_containers.tooltip": "Diamonds will be counted only if chest, barrel etc. is opened. Ender chests will not be counted, see option below.",
+  "ppl_utils.midnightconfig.diamond_counter_count_in_ender_chest": "Ender chest",
+  "ppl_utils.midnightconfig.diamond_counter_count_in_ender_chest.tooltip": "Count diamonds in ender chest. You need to open ender chest once if counter is not synced (it's red or color you choose), then counter will be synced.",
+  "ppl_utils.midnightconfig.diamond_counter_count_colors_comment": "Colors",
+  "ppl_utils.midnightconfig.diamond_counter_not_synced_color": "Not synced",
+  "ppl_utils.midnightconfig.diamond_counter_color": "Normal"
 }
