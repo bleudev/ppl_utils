@@ -43,14 +43,6 @@ public class PplUtilsConfig extends MidnightConfig {
     public static LobbyButtonStyle lobby_button_style = LobbyButtonStyle.PEPE;
 
     @Comment(centered = true)
-    public static Comment join_leave_messages_rendering_comment;
-    @Entry
-    public static boolean do_join_leave_messages_rendering = true;
-    @Condition(requiredOption = "do_join_leave_messages_rendering", requiredValue = "false", visibleButLocked = true)
-    @Entry
-    public static List<String> always_show_join_leave_messages_by = Lists.newArrayList();
-
-    @Comment(centered = true)
     public static Comment restart_bar_comment;
     @Entry
     public static boolean render_restart_bar = true;
@@ -70,6 +62,16 @@ public class PplUtilsConfig extends MidnightConfig {
     public static boolean render_error_screen = true;
     @Entry
     public static boolean render_ping_indicator = false;
+
+    // Chat filter category
+    private static final String CHAT_FILTER_CATEGORY = "chat_filter";
+    @Comment(category = CHAT_FILTER_CATEGORY, centered = true)
+    public static Comment join_leave_messages_rendering_comment;
+    @Entry(category = CHAT_FILTER_CATEGORY)
+    public static boolean do_join_leave_messages_rendering = true;
+    @Condition(requiredOption = "do_join_leave_messages_rendering", requiredValue = "false", visibleButLocked = true)
+    @Entry(category = CHAT_FILTER_CATEGORY)
+    public static List<String> always_show_join_leave_messages_by = Lists.newArrayList();
 
     // Diamond Counter category
     private static final String DIAMOND_COUNTER_CATEGORY = "diamond_counter";

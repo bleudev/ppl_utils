@@ -38,9 +38,6 @@
   "ppl_utils.midnightconfig.lobby_button_style": "Lobby button style",
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE": "Normal",
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE_MONO": "Monochrome",
-  "ppl_utils.midnightconfig.join_leave_messages_rendering_comment": "Join/leave messages rendering",
-  "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Do join/leave messages rendering",
-  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Always show join/leave messages for these players",
   "ppl_utils.midnightconfig.restart_bar_comment": "Restart bar",
   "ppl_utils.midnightconfig.render_restart_bar": "Enable restart bar",
   "ppl_utils.midnightconfig.restart_bar_color": "Restart bar color",
@@ -61,6 +58,11 @@
   "ppl_utils.midnightconfig.misc_comment": "Miscellaneous",
   "ppl_utils.midnightconfig.render_error_screen": "Render red screen when an error occurs",
   "ppl_utils.midnightconfig.render_ping_indicator": "Ping indicator",
+
+  "ppl_utils.midnightconfig.category.chat_filter": "Chat filter",
+  "ppl_utils.midnightconfig.join_leave_messages_rendering_comment": "Join/leave messages rendering",
+  "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Do join/leave messages rendering",
+  "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Always show join/leave messages for these players",
 
   "ppl_utils.midnightconfig.category.diamond_counter": "Diamond counter",
   "ppl_utils.midnightconfig.render_diamond_counter": "Enable diamond counter",
