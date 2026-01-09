@@ -18,6 +18,8 @@ Mod which provides some useful features for Pepeland players
 - Red screen for errors (for example, when unable to enter a world) `(2.7+)`
 - Ability to sit or lay down using a hotkey `(2.7+)`
 - Ping indicator and show ping key `(2.9+)`
+- Diamond counter `(2.10+)`
+- Chat filter `(2.10+)`
 
 #### Dependencies
 
@@ -47,6 +49,8 @@ Mod which provides some useful features for Pepeland players
 - Красный экран при ошибках (например, при невозможности зайти в мир) `(2.7+)`
 - Возможность сесть или лечь, используя горячую клавишу `(2.7+)`
 - Индикатор пинга и горячая клавиша для отображения пинга `(2.9+)`
+- Индикатор количества алмазов `(2.10+)`
+- Чат фильтр `(2.10+)`
 
 #### Зависимости
 
