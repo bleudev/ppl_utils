@@ -63,6 +63,13 @@
   "ppl_utils.midnightconfig.join_leave_messages_rendering_comment": "Отображение сообщений при входе/выходе игроков",
   "ppl_utils.midnightconfig.do_join_leave_messages_rendering": "Отображать сообщения при входе/выходе игроков",
   "ppl_utils.midnightconfig.always_show_join_leave_messages_by": "Всегда показывать сообщения при входе/выходе данных игроков",
+  "ppl_utils.midnightconfig.chat_filter_comment": "Чат фильтр",
+  "ppl_utils.midnightconfig.enable_chat_filter": "Включить чат фильтр",
+  "ppl_utils.midnightconfig.chat_filter_banwords": "Банворды",
+  "ppl_utils.midnightconfig.chat_filter_banwords.tooltip": "Список всех запрещенных слов в сообщениях. Все сообщения (кроме тех, что от игроков из белого списка) с этими словами не появятся в вашем чате.",
+  "ppl_utils.midnightconfig.enable_chat_filter_whitelist": "Включить белый список",
+  "ppl_utils.midnightconfig.chat_filter_whitelist": "Белый список",
+  "ppl_utils.midnightconfig.chat_filter_whitelist.tooltip": "Белый список - это список всех людей, которые могут писать банворды и при этом эти сообщения будут видны вам.",
 
   "ppl_utils.midnightconfig.category.diamond_counter": "Индикатор алмазов",
   "ppl_utils.midnightconfig.render_diamond_counter": "Включить индикатор алмазов",

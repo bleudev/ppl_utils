@@ -74,6 +74,21 @@ public class PplUtilsConfig extends MidnightConfig {
     @Entry(category = CHAT_FILTER_CATEGORY)
     public static List<String> always_show_join_leave_messages_by = Lists.newArrayList();
 
+    private static final String CHAT_FILTER_CONDITION = "enable_chat_filter";
+    @Comment(category = CHAT_FILTER_CATEGORY, centered = true)
+    public static Comment chat_filter_comment;
+    @Entry(category = CHAT_FILTER_CATEGORY)
+    public static boolean enable_chat_filter = false;
+    @Condition(requiredOption = CHAT_FILTER_CONDITION, visibleButLocked = true)
+    @Entry(category = CHAT_FILTER_CATEGORY)
+    public static List<String> chat_filter_banwords = Lists.newArrayList();
+    @Condition(requiredOption = CHAT_FILTER_CONDITION, visibleButLocked = true)
+    @Entry(category = CHAT_FILTER_CATEGORY)
+    public static boolean enable_chat_filter_whitelist = false;
+    @Condition(requiredOption = "enable_chat_filter_whitelist", visibleButLocked = true)
+    @Entry(category = CHAT_FILTER_CATEGORY)
+    public static List<String> chat_filter_whitelist = Lists.newArrayList();
+
     // Diamond Counter category
     private static final String DIAMOND_COUNTER_CATEGORY = "diamond_counter";
     private static final String DIAMOND_COUNTER_CONDITION = "render_diamond_counter";
