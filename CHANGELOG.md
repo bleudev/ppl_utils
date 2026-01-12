@@ -1,6 +1,5 @@
-## New features
-[+] Diamond counter (bleudev)\
-[+] Chat Filter (bleudev)
+## Depends updates
+[/] `modmenu-badges-lib` is included in mod jar file by default, so installing this mod to view Pepeland badge is no longer required.
 
-## Bug fixes
-[/] \[1.21.6-1.21.8 only] Pepeland Utils Data (`ppl_utils_data.json`) resets every startup
+## Miscellaneous
+[/] Small changes in `fabric.mod.json`: change `suggests` to `recommends` for optional requirements
