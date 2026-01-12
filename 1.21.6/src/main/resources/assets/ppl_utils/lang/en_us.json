@@ -38,6 +38,7 @@
   "ppl_utils.midnightconfig.lobby_button_style": "Lobby button style",
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE": "Normal",
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE_MONO": "Monochrome",
+  "ppl_utils.midnightconfig.enum.LobbyButtonStyle.ARROW": "Arrow",
   "ppl_utils.midnightconfig.restart_bar_comment": "Restart bar",
   "ppl_utils.midnightconfig.render_restart_bar": "Enable restart bar",
   "ppl_utils.midnightconfig.restart_bar_color": "Restart bar color",

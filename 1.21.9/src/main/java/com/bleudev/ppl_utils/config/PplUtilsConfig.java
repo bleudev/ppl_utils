@@ -27,7 +27,8 @@ public class PplUtilsConfig extends MidnightConfig {
     public static boolean lobby_button_tooltip_enabled = true;
     public enum LobbyButtonStyle {
         PEPE("lobby/pepe"),
-        PEPE_MONO("lobby/pepe_mono");
+        PEPE_MONO("lobby/pepe_mono"),
+        ARROW("lobby/arrow");
 
         private final Identifier sprite;
 

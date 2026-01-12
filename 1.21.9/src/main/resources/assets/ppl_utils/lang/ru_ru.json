@@ -38,6 +38,7 @@
   "ppl_utils.midnightconfig.lobby_button_style": "Стиль лобби-кнопки",
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE": "Стандартный",
   "ppl_utils.midnightconfig.enum.LobbyButtonStyle.PEPE_MONO": "Монохромный",
+  "ppl_utils.midnightconfig.enum.LobbyButtonStyle.ARROW": "Стрелка",
   "ppl_utils.midnightconfig.restart_bar_comment": "Индикатор рестарта",
   "ppl_utils.midnightconfig.render_restart_bar": "Включить индикатор рестарта",
   "ppl_utils.midnightconfig.restart_bar_color": "Цвет индикатора рестарта",
