@@ -40,7 +40,7 @@
     "minecraft": ">=${minecraft_version} <${max_exclusive_minecraft_version}",
     "midnightlib": ">=${midnightLib_version}"
   },
-  "suggests": {
+  "recommends": {
     "modmenu": ">=${modMenu_version}",
     "modmenu-badges-lib": ">=${modMenuBadges_version}"
   }
