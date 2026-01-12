@@ -104,7 +104,7 @@ modrinth {
         required.project("fabric-api")
         required.project("midnightlib")
         optional.project("modmenu")
-        optional.project("modmenu-badges-lib")
+        embedded.project("modmenu-badges-lib")
     }
 }
 tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
