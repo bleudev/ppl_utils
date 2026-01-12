@@ -28,9 +28,9 @@ Mod which provides some useful features for Pepeland players
 - [Midnight Lib](https://modrinth.com/mod/midnightlib)
 ##### Optional
 - [Mod Menu](https://modrinth.com/mod/modmenu): Adds ability to configure mod
-- [Mod Menu Badges Lib](https://modrinth.com/mod/modmenu-badges-lib): Adds "Pepeland" badge in mod menu
 ##### Recommended
 - [ViaFabricPlus](https://modrinth.com/mod/viafabricplus) (1.21.9+): To play on Pepeland with 1.21.9+ version
+- [Mod Menu Badges Lib](https://modrinth.com/mod/modmenu-badges-lib): It is already included in the mod jar, but it is better to install it to have the latest updates
 
 <details>
 <summary>Описание на русском</summary>
@@ -59,7 +59,7 @@ Mod which provides some useful features for Pepeland players
 - [Midnight Lib](https://modrinth.com/mod/midnightlib)
 ##### Опциональные
 - [Mod Menu](https://modrinth.com/mod/modmenu): Добавляет возможность настраивать мод
-- [Mod Menu Badges Lib](https://modrinth.com/mod/modmenu-badges-lib): Добавляет значок "Pepeland" в списке модов
 ##### Рекомендуемые
 - [ViaFabricPlus](https://modrinth.com/mod/viafabricplus) (1.21.9+): Чтобы играть на Pepeland с версией выше 1.21.9 (и включительно)
+- [Mod Menu Badges Lib](https://modrinth.com/mod/modmenu-badges-lib): Уже включен в Jar файл, но лучше его установить для последних актуальных обновлений
 </details>
