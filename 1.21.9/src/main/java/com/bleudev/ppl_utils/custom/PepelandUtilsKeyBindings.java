@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 import static com.bleudev.ppl_utils.PplUtilsConst.MOD_ID;
 
 @Environment(EnvType.CLIENT)
-public class Keys {
+public class PepelandUtilsKeyBindings {
     private static KeyBinding createKey(String id, int default_key, KeyBinding.Category category) {
         return KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + MOD_ID + "." + id, InputUtil.Type.KEYSYM, default_key, category));
     }

@@ -1,7 +1,7 @@
 package com.bleudev.ppl_utils;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
-import com.bleudev.ppl_utils.custom.Keys;
+import com.bleudev.ppl_utils.custom.PepelandUtilsKeyBindings;
 import com.bleudev.ppl_utils.util.helper.DiamondHelper;
 import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
 import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
@@ -43,7 +43,7 @@ public class PepelandUtils implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         PplUtilsConfig.initialize();
-        Keys.initialize();
+        PepelandUtilsKeyBindings.initialize();
 
         // Initialize data storage
         DataStorageHelper.load();
@@ -75,20 +75,20 @@ public class PepelandUtils implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
-            while (Keys.LOBBY_KEY.wasPressed()) executeLobby(client);
-            while (Keys.SIT_KEY.wasPressed()) executeSit(client);
-            while (Keys.LAY_KEY.wasPressed()) executeLay(client);
-            while (Keys.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
+            while (PepelandUtilsKeyBindings.LOBBY_KEY.wasPressed()) executeLobby(client);
+            while (PepelandUtilsKeyBindings.SIT_KEY.wasPressed()) executeSit(client);
+            while (PepelandUtilsKeyBindings.LAY_KEY.wasPressed()) executeLay(client);
+            while (PepelandUtilsKeyBindings.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
                 if (isGlobalChatWorking(client))
                     client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " "));
-            while (Keys.TOGGLE_GLOBAL_CHAT_KEY.wasPressed()) {
+            while (PepelandUtilsKeyBindings.TOGGLE_GLOBAL_CHAT_KEY.wasPressed()) {
                 if (isGlobalChatWorking(client)) {
                     GlobalChatHelper.INSTANCE.toggle();
                     GlobalChatHelper.INSTANCE.sendToggleMessage(client);
                 } else GlobalChatHelper.INSTANCE.sendToggleErrorMessage(client);
             }
             if (client.player == null) return;
-            while (Keys.SHOW_PING.wasPressed()) {
+            while (PepelandUtilsKeyBindings.SHOW_PING.wasPressed()) {
                 var p = getPing(client);
                 if (p == -1) client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.failure").formatted(Formatting.RED), true);
                 else client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.success").append(Text.translatable("ppl_utils.text.general.ping", p).formatted(Formatting.GREEN)), true);
@@ -122,9 +122,12 @@ public class PepelandUtils implements ClientModInitializer {
         ctx.drawText(client.textRenderer, Text.translatable("ppl_utils.text.overlay.global_chat_enabled"), 10, 10, globalColor, true);
         // Ping indicator
         if (PplUtilsConfig.render_ping_indicator) {
-            Text ping_text = Text.translatable("ppl_utils.text.general.ping", getPing(client));
-            int ping_color = 0xff00ff00;
-            ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
+            int ping = getPing(client);
+            if (ping != -1) {
+                Text ping_text = Text.translatable("ppl_utils.text.general.ping", ping);
+                int ping_color = 0xff00ff00;
+                ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
+            }
         }
         // Diamond counter
         if (!(client.currentScreen instanceof HandledScreen))
