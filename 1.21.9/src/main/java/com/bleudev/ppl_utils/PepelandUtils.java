@@ -125,9 +125,12 @@ public class PepelandUtils implements ClientModInitializer {
         ctx.drawText(client.textRenderer, Text.translatable("ppl_utils.text.overlay.global_chat_enabled"), 10, 10, globalColor, true);
         // Ping indicator
         if (PplUtilsConfig.render_ping_indicator) {
-            Text ping_text = Text.translatable("ppl_utils.text.general.ping", getPing(client));
-            int ping_color = 0xff00ff00;
-            ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
+            int ping = getPing(client);
+            if (ping != -1) {
+                Text ping_text = Text.translatable("ppl_utils.text.general.ping", ping);
+                int ping_color = 0xff00ff00;
+                ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
+            }
         }
         // Diamond counter
         if (!(client.currentScreen instanceof HandledScreen))

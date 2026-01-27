@@ -2,6 +2,7 @@
 [+] New lobby button style: arrow
 
 ## Fixes
+[/] Bug fix ping indicator is rendering when hasn't to\
 [/] Fix world border debug hud entry
 
 ## Dev updates
