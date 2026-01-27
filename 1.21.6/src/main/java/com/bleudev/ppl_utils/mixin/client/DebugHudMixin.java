@@ -20,8 +20,11 @@ public class DebugHudMixin {
         var l = new ArrayList<>(cir.getReturnValue());
 
         MinecraftClient client = MinecraftClient.getInstance();
-        if (client.world != null)
-            l.add("World border: " + round(client.world.getWorldBorder().getSize(), 3));
+        if (client.world != null) {
+            StringBuilder border = new StringBuilder(Double.toString(round(client.world.getWorldBorder().getSize(), 3)));
+            while (border.toString().split("\\.", 2)[1].length() < 3) border.append("0");
+            l.add("World border: " + border);
+        }
 
         cir.setReturnValue(l);
     }
