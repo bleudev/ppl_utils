@@ -42,7 +42,7 @@ public class DataStorageHelper {
             return new StorageData(
                 Nullables.mapOrElse(object.get("startRestartTime"), JsonElement::getAsLong, 0L),
                 Nullables.mapOrElse(object.get("restartTime"), JsonElement::getAsLong, 0L),
-                Nullables.mapOrElse(object.get("cachedEnderChestCount"), JsonElement::getAsInt, 0)
+                Nullables.mapOrElse(object.get("cachedEnderChestCount"), JsonElement::getAsInt, -1)
             );
         }
 
