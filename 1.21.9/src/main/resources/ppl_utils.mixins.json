@@ -19,6 +19,5 @@
         "requireAnnotations": true
     },
     "mixins": [
-        "EnderChestInventoryMixin"
     ]
 }

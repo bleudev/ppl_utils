@@ -3,7 +3,8 @@
 
 ## Fixes
 [/] Bug fix ping indicator is rendering when hasn't to (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))\
-[/] Fix world border debug hud entry (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))
+[/] Fix world border debug hud entry (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))\
+[/] Fix ender chest counting doesn't work (bleudev)
 
 ## Dev updates
 [/] Rename `Keys` class to `PepelandUtilsKeyBindings` (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))

@@ -33,7 +33,7 @@ public class DiamondHelper {
         return count(player.getInventory()) + ClientTempData.getNormalCachedEnderChestCount();
     }
     public static int countWithCurrentContainer(@NotNull PlayerEntity player) {
-        if (ClientTempData.isInEnderChest || !PplUtilsConfig.diamond_counter_count_in_containers) return count(player);
+        if (!PplUtilsConfig.diamond_counter_count_in_containers) return count(player);
         return count(player) + count(ClientTempData.currentScreenInventory);
     }
 
