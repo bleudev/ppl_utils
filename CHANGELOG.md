@@ -9,3 +9,6 @@
 [/] Rename `Keys` class to `PepelandUtilsKeyBindings` (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))
 ### 1.21.9+
 [+] Improve debug hud entries registering with logging and ability to get entries in code (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))
+
+## Version updates
+[/] Bump Gradle version from 9.2.1 to 9.3.0
