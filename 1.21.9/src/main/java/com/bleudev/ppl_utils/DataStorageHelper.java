@@ -4,7 +4,7 @@ import com.google.gson.*;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.Nullables;
+import net.minecraft.Optionull;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,9 +40,9 @@ public class DataStorageHelper {
         private static StorageData fromJsonString(String jsonString) {
             JsonObject object = JsonParser.parseString(jsonString).getAsJsonObject();
             return new StorageData(
-                Nullables.mapOrElse(object.get("startRestartTime"), JsonElement::getAsLong, 0L),
-                Nullables.mapOrElse(object.get("restartTime"), JsonElement::getAsLong, 0L),
-                Nullables.mapOrElse(object.get("cachedEnderChestCount"), JsonElement::getAsInt, -1)
+                Optionull.mapOrDefault(object.get("startRestartTime"), JsonElement::getAsLong, 0L),
+                Optionull.mapOrDefault(object.get("restartTime"), JsonElement::getAsLong, 0L),
+                Optionull.mapOrDefault(object.get("cachedEnderChestCount"), JsonElement::getAsInt, -1)
             );
         }
 

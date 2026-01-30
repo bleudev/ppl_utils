@@ -13,16 +13,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.*;
@@ -37,8 +37,8 @@ public class PepelandUtils implements ClientModInitializer {
     int beta_mode_message_ticks;
     private RestartHelper restartHelper;
 
-    public static final Identifier AFTER_CHAT_OVERLAY = getIdentifier("after_chat_overlay");
-    public static final Identifier OVERLAY = getIdentifier("overlay");
+    public static final ResourceLocation AFTER_CHAT_OVERLAY = getIdentifier("after_chat_overlay");
+    public static final ResourceLocation OVERLAY = getIdentifier("overlay");
 
     private float globalChatEnabledAnim = 0f;
 
@@ -63,11 +63,11 @@ public class PepelandUtils implements ClientModInitializer {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             LOGGER.info("Try send beta mode message");
             if (BETA_MODE_ENABLED && client.player != null && beta_mode_message_ticks == 0) {
-                client.player.sendMessage(
-                    Text.translatable("chat.message.join.beta")
+                client.player.displayClientMessage(
+                    Component.translatable("chat.message.join.beta")
                         .append("\n")
                         .append(link(ISSUES_PAGE))
-                        .formatted(Formatting.GOLD),
+                        .withStyle(ChatFormatting.GOLD),
                     false);
                 beta_mode_message_ticks = 10 * TICKS_PER_MINUTE;
                 LOGGER.info("Successfully sent beta mode message");
@@ -78,29 +78,29 @@ public class PepelandUtils implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
-            while (PepelandUtilsKeyBindings.LOBBY_KEY.wasPressed()) executeLobby(client);
-            while (PepelandUtilsKeyBindings.SIT_KEY.wasPressed()) executeSit(client);
-            while (PepelandUtilsKeyBindings.LAY_KEY.wasPressed()) executeLay(client);
-            while (PepelandUtilsKeyBindings.SEND_TO_GLOBAL_CHAT_KEY.wasPressed())
+            while (PepelandUtilsKeyBindings.LOBBY_KEY.consumeClick()) executeLobby(client);
+            while (PepelandUtilsKeyBindings.SIT_KEY.consumeClick()) executeSit(client);
+            while (PepelandUtilsKeyBindings.LAY_KEY.consumeClick()) executeLay(client);
+            while (PepelandUtilsKeyBindings.SEND_TO_GLOBAL_CHAT_KEY.consumeClick())
                 if (isGlobalChatWorking(client))
                     client.setScreen(new ChatScreen("/" + GLOBAL_CHAT_COMMAND + " ", false));
-            while (PepelandUtilsKeyBindings.TOGGLE_GLOBAL_CHAT_KEY.wasPressed()) {
+            while (PepelandUtilsKeyBindings.TOGGLE_GLOBAL_CHAT_KEY.consumeClick()) {
                 if (isGlobalChatWorking(client)) {
                     GlobalChatHelper.INSTANCE.toggle();
                     GlobalChatHelper.INSTANCE.sendToggleMessage(client);
                 } else GlobalChatHelper.INSTANCE.sendToggleErrorMessage(client);
             }
             if (client.player == null) return;
-            while (PepelandUtilsKeyBindings.SHOW_PING.wasPressed()) {
+            while (PepelandUtilsKeyBindings.SHOW_PING.consumeClick()) {
                 var p = ServerUtils.getPing(client);
-                if (p == -1) client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.failure").formatted(Formatting.RED), true);
-                else client.player.sendMessage(Text.translatable("ppl_utils.text.show_ping.success").append(Text.translatable("ppl_utils.text.general.ping", p).formatted(Formatting.GREEN)), true);
+                if (p == -1) client.player.displayClientMessage(Component.translatable("ppl_utils.text.show_ping.failure").withStyle(ChatFormatting.RED), true);
+                else client.player.displayClientMessage(Component.translatable("ppl_utils.text.show_ping.success").append(Component.translatable("ppl_utils.text.general.ping", p).withStyle(ChatFormatting.GREEN)), true);
             }
             restartHelper.update(client);
             ErrorScreenHelper.INSTANCE.tick();
 
             if (GlobalChatHelper.INSTANCE.isEnabled()) {
-                if (client.inGameHud.getChatHud().isChatFocused())
+                if (client.gui.getChat().isChatFocused())
                     globalChatEnabledAnim = Math.min(globalChatEnabledAnim + 0.1f, 1f);
                 else
                     globalChatEnabledAnim = Math.max(globalChatEnabledAnim - 0.1f, 0f);
@@ -112,36 +112,36 @@ public class PepelandUtils implements ClientModInitializer {
         HudElementRegistry.addLast(OVERLAY, this::renderOverlay);
     }
 
-    private void renderAfterChatOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
-        int h = ctx.getScaledWindowHeight();
-        int w = ctx.getScaledWindowWidth();
-        var client = MinecraftClient.getInstance();
-        var vignette_texture = Identifier.ofVanilla("textures/misc/vignette.png");
+    private void renderAfterChatOverlay(@NotNull GuiGraphics ctx, DeltaTracker tickCounter) {
+        int h = ctx.guiHeight();
+        int w = ctx.guiWidth();
+        var client = Minecraft.getInstance();
+        var vignette_texture = ResourceLocation.withDefaultNamespace("textures/misc/vignette.png");
 
         // Global chat indicator
-        int globalColor = ColorHelper.withAlpha(globalChatEnabledAnim, 0x69b3ff);
-        int vignetteColor = ColorHelper.fromFloats(globalChatEnabledAnim, globalChatEnabledAnim / 2, globalChatEnabledAnim / 2, 0);
-        ctx.drawTexture(RenderPipelines.VIGNETTE, vignette_texture, 0, 0, 0, 0, w, h, w, h, vignetteColor);
-        ctx.drawText(client.textRenderer, Text.translatable("ppl_utils.text.overlay.global_chat_enabled"), 10, 10, globalColor, true);
+        int globalColor = ARGB.color(globalChatEnabledAnim, 0x69b3ff);
+        int vignetteColor = ARGB.colorFromFloat(globalChatEnabledAnim, globalChatEnabledAnim / 2, globalChatEnabledAnim / 2, 0);
+        ctx.blit(RenderPipelines.VIGNETTE, vignette_texture, 0, 0, 0, 0, w, h, w, h, vignetteColor);
+        ctx.drawString(client.font, Component.translatable("ppl_utils.text.overlay.global_chat_enabled"), 10, 10, globalColor, true);
         // Ping indicator
         if (PplUtilsConfig.render_ping_indicator) {
             int ping = getPing(client);
             if (ping != -1) {
-                Text ping_text = Text.translatable("ppl_utils.text.general.ping", ping);
+                Component ping_text = Component.translatable("ppl_utils.text.general.ping", ping);
                 int ping_color = 0xff00ff00;
-                ctx.drawText(client.textRenderer, ping_text, w - client.textRenderer.getWidth(ping_text) - 10, 10, ping_color, true);
+                ctx.drawString(client.font, ping_text, w - client.font.width(ping_text) - 10, 10, ping_color, true);
             }
         }
         // Diamond counter
-        if (!(client.currentScreen instanceof HandledScreen))
+        if (!(client.screen instanceof AbstractContainerScreen))
             DiamondHelper.renderCounter(ctx, false);
     }
 
-    private void renderOverlay(@NotNull DrawContext ctx, RenderTickCounter tickCounter) {
-        int h = ctx.getScaledWindowHeight();
-        int w = ctx.getScaledWindowWidth();
+    private void renderOverlay(@NotNull GuiGraphics ctx, DeltaTracker tickCounter) {
+        int h = ctx.guiHeight();
+        int w = ctx.guiWidth();
 
-        int redColor = ColorHelper.withAlpha(ErrorScreenHelper.INSTANCE.getRedness(), 0xff0000);
+        int redColor = ARGB.color(ErrorScreenHelper.INSTANCE.getRedness(), 0xff0000);
         if (PplUtilsConfig.render_error_screen)
             ctx.fill(0, 0, w, h, redColor);
     }
