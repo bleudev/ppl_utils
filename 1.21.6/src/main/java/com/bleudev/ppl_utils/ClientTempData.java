@@ -1,12 +1,12 @@
 package com.bleudev.ppl_utils;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
 
 import static com.bleudev.ppl_utils.util.ServerUtils.isClientOnPepeland;
 
 public class ClientTempData {
-    public static final Iterable<ItemStack> inventoryDefault = DefaultedList.ofSize(27, ItemStack.EMPTY);
+    public static final Iterable<ItemStack> inventoryDefault = NonNullList.withSize(27, ItemStack.EMPTY);
     public static Iterable<ItemStack> currentScreenInventory = inventoryDefault;
     private static int cachedEnderChestCount = -1;
 

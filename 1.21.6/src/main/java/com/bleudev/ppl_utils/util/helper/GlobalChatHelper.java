@@ -1,18 +1,18 @@
 package com.bleudev.ppl_utils.util.helper;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 public class GlobalChatHelper {
     public static GlobalChatHelper INSTANCE = null;
 
-    private static final Text TOGGLE_ENABLED_SUCESS = Text.translatable("ppl_utils.text.toggle_global_chat.start").formatted(Formatting.WHITE)
-        .append(Text.translatable("ppl_utils.text.toggle_global_chat.enabled").formatted(Formatting.GREEN));
-    private static final Text TOGGLE_DISABLED_SUCESS = Text.translatable("ppl_utils.text.toggle_global_chat.start").formatted(Formatting.WHITE)
-        .append(Text.translatable("ppl_utils.text.toggle_global_chat.disabled").formatted(Formatting.RED));
-    private static final Text TOGGLE_ERROR_DOESNT_SUPPORT = Text.translatable("ppl_utils.text.toggle_global_chat.fail.doesnt_support").formatted(Formatting.RED);
+    private static final Component TOGGLE_ENABLED_SUCESS = Component.translatable("ppl_utils.text.toggle_global_chat.start").withStyle(ChatFormatting.WHITE)
+        .append(Component.translatable("ppl_utils.text.toggle_global_chat.enabled").withStyle(ChatFormatting.GREEN));
+    private static final Component TOGGLE_DISABLED_SUCESS = Component.translatable("ppl_utils.text.toggle_global_chat.start").withStyle(ChatFormatting.WHITE)
+        .append(Component.translatable("ppl_utils.text.toggle_global_chat.disabled").withStyle(ChatFormatting.RED));
+    private static final Component TOGGLE_ERROR_DOESNT_SUPPORT = Component.translatable("ppl_utils.text.toggle_global_chat.fail.doesnt_support").withStyle(ChatFormatting.RED);
 
     private boolean enabled;
     public GlobalChatHelper(boolean initial) {
@@ -30,13 +30,13 @@ public class GlobalChatHelper {
         enabled = false;
     }
 
-    public void sendToggleMessage(@NotNull MinecraftClient client) {
+    public void sendToggleMessage(@NotNull Minecraft client) {
         if (client.player != null)
-            client.player.sendMessage(isEnabled() ? TOGGLE_ENABLED_SUCESS : TOGGLE_DISABLED_SUCESS, true);
+            client.player.displayClientMessage(isEnabled() ? TOGGLE_ENABLED_SUCESS : TOGGLE_DISABLED_SUCESS, true);
     }
 
-    public void sendToggleErrorMessage(@NotNull MinecraftClient client) {
+    public void sendToggleErrorMessage(@NotNull Minecraft client) {
         if (client.player != null)
-            client.player.sendMessage(TOGGLE_ERROR_DOESNT_SUPPORT, true);
+            client.player.displayClientMessage(TOGGLE_ERROR_DOESNT_SUPPORT, true);
     }
 }

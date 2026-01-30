@@ -1,8 +1,8 @@
 package com.bleudev.ppl_utils.mixin.client;
 
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,21 +14,21 @@ import static com.bleudev.ppl_utils.PplUtilsConst.GLOBAL_CHAT_COMMAND;
 
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin extends Screen {
-    protected ChatScreenMixin(Text title) {
+    protected ChatScreenMixin(Component title) {
         super(title);
     }
 
     @Shadow
-    public abstract String normalize(String chatText);
+    public abstract String normalizeChatMessage(String chatText);
 
-    @Inject(method = "sendMessage", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handleChatInput", at = @At("HEAD"), cancellable = true)
     private void sendToGlobalChat(String chatText, boolean addToHistory, CallbackInfo ci) {
-        chatText = this.normalize(chatText);
+        chatText = this.normalizeChatMessage(chatText);
         if (    !chatText.startsWith("/") &&
-                this.client != null &&
-                shouldSendMessagesToGlobalChat(this.client) &&
-                this.client.player != null) {
-            this.client.player.networkHandler.sendChatCommand(
+                this.minecraft != null &&
+                shouldSendMessagesToGlobalChat(this.minecraft) &&
+                this.minecraft.player != null) {
+            this.minecraft.player.connection.sendCommand(
                 GLOBAL_CHAT_COMMAND + " " +  chatText);
             ci.cancel();
         }
