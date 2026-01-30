@@ -4,14 +4,14 @@
     "package": "com.bleudev.ppl_utils.mixin.client",
     "compatibilityLevel": "JAVA_21",
     "client": [
-        "BossBarHudAccessor",
-        "ChatHudMixin",
+        "AbstractContainerScreenMixin",
+        "ChatComponentMixin",
         "ChatScreenMixin",
-        "DebugHudMixin",
-        "GameMenuScreenMixin",
-        "HandledScreenMixin",
+        "DebugScreenOverlayMixin",
         "InventoryScreenMixin",
-        "PlayerListHudAccessor"
+        "PauseScreenMixin",
+        "accessor.BossHealthOverlayAccessor",
+        "accessor.PlayerTabOverlayAccessor"
     ],
     "injectors": {
         "defaultRequire": 1

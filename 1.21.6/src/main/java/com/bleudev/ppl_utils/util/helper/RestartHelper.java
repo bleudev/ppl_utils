@@ -2,7 +2,7 @@ package com.bleudev.ppl_utils.util.helper;
 
 import com.bleudev.ppl_utils.DataStorageHelper;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
-import com.bleudev.ppl_utils.mixin.client.BossBarHudAccessor;
+import com.bleudev.ppl_utils.mixin.client.accessor.BossHealthOverlayAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -63,7 +63,7 @@ public class RestartHelper {
     }
 
     private boolean isBossBarThere() {
-        var bossBars = ((BossBarHudAccessor) Minecraft.getInstance().gui.getBossOverlay()).ppl_utils$bossBars();
+        var bossBars = ((BossHealthOverlayAccessor) Minecraft.getInstance().gui.getBossOverlay()).ppl_utils$bossBars();
         return bossBars.containsKey(rtUuid);
     }
 

@@ -1,6 +1,6 @@
 package com.bleudev.ppl_utils.util;
 
-import com.bleudev.ppl_utils.mixin.client.PlayerListHudAccessor;
+import com.bleudev.ppl_utils.mixin.client.accessor.PlayerTabOverlayAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.scores.DisplaySlot;
@@ -64,7 +64,7 @@ public class ServerUtils {
 
         @Nullable
         private static PplWorld getCurrentWorld(@NotNull Minecraft client) {
-            var header = ((PlayerListHudAccessor) client.gui.getTabList()).ppl_utils$header();
+            var header = ((PlayerTabOverlayAccessor) client.gui.getTabList()).ppl_utils$header();
             if (header == null) return null;
             var worldPlayerListName = "Мир: ";
             for (String l : header.getString().split("\n"))

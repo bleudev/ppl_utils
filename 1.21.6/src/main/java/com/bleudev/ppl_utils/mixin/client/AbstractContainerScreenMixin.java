@@ -18,12 +18,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractContainerScreen.class)
-public class HandledScreenMixin extends Screen {
+public class AbstractContainerScreenMixin extends Screen {
     @Shadow
     @Final
     protected AbstractContainerMenu menu;
 
-    protected HandledScreenMixin(Component title) {
+    protected AbstractContainerScreenMixin(Component title) {
         super(title);
     }
 

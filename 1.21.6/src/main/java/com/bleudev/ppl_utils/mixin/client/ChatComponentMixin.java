@@ -12,7 +12,7 @@ import static com.bleudev.ppl_utils.ClientCallbacks.tryStartWithMessage;
 import static com.bleudev.ppl_utils.util.helper.ChatFilterHelper.shouldRenderChatMessage;
 
 @Mixin(ChatComponent.class)
-public class ChatHudMixin {
+public class ChatComponentMixin {
     @Inject(method = "addMessageToDisplayQueue", at = @At("HEAD"), cancellable = true)
     private void cancelRenderingOfSomeMessages(GuiMessage message, CallbackInfo ci) {
         if (!shouldRenderChatMessage(message.content().getString())) ci.cancel();

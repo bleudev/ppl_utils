@@ -19,8 +19,8 @@ import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.ClientCallbacks.shouldRenderLobbyButton;
 
 @Mixin(PauseScreen.class)
-public abstract class GameMenuScreenMixin extends Screen {
-    protected GameMenuScreenMixin(Component title) {
+public abstract class PauseScreenMixin extends Screen {
+    protected PauseScreenMixin(Component title) {
         super(title);
     }
 

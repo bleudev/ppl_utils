@@ -14,7 +14,7 @@ import java.util.List;
 import static com.bleudev.ppl_utils.util.LangUtils.round;
 
 @Mixin(DebugScreenOverlay.class)
-public class DebugHudMixin {
+public class DebugScreenOverlayMixin {
     @Inject(method = "getGameInformation", at = @At("RETURN"), cancellable = true)
     private void addWorldBorderDebugHudEntry(@NotNull CallbackInfoReturnable<List<String>> cir) {
         var l = new ArrayList<>(cir.getReturnValue());
