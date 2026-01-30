@@ -4,7 +4,7 @@ import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
 import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
 import com.bleudev.ppl_utils.util.helper.RestartHelper;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.PplUtilsConst.LOGGER;
@@ -12,21 +12,21 @@ import static com.bleudev.ppl_utils.util.LangUtils.anySubstringMatches;
 import static com.bleudev.ppl_utils.util.ServerUtils.*;
 
 public class ClientCallbacks {
-    public static void executeLobby(@NotNull MinecraftClient client) {
+    public static void executeLobby(@NotNull Minecraft client) {
         if (isLobbyCommandWorking(client)) executeCommand(client, "lobby");
     }
-    public static void executeSit(@NotNull MinecraftClient client) {
+    public static void executeSit(@NotNull Minecraft client) {
         if (isGSitWorking(client)) executeCommand(client, "sit");
     }
-    public static void executeLay(@NotNull MinecraftClient client) {
+    public static void executeLay(@NotNull Minecraft client) {
         if (isGSitWorking(client)) executeCommand(client, "lay");
     }
 
-    public static boolean shouldRenderLobbyButton(@NotNull MinecraftClient client) {
+    public static boolean shouldRenderLobbyButton(@NotNull Minecraft client) {
         return PplUtilsConfig.lobby_button_enabled && isLobbyCommandWorking(client);
     }
 
-    public static boolean shouldSendMessagesToGlobalChat(@NotNull MinecraftClient client) {
+    public static boolean shouldSendMessagesToGlobalChat(@NotNull Minecraft client) {
         return isGlobalChatWorking(client) && GlobalChatHelper.INSTANCE.isEnabled();
     }
 

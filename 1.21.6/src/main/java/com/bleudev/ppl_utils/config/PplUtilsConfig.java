@@ -3,11 +3,11 @@ package com.bleudev.ppl_utils.config;
 import com.google.common.collect.Lists;
 import eu.midnightdust.lib.config.MidnightConfig;
 import eu.midnightdust.lib.config.MidnightConfigScreen;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.boss.BossBar.Color;
-import net.minecraft.entity.boss.BossBar.Style;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.BossEvent.BossBarColor;
+import net.minecraft.world.BossEvent.BossBarOverlay;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,13 +30,13 @@ public class PplUtilsConfig extends MidnightConfig {
         PEPE_MONO("lobby/pepe_mono"),
         ARROW("lobby/arrow");
 
-        private final Identifier sprite;
+        private final ResourceLocation sprite;
 
         LobbyButtonStyle(String sprite) {
             this.sprite = getIdentifier(sprite);
         }
 
-        public Identifier getSprite() {
+        public ResourceLocation getSprite() {
             return this.sprite;
         }
     }
@@ -50,10 +50,10 @@ public class PplUtilsConfig extends MidnightConfig {
     public static boolean render_restart_bar = true;
     @Condition(requiredOption = "render_restart_bar")
     @Entry
-    public static Color restart_bar_color = Color.GREEN;
+    public static BossBarColor restart_bar_color = BossBarColor.GREEN;
     @Condition(requiredOption = "render_restart_bar")
     @Entry
-    public static Style restart_bar_style = Style.PROGRESS;
+    public static BossBarOverlay restart_bar_style = BossBarOverlay.PROGRESS;
     @Condition(requiredOption = "render_restart_bar")
     @Entry
     public static boolean play_restart_bar_appearing_sound = true;
@@ -142,7 +142,7 @@ public class PplUtilsConfig extends MidnightConfig {
     @Override
     public void writeChanges() {
         super.writeChanges();
-        MinecraftClient.getInstance().inGameHud.getChatHud().reset();
+        Minecraft.getInstance().gui.getChat().rescaleChat();
     }
 
     public static void initialize() {

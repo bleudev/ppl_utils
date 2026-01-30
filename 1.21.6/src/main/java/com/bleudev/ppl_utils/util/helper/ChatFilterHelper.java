@@ -1,7 +1,7 @@
 package com.bleudev.ppl_utils.util.helper;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class ChatFilterHelper {
             while (m.find() && author == null) author = m.group().replaceAll("[<>:]", "");
             if (author == null) return true;
 
-            MinecraftClient client = MinecraftClient.getInstance();
+            Minecraft client = Minecraft.getInstance();
             ArrayList<String> wl = new ArrayList<>();
             if (client.player != null) wl.add(client.player.getGameProfile().getName());
             if (PplUtilsConfig.enable_chat_filter_whitelist) wl.addAll(PplUtilsConfig.chat_filter_whitelist);

@@ -1,13 +1,13 @@
 package com.bleudev.ppl_utils.mixin.client;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.GameMenuScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.TextIconButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.screens.PauseScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,32 +18,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static com.bleudev.ppl_utils.ClientCallbacks.executeLobby;
 import static com.bleudev.ppl_utils.ClientCallbacks.shouldRenderLobbyButton;
 
-@Mixin(GameMenuScreen.class)
+@Mixin(PauseScreen.class)
 public abstract class GameMenuScreenMixin extends Screen {
-    protected GameMenuScreenMixin(Text title) {
+    protected GameMenuScreenMixin(Component title) {
         super(title);
     }
 
     // Rendering
     @Unique
-    private Identifier getLobbyButtonTexture() {
+    private ResourceLocation getLobbyButtonTexture() {
         return PplUtilsConfig.lobby_button_style.getSprite();
     }
 
     @Unique
-    private void drawLobbyButton(@NotNull MinecraftClient client) {
-        var btn = TextIconButtonWidget.builder(Text.translatable("text.ppl_utils.game_menu.lobby_button.tooltip"),
+    private void drawLobbyButton(@NotNull Minecraft client) {
+        var btn = SpriteIconButton.builder(Component.translatable("text.ppl_utils.game_menu.lobby_button.tooltip"),
             button -> executeLobby(client), true)
-            .texture(getLobbyButtonTexture(), 13, 13)
-            .dimension(20, 20)
+            .sprite(getLobbyButtonTexture(), 13, 13)
+            .size(20, 20)
             .build();
         btn.setPosition(this.width / 2 - 125, this.height / 4 + 32);
-        if (PplUtilsConfig.lobby_button_tooltip_enabled) btn.setTooltip(Tooltip.of(btn.getMessage()));
-        this.addDrawableChild(btn);
+        if (PplUtilsConfig.lobby_button_tooltip_enabled) btn.setTooltip(Tooltip.create(btn.getMessage()));
+        this.addRenderableWidget(btn);
     }
 
-    @Inject(method = "initWidgets", at = @At("RETURN"))
+    @Inject(method = "createPauseMenu", at = @At("RETURN"))
     private void addLobbyButton(CallbackInfo ci) {
-        if (client != null) if (shouldRenderLobbyButton(client)) drawLobbyButton(client);
+        if (minecraft != null) if (shouldRenderLobbyButton(minecraft)) drawLobbyButton(minecraft);
     }
 }

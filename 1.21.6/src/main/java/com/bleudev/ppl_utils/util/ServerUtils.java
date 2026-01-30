@@ -2,9 +2,9 @@ package com.bleudev.ppl_utils.util;
 
 import com.bleudev.ppl_utils.mixin.client.PlayerListHudAccessor;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.ScoreboardDisplaySlot;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.scores.DisplaySlot;
+import net.minecraft.world.scores.Scoreboard;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,32 +16,32 @@ import java.util.Optional;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
 
 public class ServerUtils {
-    public static boolean isClientOn(@NotNull MinecraftClient client, String serverIp) {
+    public static boolean isClientOn(@NotNull Minecraft client, String serverIp) {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) return true;
-        final var server = client.getCurrentServerEntry();
+        final var server = client.getCurrentServer();
         if (server == null) return false;
-        return Objects.equals(server.address, serverIp);
+        return Objects.equals(server.ip, serverIp);
     }
-    public static boolean isClientOn(@NotNull MinecraftClient client, @NotNull Collection<String> serverIps) {
+    public static boolean isClientOn(@NotNull Minecraft client, @NotNull Collection<String> serverIps) {
         return serverIps.stream().anyMatch(n -> isClientOn(client, n));
     }
 
-    public static boolean isClientOnPepeland(@NotNull MinecraftClient client) {
+    public static boolean isClientOnPepeland(@NotNull Minecraft client) {
         return isClientOn(client, PEPELAND_IPS);
     }
     public static boolean isClientOnPepeland() {
-        return isClientOnPepeland(MinecraftClient.getInstance());
+        return isClientOnPepeland(Minecraft.getInstance());
     }
 
-    public static boolean isLobbyCommandWorking(@NotNull MinecraftClient client) {
+    public static boolean isLobbyCommandWorking(@NotNull Minecraft client) {
         if (!isClientOn(client, SUPPORTS_LOBBY_COMMAND_IPS)) return false;
         if (isClientOnPepeland(client)) return !PepelandWorlds.isInLobby(client);
         return true;
     }
-    public static boolean isGSitWorking(@NotNull MinecraftClient client) {
+    public static boolean isGSitWorking(@NotNull Minecraft client) {
         return isClientOn(client, HAS_GSIT_IPS);
     }
-    public static boolean isGlobalChatWorking(@NotNull MinecraftClient client) {
+    public static boolean isGlobalChatWorking(@NotNull Minecraft client) {
         return isClientOn(client, SUPPORTS_GLOBAL_CHAT_IPS);
     }
 
@@ -63,8 +63,8 @@ public class ServerUtils {
         }
 
         @Nullable
-        private static PplWorld getCurrentWorld(@NotNull MinecraftClient client) {
-            var header = ((PlayerListHudAccessor) client.inGameHud.getPlayerListHud()).ppl_utils$header();
+        private static PplWorld getCurrentWorld(@NotNull Minecraft client) {
+            var header = ((PlayerListHudAccessor) client.gui.getTabList()).ppl_utils$header();
             if (header == null) return null;
             var worldPlayerListName = "Мир: ";
             for (String l : header.getString().split("\n"))
@@ -76,23 +76,23 @@ public class ServerUtils {
             return null;
         }
 
-        public static boolean isInLobby(@NotNull MinecraftClient client) {
+        public static boolean isInLobby(@NotNull Minecraft client) {
             return getCurrentWorld(client) == PplWorld.LOBBY;
         }
     }
 
-    public static void executeCommand(@NotNull MinecraftClient client, @NotNull String command) {
-        Objects.requireNonNull(client.getNetworkHandler()).sendChatCommand(command);
+    public static void executeCommand(@NotNull Minecraft client, @NotNull String command) {
+        Objects.requireNonNull(client.getConnection()).sendCommand(command);
     }
 
-    public static int getPing(@NotNull MinecraftClient client) {
+    public static int getPing(@NotNull Minecraft client) {
         if (FabricLoader.getInstance().isDevelopmentEnvironment()) return 666; // Debug value
-        if (client.player == null || client.world == null || !isClientOnPepeland(client)) return -1;
-        Scoreboard scoreboard = client.world.getScoreboard();
-        var obj = scoreboard.getObjectiveForSlot(ScoreboardDisplaySlot.LIST);
+        if (client.player == null || client.level == null || !isClientOnPepeland(client)) return -1;
+        Scoreboard scoreboard = client.level.getScoreboard();
+        var obj = scoreboard.getDisplayObjective(DisplaySlot.LIST);
         if (obj == null) return -1;
-        var score = scoreboard.getScore(client.player, obj);
+        var score = scoreboard.getPlayerScoreInfo(client.player, obj);
         if (score == null) return -1;
-        return score.getScore();
+        return score.value();
     }
 }

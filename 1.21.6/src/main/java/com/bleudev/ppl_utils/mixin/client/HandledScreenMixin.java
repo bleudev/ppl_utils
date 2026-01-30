@@ -2,14 +2,14 @@ package com.bleudev.ppl_utils.mixin.client;
 
 import com.bleudev.ppl_utils.ClientTempData;
 import com.bleudev.ppl_utils.util.helper.DiamondHelper;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,28 +17,28 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(HandledScreen.class)
+@Mixin(AbstractContainerScreen.class)
 public class HandledScreenMixin extends Screen {
     @Shadow
     @Final
-    protected ScreenHandler handler;
+    protected AbstractContainerMenu menu;
 
-    protected HandledScreenMixin(Text title) {
+    protected HandledScreenMixin(Component title) {
         super(title);
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void getInventoryAndRenderCounter(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
-        if (title.getContent() instanceof TranslatableTextContent ttc && ttc.getKey().equals("container.enderchest")) {
-            ClientTempData.setCachedEnderChestCount(DiamondHelper.count(this.handler.getStacks().subList(0, 27)));
+    private void getInventoryAndRenderCounter(GuiGraphics context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
+        if (title.getContents() instanceof TranslatableContents ttc && ttc.getKey().equals("container.enderchest")) {
+            ClientTempData.setCachedEnderChestCount(DiamondHelper.count(this.menu.getItems().subList(0, 27)));
             ClientTempData.save();
             ClientTempData.currentScreenInventory = ClientTempData.inventoryDefault;
-        } else if (!(MinecraftClient.getInstance().currentScreen instanceof CreativeInventoryScreen))
-            ClientTempData.currentScreenInventory = this.handler.getStacks().subList(0, 27);
+        } else if (!(Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen))
+            ClientTempData.currentScreenInventory = this.menu.getItems().subList(0, 27);
         DiamondHelper.renderCounter(context, true);
     }
 
-    @Inject(method = "close", at = @At("HEAD"))
+    @Inject(method = "onClose", at = @At("HEAD"))
     private void removeInventory(CallbackInfo ci) {
         ClientTempData.currentScreenInventory = ClientTempData.inventoryDefault;
     }
