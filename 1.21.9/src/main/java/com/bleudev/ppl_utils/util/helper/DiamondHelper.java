@@ -41,7 +41,10 @@ public class DiamondHelper {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || !PplUtilsConfig.render_diamond_counter || !isClientOnPepeland(client)) return;
         String count = PplUtilsConfig.diamond_counter_count_format.format(isContainer ? countWithCurrentContainer(client.player) : count(client.player));
-        int color = ClientTempData.isEnderChestSynced() ? ColorHelper.withAlpha(255, PplUtilsConfig.diamond_counter_color) : ColorHelper.withAlpha(255, PplUtilsConfig.diamond_counter_not_synced_color);
+        var iColor = Integer.parseInt(PplUtilsConfig.diamond_counter_color.substring(1), 16);
+        var iNotSyncedColor = Integer.parseInt(PplUtilsConfig.diamond_counter_not_synced_color.substring(1), 16);
+        int color = ClientTempData.isEnderChestSynced() ? ColorHelper.withAlpha(255, iColor) : ColorHelper.withAlpha(255, iNotSyncedColor);
+
         context.getMatrices().pushMatrix();
         context.getMatrices().translate(context.getScaledWindowWidth() - 25 - client.textRenderer.getWidth(count), context.getScaledWindowHeight() - 20);
         context.fill(-2, -2, context.getScaledWindowWidth(), context.getScaledWindowHeight(), 0x66000000);

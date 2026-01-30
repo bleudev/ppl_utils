@@ -134,10 +134,10 @@ public class PplUtilsConfig extends MidnightConfig {
     public static Comment diamond_counter_count_colors_comment;
     @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
     @Entry(category = DIAMOND_COUNTER_CATEGORY, isColor = true)
-    public static int diamond_counter_not_synced_color = 0xff0000;
+    public static String diamond_counter_not_synced_color = "#ff0000";
     @Condition(requiredOption = DIAMOND_COUNTER_CONDITION, visibleButLocked = true)
     @Entry(category = DIAMOND_COUNTER_CATEGORY, isColor = true)
-    public static int diamond_counter_color = 0xffffff;
+    public static String diamond_counter_color = "#ffffff";
 
     @Override
     public void writeChanges() {

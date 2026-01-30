@@ -5,7 +5,8 @@
 [/] Bug fix ping indicator is rendering when hasn't to (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))\
 [/] Fix world border debug hud entry (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))\
 [/] Ender chest counting doesn't work (bleudev)\
-[/] Ender chest seems synced, but don't (bleudev)
+[/] Ender chest seems synced, but don't (bleudev)\
+[/] Color picker crashes the game (bleudev)
 
 ## Dev updates
 [/] Rename `Keys` class to `PepelandUtilsKeyBindings` (bleudev [#43](https://github.com/bleudev/ppl_utils/pull/43))
