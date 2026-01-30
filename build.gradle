@@ -16,5 +16,5 @@ def project_configure(String v, String max_ex_v, int yarn_mappings_build) {
     }
 }
 
-project_configure("1.21.6", "1.21.9", 1)
+project_configure("1.21.8", "1.21.9", 1)
 project_configure("1.21.9", "1.22.0", 1)

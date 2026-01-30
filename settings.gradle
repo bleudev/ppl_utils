@@ -7,5 +7,5 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-include("1.21.6")
+include("1.21.8")
 include("1.21.9")
