@@ -29,12 +29,15 @@ public class AbstractContainerScreenMixin extends Screen {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void getInventoryAndRenderCounter(GuiGraphics context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci) {
+        var items = this.menu.getItems();
         if (title.getContents() instanceof TranslatableContents ttc && ttc.getKey().equals("container.enderchest")) {
-            ClientTempData.setCachedEnderChestCount(DiamondHelper.count(this.menu.getItems().subList(0, 27)));
-            ClientTempData.save();
+            if (items.size() >= 27) {
+                ClientTempData.setCachedEnderChestCount(DiamondHelper.count(items.subList(0, 27)));
+                ClientTempData.save();
+            }
             ClientTempData.currentScreenInventory = ClientTempData.inventoryDefault;
-        } else if (!(Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen))
-            ClientTempData.currentScreenInventory = this.menu.getItems().subList(0, 27);
+        } else if (!(Minecraft.getInstance().screen instanceof CreativeModeInventoryScreen) && items.size() >= 27)
+            ClientTempData.currentScreenInventory = items.subList(0, 27);
         DiamondHelper.renderCounter(context, true);
     }
 
