@@ -1,3 +1,3 @@
-## Bug fixes
-[/] Custom container screens crashes the game (for example, Axiom's color picker) (bleudev)\
-[/] Manually editing diamond counter colors crashes the game (bleudev)
+# New features
+- States: custom capes + tab icons. Done for GDR. Other states can be added through opening an GitHub issue.
+(bleudev [#53](https://github.com/bleudev/ppl_utils/pull/53))
