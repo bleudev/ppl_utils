@@ -28,6 +28,9 @@ public abstract class ChatScreenMixin extends Screen {
                 this.minecraft != null &&
                 shouldSendMessagesToGlobalChat(this.minecraft) &&
                 this.minecraft.player != null) {
+            if (addToHistory) {
+                this.minecraft.gui.getChat().addRecentChat(chatText);
+            }
             this.minecraft.player.connection.sendCommand(
                 GLOBAL_CHAT_COMMAND + " " +  chatText);
             ci.cancel();
