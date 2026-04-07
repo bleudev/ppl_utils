@@ -86,5 +86,13 @@
   "ppl_utils.midnightconfig.diamond_counter_count_in_ender_chest.tooltip": "Считать алмазы в эндер сундуке. Для этого вы должны единоразово открыть эндер сундук (до этого индикатор будет красным или цветом, который вы зададите), затем индикатор станет синхронизированным.",
   "ppl_utils.midnightconfig.diamond_counter_count_colors_comment": "Цвета",
   "ppl_utils.midnightconfig.diamond_counter_not_synced_color": "Не синхронизированный",
-  "ppl_utils.midnightconfig.diamond_counter_color": "Нормальный"
+  "ppl_utils.midnightconfig.diamond_counter_color": "Нормальный",
+
+  "ppl_utils.midnightconfig.category.states": "Объединения",
+  "ppl_utils.midnightconfig.render_states": "Рендерить элементы объединений",
+  "ppl_utils.midnightconfig.render_state_features_comment": "Элементы объединений",
+  "ppl_utils.midnightconfig.render_state_capes": "Плащи",
+  "ppl_utils.midnightconfig.render_state_tab_icons": "Иконки в табе",
+  "ppl_utils.midnightconfig.render_states_comment": "Объединения",
+  "ppl_utils.midnightconfig.render_gdr": "ГДР"
 }
