@@ -139,6 +139,27 @@ public class PplUtilsConfig extends MidnightConfig {
     @Entry(category = DIAMOND_COUNTER_CATEGORY, isColor = true)
     public static String diamond_counter_color = "#ffffff";
 
+    // States category
+    private static final String STATES_CATEGORY = "states";
+    private static final String STATES_CONDITION = "render_states";
+    @Entry(category = STATES_CATEGORY)
+    public static boolean render_states = true;
+
+    @Comment(category = STATES_CATEGORY, centered = true)
+    public static Comment render_state_features_comment;
+    @Condition(requiredOption = STATES_CONDITION, visibleButLocked = true)
+    @Entry(category = STATES_CATEGORY)
+    public static boolean render_state_capes = true;
+    @Condition(requiredOption = STATES_CONDITION, visibleButLocked = true)
+    @Entry(category = STATES_CATEGORY)
+    public static boolean render_state_tab_icons = true;
+
+    @Comment(category = STATES_CATEGORY, centered = true)
+    public static Comment render_states_comment;
+    @Condition(requiredOption = STATES_CONDITION, visibleButLocked = true)
+    @Entry(category = STATES_CATEGORY)
+    public static boolean render_gdr = true;
+
     @Override
     public void writeChanges() {
         super.writeChanges();

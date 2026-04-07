@@ -1,24 +1,25 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "com.bleudev.ppl_utils.mixin.client",
-    "compatibilityLevel": "JAVA_21",
-    "client": [
-        "AbstractContainerScreenMixin",
-        "ChatComponentMixin",
-        "ChatScreenMixin",
-        "DebugScreenOverlayMixin",
-        "InventoryScreenMixin",
-        "PauseScreenMixin",
-        "accessor.BossHealthOverlayAccessor",
-        "accessor.PlayerTabOverlayAccessor"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "overwrites": {
-        "requireAnnotations": true
-    },
-    "mixins": [
-    ]
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.bleudev.ppl_utils.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "AbstractClientPlayerMixin",
+    "AbstractContainerScreenMixin",
+    "ChatComponentMixin",
+    "ChatScreenMixin",
+    "DebugScreenOverlayMixin",
+    "InventoryScreenMixin",
+    "PauseScreenMixin",
+    "accessor.BossHealthOverlayAccessor",
+    "accessor.PlayerTabOverlayAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "mixins": [
+  ]
 }
