@@ -95,7 +95,10 @@ modrinth {
     versionName = "Pepeland Utils ${project.version}"
     versionType = "release"
     uploadFile = tasks.remapJar
-    additionalFiles = [tasks.remapSourcesJar]
+    additionalFiles {
+        sourcesJar(tasks.remapSourcesJar)
+        javadocJar(tasks.javadocJar)
+    }
     changelog = rootProject.file("CHANGELOG.md").text
     syncBodyFrom = rootProject.file("README.md").text
     gameVersions = ["1.21.8"]
