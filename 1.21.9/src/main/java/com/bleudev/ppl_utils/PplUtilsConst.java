@@ -1,6 +1,5 @@
 package com.bleudev.ppl_utils;
 
-import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +10,6 @@ import static com.bleudev.ppl_utils.util.helper.PlatformHelper.getModVersion;
 
 public class PplUtilsConst {
     public static final String MOD_ID = "ppl_utils";
-    public static ResourceLocation resourceLocation(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-    }
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final String VERSION = getModVersion(MOD_ID, "+");

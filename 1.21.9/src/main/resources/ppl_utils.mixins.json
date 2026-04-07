@@ -10,6 +10,7 @@
     "ChatScreenMixin",
     "InventoryScreenMixin",
     "PauseScreenMixin",
+    "PlayerInfoMixin",
     "accessor.BossHealthOverlayAccessor",
     "accessor.PlayerTabOverlayAccessor"
   ],
