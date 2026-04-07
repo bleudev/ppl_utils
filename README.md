@@ -20,6 +20,7 @@ Mod which provides some useful features for Pepeland players
 - Ping indicator and show ping key `(2.9+)`
 - Diamond counter `(2.10+)`
 - Chat filter `(2.10+)`
+- Capes and tab icons for states. Write to [GitHub](https://github.com/bleudev/ppl_utils/issues) to request a state! `(3.1+)`
 
 #### Dependencies
 
@@ -33,7 +34,7 @@ Mod which provides some useful features for Pepeland players
 - [Mod Menu Badges Lib](https://modrinth.com/mod/modmenu-badges-lib): It is already included in the mod jar, but it is better to install it to have the latest updates
 
 <details>
-<summary>Описание на русском</summary>
+<summary>🇷🇺 Описание на русском</summary>
   Мод, предоставляющий несколько полезных функций для игроков Pepeland'а
 
 ---
@@ -51,6 +52,7 @@ Mod which provides some useful features for Pepeland players
 - Индикатор пинга и горячая клавиша для отображения пинга `(2.9+)`
 - Индикатор количества алмазов `(2.10+)`
 - Чат фильтр `(2.10+)`
+- Плащи и иконки в табе для объединений. Напишите в [GitHub](https://github.com/bleudev/ppl_utils/issues) для заявки на объединение! `(3.1+)`
 
 #### Зависимости
 
@@ -60,6 +62,6 @@ Mod which provides some useful features for Pepeland players
 ##### Опциональные
 - [Mod Menu](https://modrinth.com/mod/modmenu): Добавляет возможность настраивать мод
 ##### Рекомендуемые
-- [ViaFabricPlus](https://modrinth.com/mod/viafabricplus) (1.21.9+): Чтобы играть на Pepeland с версией выше 1.21.9 (и включительно)
+- [ViaFabricPlus](https://modrinth.com/mod/viafabricplus) (1.21.9+): Чтобы играть на Pepeland с версией выше 1.21.9 (включительно)
 - [Mod Menu Badges Lib](https://modrinth.com/mod/modmenu-badges-lib): Уже включен в Jar файл, но лучше его установить для последних актуальных обновлений
 </details>
