@@ -1,0 +1,11 @@
+{
+  "providers": [
+    {
+      "file":"ppl_utils:gui/sprites/tab/state/gdr.png",
+      "chars":["藶"],
+      "height":8,
+      "ascent":8,
+      "type":"bitmap"
+    }
+  ]
+}

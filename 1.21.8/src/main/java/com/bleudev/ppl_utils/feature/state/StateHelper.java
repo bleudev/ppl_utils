@@ -19,13 +19,12 @@ public class StateHelper {
         }
         return Optional.empty();
     }
-    public static Optional<ResourceLocation> getTabIcon(String playerName) {
+    public static Optional<String> getTabIcon(String playerName) {
         if (!(isClientOnPepeland() && PplUtilsConfig.render_states && PplUtilsConfig.render_state_tab_icons)) return Optional.empty();
         for (States state : States.values()) {
             if (!state.shouldRender()) continue;
             if (state.getPlayerNames().stream().anyMatch(s -> s.equalsIgnoreCase(playerName))) {
-                ResourceLocation location = state.getTabIcon();
-                return Optional.ofNullable(location);
+                return Optional.ofNullable(state.getTabIcon());
             }
         }
         return Optional.empty();

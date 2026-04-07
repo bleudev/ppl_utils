@@ -23,22 +23,22 @@ public enum States {
             "msqoweew"
         ),
         "textures/player/skin/cape/gdr.png",
-        "tab/state/gdr",
+        "藶",
         () -> PplUtilsConfig.render_gdr
     );
 
     private final List<String> playerNames;
     private final @Nullable ResourceLocation cape;
-    private final @Nullable ResourceLocation tabIcon;
+    private final @Nullable String tabIcon;
     private final Supplier<Boolean> renderSupplier;
-    States(List<String> playerNames, @Nullable ResourceLocation cape, @Nullable ResourceLocation tabIcon, Supplier<Boolean> renderSupplier) {
+    States(List<String> playerNames, @Nullable ResourceLocation cape, @Nullable String tabIcon, Supplier<Boolean> renderSupplier) {
         this.playerNames = playerNames;
         this.cape = cape;
         this.tabIcon = tabIcon;
         this.renderSupplier = renderSupplier;
     }
     States(List<String> playerNames, String cape, String tabIcon, Supplier<Boolean> renderSupplier) {
-        this(playerNames, getIdentifier(cape), getIdentifier(tabIcon), renderSupplier);
+        this(playerNames, getIdentifier(cape), tabIcon, renderSupplier);
     }
 
     public List<String> getPlayerNames() {
@@ -47,7 +47,7 @@ public enum States {
     public @Nullable ResourceLocation getCapeTexture() {
         return cape;
     }
-    public @Nullable ResourceLocation getTabIcon() {
+    public @Nullable String getTabIcon() {
         return tabIcon;
     }
     public boolean shouldRender() {
