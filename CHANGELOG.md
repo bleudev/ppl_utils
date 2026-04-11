@@ -2,6 +2,9 @@
 
 ## Version changes
 - Mod Menu Badges Lib `2026.1.1 -> 2026.2.1`
+- (dev) Mod Menu
+  - 1.21.8: `15.0.1 -> 15.0.2`
+  - 1.21.9: `16.0.0 -> 16.0.1`
 - (dev) Fabric loom `1.14.10 -> 1.15.5`
 
 ## Bug fixed
