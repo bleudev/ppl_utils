@@ -1,10 +1,11 @@
-![Cape](https://github.com/bleudev/ppl_utils/raw/master/images/cape.jpg)
+# 3.2
 
-# 3.1: States
+## Version changes
+- Mod Menu Badges Lib `2026.1.1 -> 2026.2.1`
+- (dev) Mod Menu
+  - 1.21.8: `15.0.1 -> 15.0.2`
+  - 1.21.9: `16.0.0 -> 16.0.1`
+- (dev) Fabric loom `1.14.10 -> 1.15.5`
 
-## New features
-- States: custom capes + tab icons. Done for GDR. Other states can be added through opening an GitHub issue.
-(bleudev [#53](https://github.com/bleudev/ppl_utils/pull/53))
-
-## Bug fixes
-- History doesn't update when message sent with global chat feature (bleudev [#54](https://github.com/bleudev/ppl_utils/pull/54))
+## Bug fixed
+- Chat filter doesn't work before refreshing config (bleudev [#56](https://github.com/bleudev/ppl_utils/pull/56))
