@@ -72,6 +72,7 @@ public class PepelandUtils implements ClientModInitializer {
                 beta_mode_message_ticks = 10 * TICKS_PER_MINUTE;
                 LOGGER.info("Successfully sent beta mode message");
             }
+            Minecraft.getInstance().gui.getChat().rescaleChat();
         });
         ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) ->
             GlobalChatHelper.INSTANCE.turnOff());
