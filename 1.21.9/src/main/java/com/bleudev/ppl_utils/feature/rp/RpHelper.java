@@ -28,13 +28,17 @@ import static net.minecraft.ChatFormatting.RED;
 
 
 public class RpHelper {
-    public static void checkUpdates() {
+    public static void asyncCheckUpdates() {
+        new Thread(RpHelper::checkUpdates).start();
+    }
+
+    private static void checkUpdates() {
         try {
             JsonObject rpMeta = ApiHelper.getRpMetadata();
             String version = rpMeta.get("main").getAsJsonObject().get("version").getAsString();
             String url = rpMeta.get("main").getAsJsonObject().get("url").getAsString();
 
-            if (!((getRpPack(false) != null) && version.equals(DataStorageHelper.getData().rpLatestVersion())) && deleteAndDownloadRp(version, url)) {
+            if (!((getRpPack() != null) && version.equals(DataStorageHelper.getData().rpLatestVersion())) && deleteAndDownloadRp(version, url)) {
                 DataStorageHelper.save(DataStorageHelper.getData().withRpLatestVersion(version));
             }
         } catch (IOException | InterruptedException | IllegalStateException e) {
@@ -43,11 +47,11 @@ public class RpHelper {
     }
 
     @Nullable
-    private static Pack getRpPack(boolean latest) {
+    private static Pack getRpPack() {
         PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
         packRepository.reload();
         for (Pack pack : packRepository.getAvailablePacks()) {
-            if (isPepelandResourcePack(pack, latest)) return pack;
+            if (isPepelandResourcePack(pack, false)) return pack;
         }
         return null;
     }
@@ -78,6 +82,7 @@ public class RpHelper {
             return false;
         }
         String path = "pepeland-pack-v." + version + ".zip";
+        Path rpDir = minecraft.getResourcePackDirectory();
 
         try (BufferedInputStream bin = new BufferedInputStream(url1.openStream());
              FileOutputStream fileOutputStream = new FileOutputStream(path)) {
@@ -88,7 +93,7 @@ public class RpHelper {
             }
 
             InputStream in = url1.openStream();
-            Files.copy(in, minecraft.getResourcePackDirectory().resolve(path), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(in, rpDir.resolve(path), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             toast.accept(failureToast);
             return false;
@@ -111,10 +116,21 @@ public class RpHelper {
         }
 
         // Delete unused resource packs
-        try (Stream<Path> ws = Files.walk(minecraft.getResourcePackDirectory())) {
+        try (Stream<Path> ws = Files.walk(rpDir)) {
             for (Path p : ws.filter(Files::isRegularFile).toList()) {
                 String name = String.valueOf(p.getFileName());
                 if (name.contains("pepeland") && !name.contains(version)) {
+                    Files.deleteIfExists(p);
+                }
+            }
+        } catch (IOException e) {
+            return true;
+        }
+        try (Stream<Path> ws = Files.walk(rpDir.getParent(), 1)) {
+            for (Path p : ws.filter(Files::isRegularFile).toList()) {
+                System.out.println(p);
+                String name = String.valueOf(p.getFileName());
+                if (name.contains("pepeland") && name.contains("zip")) {
                     Files.deleteIfExists(p);
                 }
             }

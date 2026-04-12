@@ -80,7 +80,7 @@ public class PepelandUtils implements ClientModInitializer {
             GlobalChatHelper.INSTANCE.turnOff());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (rp_updater_ticks % 1200 == 0)
-                RpHelper.checkUpdates();
+                RpHelper.asyncCheckUpdates();
             rp_updater_ticks++;
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
