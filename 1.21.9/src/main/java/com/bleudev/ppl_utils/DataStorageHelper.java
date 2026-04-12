@@ -18,13 +18,14 @@ import java.util.Objects;
 import static com.bleudev.ppl_utils.PplUtilsConst.LOGGER;
 
 public class DataStorageHelper {
-    public record StorageData(long startRestartTime, long restartTime, int cachedEnderChestCount) {
+    public record StorageData(long startRestartTime, long restartTime, int cachedEnderChestCount, String rpLatestVersion) {
         @Nullable
         private String toJsonString() {
             JsonObject object = new JsonObject();
             object.addProperty("startRestartTime", this.startRestartTime);
             object.addProperty("restartTime", this.restartTime);
-            object.addProperty("cachedEnderChestCount", cachedEnderChestCount);
+            object.addProperty("cachedEnderChestCount", this.cachedEnderChestCount);
+            object.addProperty("rpLatestVersion", this.rpLatestVersion);
             try {
                 StringWriter stringWriter = new StringWriter();
                 JsonWriter jsonWriter = new JsonWriter(stringWriter);
@@ -42,21 +43,26 @@ public class DataStorageHelper {
             return new StorageData(
                 Optionull.mapOrDefault(object.get("startRestartTime"), JsonElement::getAsLong, 0L),
                 Optionull.mapOrDefault(object.get("restartTime"), JsonElement::getAsLong, 0L),
-                Optionull.mapOrDefault(object.get("cachedEnderChestCount"), JsonElement::getAsInt, -1)
+                Optionull.mapOrDefault(object.get("cachedEnderChestCount"), JsonElement::getAsInt, -1),
+                Optionull.mapOrDefault(object.get("rpLatestVersion"), JsonElement::getAsString, "")
             );
         }
 
         @Contract("_ -> new")
         public @NotNull StorageData withStartRestartTime(long newTime) {
-            return new StorageData(newTime, restartTime(), cachedEnderChestCount());
+            return new StorageData(newTime, restartTime(), cachedEnderChestCount(), rpLatestVersion());
         }
         @Contract("_ -> new")
         public @NotNull StorageData withRestartTime(long newTime) {
-            return new StorageData(startRestartTime(), newTime, cachedEnderChestCount());
+            return new StorageData(startRestartTime(), newTime, cachedEnderChestCount(), rpLatestVersion());
         }
         @Contract("_ -> new")
         public @NotNull StorageData withCachedEnderChestCount(int newCount) {
-            return new StorageData(startRestartTime(), restartTime(), newCount);
+            return new StorageData(startRestartTime(), restartTime(), newCount, rpLatestVersion());
+        }
+        @Contract("_ -> new")
+        public @NotNull StorageData withRpLatestVersion(String newVersion) {
+            return new StorageData(startRestartTime(), restartTime(), cachedEnderChestCount(), newVersion);
         }
     }
 
@@ -87,7 +93,7 @@ public class DataStorageHelper {
         } }
     }
 
-    private static StorageData data = new StorageData(0, 0, -1);
+    private static StorageData data = new StorageData(0, 0, -1, "");
     public static StorageData getData() {
         return data;
     }

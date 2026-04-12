@@ -3,6 +3,7 @@ package com.bleudev.ppl_utils;
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.custom.PepelandUtilsDebugHudEntries;
 import com.bleudev.ppl_utils.custom.PepelandUtilsKeyBindings;
+import com.bleudev.ppl_utils.feature.rp.RpHelper;
 import com.bleudev.ppl_utils.util.ServerUtils;
 import com.bleudev.ppl_utils.util.helper.DiamondHelper;
 import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
@@ -34,7 +35,8 @@ import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
 public class PepelandUtils implements ClientModInitializer {
-    int beta_mode_message_ticks;
+    private int beta_mode_message_ticks;
+    private int rp_updater_ticks = 0;
     private RestartHelper restartHelper;
 
     public static final ResourceLocation AFTER_CHAT_OVERLAY = getIdentifier("after_chat_overlay");
@@ -77,6 +79,9 @@ public class PepelandUtils implements ClientModInitializer {
         ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) ->
             GlobalChatHelper.INSTANCE.turnOff());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (rp_updater_ticks % 1200 == 0)
+                RpHelper.checkUpdates();
+            rp_updater_ticks++;
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (PepelandUtilsKeyBindings.LOBBY_KEY.consumeClick()) executeLobby(client);
