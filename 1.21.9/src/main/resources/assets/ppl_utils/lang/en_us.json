@@ -30,6 +30,10 @@
   "ppl_utils.text.general.ping": "%sms",
   "ppl_utils.text.show_ping.success": "Ping: ",
   "ppl_utils.text.show_ping.failure": "You aren't on server!",
+  "ppl_utils.text.toast.rp.title": "Resource pack update",
+  "ppl_utils.text.toast.rp.start": "Update found",
+  "ppl_utils.text.toast.rp.failure": "Update failed",
+  "ppl_utils.text.toast.rp.success": "Update complete",
 
   "ppl_utils.midnightconfig.title": "General",
   "ppl_utils.midnightconfig.lobby_button_comment": "Lobby button",

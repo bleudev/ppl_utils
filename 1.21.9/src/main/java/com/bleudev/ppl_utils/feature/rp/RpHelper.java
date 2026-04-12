@@ -3,7 +3,6 @@ package com.bleudev.ppl_utils.feature.rp;
 import com.bleudev.ppl_utils.DataStorageHelper;
 import com.bleudev.ppl_utils.util.helper.ApiHelper;
 import com.google.gson.JsonObject;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,14 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+
+import static net.minecraft.ChatFormatting.GREEN;
+import static net.minecraft.ChatFormatting.RED;
+
 
 public class RpHelper {
     public static void checkUpdates() {
@@ -28,15 +34,8 @@ public class RpHelper {
             String version = rpMeta.get("main").getAsJsonObject().get("version").getAsString();
             String url = rpMeta.get("main").getAsJsonObject().get("url").getAsString();
 
-            if (!((getRpPack() != null) && version.equals(DataStorageHelper.getData().rpLatestVersion())) && deleteAndDownloadRp(version, url)) {
+            if (!((getRpPack(false) != null) && version.equals(DataStorageHelper.getData().rpLatestVersion())) && deleteAndDownloadRp(version, url)) {
                 DataStorageHelper.save(DataStorageHelper.getData().withRpLatestVersion(version));
-            }
-            Pack pack = getRpPack();
-            if (pack != null) {
-                PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
-                if (packRepository.addPack(pack.getId())) {
-                    Minecraft.getInstance().options.updateResourcePacks(packRepository);
-                }
             }
         } catch (IOException | InterruptedException | IllegalStateException e) {
             System.out.println("Error with checking updates");
@@ -44,24 +43,38 @@ public class RpHelper {
     }
 
     @Nullable
-    private static Pack getRpPack() {
+    private static Pack getRpPack(boolean latest) {
         PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
         packRepository.reload();
         for (Pack pack : packRepository.getAvailablePacks()) {
-            if (pack.getDescription().getString().contains("Pepeland Pack")) return pack;
+            if (isPepelandResourcePack(pack, latest)) return pack;
         }
         return null;
     }
 
+    private static boolean isPepelandResourcePack(Pack pack, boolean latest) {
+        String description = pack.getDescription().getString();
+        return description.contains("Pepeland Pack") && (
+            !latest || description.contains("v" + DataStorageHelper.getData().rpLatestVersion())
+        );
+    }
+
     private static boolean deleteAndDownloadRp(String version, String url) {
+        Component toastTitle = Component.translatable("ppl_utils.text.toast.rp.title");
+        Component startToast = Component.translatable("ppl_utils.text.toast.rp.start");
+        Component failureToast = Component.translatable("ppl_utils.text.toast.rp.failure").withStyle(RED);
+        Component successToast = Component.translatable("ppl_utils.text.toast.rp.success").withStyle(GREEN);
         Minecraft minecraft = Minecraft.getInstance();
-        SystemToast.add(minecraft.getToastManager(), new SystemToast.SystemToastId(), Component.literal("Pack updater"), Component.literal("Found pack updater"));
+        Consumer<Component> toast = (c) -> SystemToast
+            .add(minecraft.getToastManager(), new SystemToast.SystemToastId(), toastTitle, c);
+
+        toast.accept(startToast);
         // Download
         URL url1;
         try {
             url1 = URL.of(URI.create(url), null);
         } catch (MalformedURLException e) {
-            SystemToast.add(minecraft.getToastManager(), new SystemToast.SystemToastId(), Component.literal("Pack updater"), Component.literal("Update failed"));
+            toast.accept(failureToast);
             return false;
         }
         String path = "pepeland-pack-v." + version + ".zip";
@@ -77,19 +90,39 @@ public class RpHelper {
             InputStream in = url1.openStream();
             Files.copy(in, minecraft.getResourcePackDirectory().resolve(path), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            SystemToast.add(minecraft.getToastManager(), new SystemToast.SystemToastId(), Component.literal("Pack updater"), Component.literal("Update failed"));
+            toast.accept(failureToast);
             return false;
         }
 
-        // Disable resource pack and remove
-        Pack pack = getRpPack();
-        if (pack != null) {
-            PackRepository packRepository = minecraft.getResourcePackRepository();
-            if (packRepository.removePack(pack.getId())) {
-                minecraft.options.updateResourcePacks(packRepository);
+        // Update resource packs
+        PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
+        packRepository.reload();
+        boolean bl = false;
+        for (Pack pack : packRepository.getAvailablePacks()) {
+            if (isPepelandResourcePack(pack, false)) {
+                if (packRepository.removePack(pack.getId())) bl = true;
+            }
+            if (isPepelandResourcePack(pack, true)) {
+                if (packRepository.addPack(pack.getId())) bl = true;
             }
         }
-        SystemToast.add(minecraft.getToastManager(), new SystemToast.SystemToastId(), Component.literal("Pack updater"), Component.literal("Update was completed").withStyle(ChatFormatting.GREEN));
+        if (bl) {
+            minecraft.options.updateResourcePacks(packRepository);
+        }
+
+        // Delete unused resource packs
+        try (Stream<Path> ws = Files.walk(minecraft.getResourcePackDirectory())) {
+            for (Path p : ws.filter(Files::isRegularFile).toList()) {
+                String name = String.valueOf(p.getFileName());
+                if (name.contains("pepeland") && !name.contains(version)) {
+                    Files.deleteIfExists(p);
+                }
+            }
+        } catch (IOException e) {
+            return true;
+        }
+
+        toast.accept(successToast);
         return true;
     }
 }
