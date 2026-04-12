@@ -36,6 +36,7 @@ import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
 public class PepelandUtils implements ClientModInitializer {
     private static int beta_mode_message_ticks;
+    private static boolean last_do_rp_update = do_rp_update;
     private static int last_rp_update_mins = rp_update_mins;
     private static int rp_updater_ticks = 0;
     private static RestartHelper restartHelper;
@@ -152,9 +153,10 @@ public class PepelandUtils implements ClientModInitializer {
     }
 
     public static void onConfigUpdate() {
-        if (rp_update_mins != last_rp_update_mins) {
+        if (last_do_rp_update != do_rp_update || rp_update_mins != last_rp_update_mins) {
             rp_updater_ticks = 1;
         }
+        last_do_rp_update = do_rp_update;
         last_rp_update_mins = rp_update_mins;
     }
 }
