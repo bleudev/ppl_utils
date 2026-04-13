@@ -1,5 +1,8 @@
 # 3.2
 
+# New features
+- Resource pack updater (bleudev [#58](https://github.com/bleudev/ppl_utils/pull/58))
+
 ## Version changes
 - Mod Menu Badges Lib `2026.1.1 -> 2026.2.1`
 - (dev) Mod Menu
