@@ -1,4 +1,7 @@
 [![Downloads](https://img.shields.io/modrinth/dt/ppl_utils)](https://modrinth.com/mod/ppl_utils)
+[![Latest version](https://img.shields.io/badge/Latest_version-3.2-orange)](https://modrinth.com/mod/ppl_utils/versions)
+[![Supported Minecraft versions](https://img.shields.io/badge/Supported_Minecraft_Versions-1.21.8--1.21.11-green)](https://modrinth.com/mod/ppl_utils)
+[![Environment](https://img.shields.io/badge/Environment-Client-blue)](https://modrinth.com/mod/ppl_utils)
 [![GitHub contributors](https://img.shields.io/github/contributors/bleudev/ppl_utils)](https://github.com/bleudev/ppl_utils/graphs/contributors)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/w/bleudev/ppl_utils)](https://github.com/bleudev/ppl_utils/activity)
 [![GitHub last commit](https://img.shields.io/github/last-commit/bleudev/ppl_utils)](https://github.com/bleudev/ppl_utils/activity)
@@ -21,6 +24,7 @@ Mod which provides some useful features for Pepeland players
 - Diamond counter `(2.10+)`
 - Chat filter `(2.10+)`
 - Capes and tab icons for states. Write to [GitHub](https://github.com/bleudev/ppl_utils/issues) to request a state! `(3.1+)`
+- Resource pack auto updater `(3.2+)`
 
 #### Dependencies
 
@@ -53,6 +57,7 @@ Mod which provides some useful features for Pepeland players
 - Индикатор количества алмазов `(2.10+)`
 - Чат фильтр `(2.10+)`
 - Плащи и иконки в табе для объединений. Напишите в [GitHub](https://github.com/bleudev/ppl_utils/issues) для заявки на объединение! `(3.1+)`
+- Автоматическое обновление ресурс пака `(3.2+)`
 
 #### Зависимости
 
