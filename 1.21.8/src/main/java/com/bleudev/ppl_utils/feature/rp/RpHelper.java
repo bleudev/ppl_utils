@@ -128,7 +128,6 @@ public class RpHelper {
         }
         try (Stream<Path> ws = Files.walk(rpDir.getParent(), 1)) {
             for (Path p : ws.filter(Files::isRegularFile).toList()) {
-                System.out.println(p);
                 String name = String.valueOf(p.getFileName());
                 if (name.contains("pepeland") && name.contains("zip")) {
                     Files.deleteIfExists(p);
