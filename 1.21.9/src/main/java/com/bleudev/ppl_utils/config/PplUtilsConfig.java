@@ -1,5 +1,6 @@
 package com.bleudev.ppl_utils.config;
 
+import com.bleudev.ppl_utils.PepelandUtils;
 import com.google.common.collect.Lists;
 import eu.midnightdust.lib.config.MidnightConfig;
 import eu.midnightdust.lib.config.MidnightConfigScreen;
@@ -57,6 +58,13 @@ public class PplUtilsConfig extends MidnightConfig {
     @Condition(requiredOption = "render_restart_bar")
     @Entry
     public static boolean play_restart_bar_appearing_sound = true;
+
+    @Comment(centered = true)
+    public static Comment rp_comment;
+    @Entry
+    public static boolean do_rp_update = true;
+    @Entry(isSlider = true, min = 1, max = 60)
+    public static int rp_update_mins = 5;
 
     @Comment(centered = true)
     public static Comment misc_comment;
@@ -162,6 +170,7 @@ public class PplUtilsConfig extends MidnightConfig {
 
     @Override
     public void writeChanges() {
+        PepelandUtils.onConfigUpdate();
         super.writeChanges();
         Minecraft.getInstance().gui.getChat().rescaleChat();
     }

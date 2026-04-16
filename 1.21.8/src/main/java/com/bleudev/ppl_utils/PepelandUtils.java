@@ -2,6 +2,7 @@ package com.bleudev.ppl_utils;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
 import com.bleudev.ppl_utils.custom.PepelandUtilsKeyBindings;
+import com.bleudev.ppl_utils.feature.rp.RpHelper;
 import com.bleudev.ppl_utils.util.helper.DiamondHelper;
 import com.bleudev.ppl_utils.util.helper.ErrorScreenHelper;
 import com.bleudev.ppl_utils.util.helper.GlobalChatHelper;
@@ -25,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.bleudev.ppl_utils.ClientCallbacks.*;
 import static com.bleudev.ppl_utils.PplUtilsConst.*;
+import static com.bleudev.ppl_utils.config.PplUtilsConfig.do_rp_update;
+import static com.bleudev.ppl_utils.config.PplUtilsConfig.rp_update_mins;
 import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 import static com.bleudev.ppl_utils.util.ServerUtils.getPing;
 import static com.bleudev.ppl_utils.util.ServerUtils.isGlobalChatWorking;
@@ -32,13 +35,15 @@ import static com.bleudev.ppl_utils.util.TextUtils.link;
 import static net.minecraft.SharedConstants.TICKS_PER_MINUTE;
 
 public class PepelandUtils implements ClientModInitializer {
-    private int beta_mode_message_ticks;
-    private RestartHelper restartHelper;
+    private static int beta_mode_message_ticks;
+    private static boolean last_do_rp_update = do_rp_update;
+    private static int last_rp_update_mins = rp_update_mins;
+    private static int rp_updater_ticks = 0;
+    private static RestartHelper restartHelper;
+    private static float globalChatEnabledAnim = 0f;
 
     public static final ResourceLocation AFTER_CHAT_OVERLAY = getIdentifier("after_chat_overlay");
     public static final ResourceLocation OVERLAY = getIdentifier("overlay");
-
-    private float globalChatEnabledAnim = 0f;
 
     @Override
     public void onInitializeClient() {
@@ -74,6 +79,9 @@ public class PepelandUtils implements ClientModInitializer {
         ClientPlayConnectionEvents.DISCONNECT.register((a1, a2) ->
             GlobalChatHelper.INSTANCE.turnOff());
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (do_rp_update && rp_updater_ticks % (1200 * rp_update_mins) == 0)
+                RpHelper.asyncCheckUpdates();
+            rp_updater_ticks++;
             if (beta_mode_message_ticks > 0) beta_mode_message_ticks--;
 
             while (PepelandUtilsKeyBindings.LOBBY_KEY.consumeClick()) executeLobby(client);
@@ -142,5 +150,13 @@ public class PepelandUtils implements ClientModInitializer {
         int redColor = ARGB.color(ErrorScreenHelper.INSTANCE.getRedness(), 0xff0000);
         if (PplUtilsConfig.render_error_screen)
             ctx.fill(0, 0, w, h, redColor);
+    }
+
+    public static void onConfigUpdate() {
+        if (last_do_rp_update != do_rp_update || rp_update_mins != last_rp_update_mins) {
+            rp_updater_ticks = 1;
+        }
+        last_do_rp_update = do_rp_update;
+        last_rp_update_mins = rp_update_mins;
     }
 }
