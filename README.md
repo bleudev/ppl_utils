@@ -25,6 +25,7 @@ Mod which provides some useful features for Pepeland players
 - Chat filter `(2.10+)`
 - Capes and tab icons for states. Write to [GitHub](https://github.com/bleudev/ppl_utils/issues) to request a state! `(3.1+)`
 - Resource pack auto updater `(3.2+)`
+- Players tab highlighting `(3.2+)`
 
 #### Dependencies
 
@@ -58,6 +59,7 @@ Mod which provides some useful features for Pepeland players
 - Чат фильтр `(2.10+)`
 - Плащи и иконки в табе для объединений. Напишите в [GitHub](https://github.com/bleudev/ppl_utils/issues) для заявки на объединение! `(3.1+)`
 - Автоматическое обновление ресурс пака `(3.2+)`
+- Подсветка игроков в табе `(3.2+)`
 
 #### Зависимости
 

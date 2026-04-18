@@ -2,6 +2,7 @@
 
 # New features
 - Resource pack updater (bleudev [#58](https://github.com/bleudev/ppl_utils/pull/58))
+- Players tab highlighting (bleudev [#59](https://github.com/bleudev/ppl_utils/pull/59))
 
 ## Version changes
 - Mod Menu Badges Lib `2026.1.1 -> 2026.2.1`
