@@ -6,6 +6,13 @@
       "height":8,
       "ascent":8,
       "type":"bitmap"
+    },
+    {
+      "file":"ppl_utils:gui/sprites/tab/star.png",
+      "chars":["孡"],
+      "height":8,
+      "ascent":8,
+      "type":"bitmap"
     }
   ]
 }
