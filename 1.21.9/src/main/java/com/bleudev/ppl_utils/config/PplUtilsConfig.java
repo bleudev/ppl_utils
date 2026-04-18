@@ -67,6 +67,13 @@ public class PplUtilsConfig extends MidnightConfig {
     public static int rp_update_mins = 5;
 
     @Comment(centered = true)
+    public static Comment tab_highlight_comment;
+    @Entry
+    public static boolean do_tab_highlight = true;
+    @Entry
+    public static List<String> highlight_in_tab = Lists.newArrayList();
+
+    @Comment(centered = true)
     public static Comment misc_comment;
     @Entry
     public static boolean render_error_screen = true;
