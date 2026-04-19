@@ -1,13 +1,12 @@
 package com.bleudev.ppl_utils.feature.state;
 
 import com.bleudev.ppl_utils.config.PplUtilsConfig;
+import com.bleudev.ppl_utils.util.RegistryUtils;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
-
-import static com.bleudev.ppl_utils.util.RegistryUtils.getIdentifier;
 
 public enum States {
     GDR(
@@ -25,6 +24,15 @@ public enum States {
         "textures/player/skin/cape/gdr.png",
         "藶",
         () -> PplUtilsConfig.render_gdr
+    ),
+    SOSI(
+        List.of(
+            "MorgenStrudel"
+            // TODO: Another members
+        ),
+        "",
+        "暖",
+        () -> PplUtilsConfig.render_sosi
     );
 
     private final List<String> playerNames;
@@ -37,8 +45,12 @@ public enum States {
         this.tabIcon = tabIcon;
         this.renderSupplier = renderSupplier;
     }
-    States(List<String> playerNames, String cape, String tabIcon, Supplier<Boolean> renderSupplier) {
-        this(playerNames, getIdentifier(cape), tabIcon, renderSupplier);
+    States(List<String> playerNames, @Nullable String cape, @Nullable String tabIcon, Supplier<Boolean> renderSupplier) {
+        this(playerNames,
+            (cape == null || cape.isEmpty()) ? null : RegistryUtils.getIdentifier(cape),
+            tabIcon,
+            renderSupplier
+        );
     }
 
     public List<String> getPlayerNames() {

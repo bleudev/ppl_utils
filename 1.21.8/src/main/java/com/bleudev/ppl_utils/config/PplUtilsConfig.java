@@ -174,6 +174,9 @@ public class PplUtilsConfig extends MidnightConfig {
     @Condition(requiredOption = STATES_CONDITION, visibleButLocked = true)
     @Entry(category = STATES_CATEGORY)
     public static boolean render_gdr = true;
+    @Condition(requiredOption = STATES_CONDITION, visibleButLocked = true)
+    @Entry(category = STATES_CATEGORY)
+    public static boolean render_sosi = true;
 
     @Override
     public void writeChanges() {

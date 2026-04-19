@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public enum States {
     GDR(
         List.of(
-//            "bleugame",
+            "bleugame",
             "CrockoMD",
             "Milkich22397",
             "waflla_kek",
