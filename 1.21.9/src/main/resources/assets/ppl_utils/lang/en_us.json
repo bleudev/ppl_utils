@@ -105,5 +105,6 @@
   "ppl_utils.midnightconfig.render_state_capes": "Capes",
   "ppl_utils.midnightconfig.render_state_tab_icons": "Tab icons",
   "ppl_utils.midnightconfig.render_states_comment": "States",
-  "ppl_utils.midnightconfig.render_gdr": "GDR"
+  "ppl_utils.midnightconfig.render_gdr": "GDR",
+  "ppl_utils.midnightconfig.render_sosi": "Sosiburg"
 }

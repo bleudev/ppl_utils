@@ -105,5 +105,6 @@
   "ppl_utils.midnightconfig.render_state_capes": "Плащи",
   "ppl_utils.midnightconfig.render_state_tab_icons": "Иконки в табе",
   "ppl_utils.midnightconfig.render_states_comment": "Объединения",
-  "ppl_utils.midnightconfig.render_gdr": "ГДР"
+  "ppl_utils.midnightconfig.render_gdr": "ГДР",
+  "ppl_utils.midnightconfig.render_sosi": "Сосибург"
 }
