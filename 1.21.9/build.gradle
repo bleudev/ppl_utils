@@ -7,6 +7,8 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+boolean is_beta = rootProject.beta_mode == "true"
+
 base {
     archivesName = project.archives_base_name
 }
@@ -93,7 +95,7 @@ modrinth {
     projectId = "ppl_utils"
     versionNumber = project.version as String
     versionName = "Pepeland Utils ${project.version}"
-    versionType = "release"
+    versionType = is_beta ? "beta" : "release"
     uploadFile = tasks.remapJar
     additionalFiles {
         sourcesJar(tasks.remapSourcesJar)
