@@ -5,6 +5,9 @@
 - Players tab highlighting (bleudev [#59](https://github.com/bleudev/ppl_utils/pull/59))
 - Added Sosiburg state (bleudev [#61](https://github.com/bleudev/ppl_utils/pull/61))
 
+## Changes
+- The time between beta mode messages has been increased up to 24 hours (bleudev [#61](https://github.com/bleudev/ppl_utils/pull/61))
+
 ## Version changes
 - Mod Menu Badges Lib `2026.1.1 -> 2026.2.1`
 - (dev) Mod Menu
