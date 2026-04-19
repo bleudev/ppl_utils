@@ -27,8 +27,23 @@ public enum States {
     ),
     SOSI(
         List.of(
-            "MorgenStrudel"
-            // TODO: Another members
+            "MorgenStrudel",
+            "ReDexTop",
+            "asnek_",
+            "vyazvamazing",
+            "Anotherpill",
+            "Ya_Eto_Chepuha",
+            "CeyZe1",
+            "Nexital",
+            "kovtush",
+            "G0Bro",
+            "Shmakshmak",
+            "Haaampter",
+            "Drubbaz",
+            "Kseall",
+            "oopspio",
+            "tealoong",
+            "MEQTGRINDER"
         ),
         "",
         "暖",
